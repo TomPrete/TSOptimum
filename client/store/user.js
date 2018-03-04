@@ -1,26 +1,20 @@
 import axios from 'axios'
 import history from '../history'
 
-/**
- * ACTION TYPES
- */
+/***** ACTION TYPES*****/
 const GET_USER = 'GET_USER'
+const ADD_USER = 'ADD_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
-/**
- * INITIAL STATE
- */
+/***** INITIAL STATE*****/
 const defaultUser = {}
 
-/**
- * ACTION CREATORS
- */
+/***** ACTION CREATORS*****/
 const getUser = user => ({type: GET_USER, user})
+const addUser = user => ({type: ADD_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
-/**
- * THUNK CREATORS
- */
+/*****THUNK CREATORS*****/
 export const me = () =>
   dispatch =>
     axios.get('/auth/me')
@@ -28,12 +22,13 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser)))
       .catch(err => console.log(err))
 
-export const auth = (email, password, method) =>
+export const postNewUser = (firstName, lastName, email, title, password ) =>
   dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+    axios.post(`/auth/signup`, { firstName, lastName, email, title, password })
       .then(res => {
         dispatch(getUser(res.data))
-        history.push('/home')
+        console.log("USER DATA: ", res.data)
+        // history.push('/home')
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({error: authError}))
       })
@@ -48,12 +43,12 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
-/**
- * REDUCER
- */
+/***** REDUCER *****/
 export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
+      return action.user
+    case ADD_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser

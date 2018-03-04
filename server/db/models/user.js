@@ -3,20 +3,61 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  firstName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+
+  lastName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    }
+  },
+
   email: {
     type: Sequelize.STRING,
     unique: true,
     allowNull: false
   },
+
+  title:  {
+    type: Sequelize.STRING,
+    allowNull: true,
+    validate: {
+      notEmpty: true
+    }
+  },
+
   password: {
     type: Sequelize.STRING
   },
+
   salt: {
     type: Sequelize.STRING
   },
-  googleId: {
-    type: Sequelize.STRING
+
+  personId: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    unique: true,
+    validate: {
+      len: [4],
+      min: 0,
+      max: 9999
+    }
   }
+}, {
+  getterMethods: {
+    name() {
+      return this.firstName + ' ' + this.lastName;
+    }
+  }
+
 })
 
 module.exports = User
@@ -46,6 +87,11 @@ User.encryptPassword = function (plainText, salt) {
 /**
  * hooks
  */
+
+User.hook('beforeValidate',(user) => {
+  user.personId = Math.floor(1000 + Math.random() * 9000);
+})
+
 const setSaltAndPassword = user => {
   if (user.changed('password')) {
     user.salt = User.generateSalt()

@@ -15,25 +15,44 @@ const Main = (props) => {
 
   return (
     <div>
-      <div>
-        <h1>LOGO PLACEHOLDER</h1>
-      </div>
-      <nav>
+      <nav className="flex main-header">
+        <a onClick={'fun'} href='/home'>
+        <div className="flex logo-container" >
+          <img src='/new_logo.png' id="logo" />
+          <h1 id="logo-name">hone</h1>
+
+        </div>
+        </a>
         {
           isLoggedIn
-            ? <div>
+            ?
+            <div className='flex'>
               {/* The navbar will show these links after you log in */}
-              <Link to="/home">Home</Link>
-              <a href="#" onClick={handleClick}>Logout</a>
+
+              <a href='#' className='nav-links' onClick=''>Profile</a>
+              <a href="#" className='nav-links' onClick={handleClick}>Logout</a>
             </div>
-            : <div>
+            : <div className='flex'>
               {/* The navbar will show these links before you log in */}
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
+              <form onSubmit={'this.onLoginSubmit'} id="login-submit">
+                <div className="form-submit">
+                  <div className="form-inputs">
+                    <input name="email" type="email" placeholder="Email" className="input" />
+                    <input name="password" type="password" placeholder="Password" className="input" />
+                  </div>
+                </div>
+                <button className="submit-button" type='submit'>Login</button>
+              </form>
+              {/*<Link to="/login" className='nav-links'>Login</Link>*/}
+              <Link to="/signup" className='nav-links'>Sign Up</Link>
             </div>
+
         }
+
       </nav>
-      {children}
+
+        {children}
+
     </div>
   )
 }
