@@ -16,7 +16,7 @@ let LandingPage = () => {
       <div className='page-center'>
         <div className='page-center-title'>
           <h2 className='page-center-top-title'>Organize your tasks and projects with us</h2>
-          <p className='page-center-content'>hone lets you organize and prioritizes tasks while keeping you up to date one what's due</p>
+          <p className='page-center-content'>hone lets you organize, prioritize, and measure your tasks and projects while keeping you up to date on what's due</p>
         </div>
         <div className='page-center-row'>
           <div>
