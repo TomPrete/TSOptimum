@@ -14,7 +14,9 @@ class Signup extends Component {
       email: "",
       title: "",
       password: "",
-      redirect: false
+      confirmPassword: "",
+      passwordsMatch: false,
+      redirect: false,
     }
 
     this.inputFirstName = this.inputFirstName.bind(this);
@@ -22,8 +24,9 @@ class Signup extends Component {
     this.inputEmail = this.inputEmail.bind(this);
     this.inputTitle = this.inputTitle.bind(this);
     this.inputPassword = this.inputPassword.bind(this);
+    this.inputConfirmPassword = this.inputConfirmPassword.bind(this);
+    // this.validatePassword = this.validatePassword.bind(this);
     this.handleSignupSubmit = this.handleSignupSubmit.bind(this);
-
   };
 
   inputFirstName(e) {
@@ -56,9 +59,25 @@ class Signup extends Component {
     })
   }
 
+  inputConfirmPassword(e) {
+    this.setState({
+      confirmPassword: e.target.value
+    })
+  }
+
+  // validatePassword() {
+  //   if (this.state.password === this.state.confirmPassword) {
+  //     this.setState({
+  //       passwordsMatch: true,
+  //     })
+  //   }
+  // }
+
   handleSignupSubmit(e) {
     e.preventDefault()
-    this.props.submitUser(this.state.firstName, this.state.lastName, this.state.email, this.state.title, this.state.password)
+    if (this.state.password === this.state.confirmPassword) {
+      this.props.submitUser(this.state.firstName, this.state.lastName, this.state.email, this.state.title, this.state.password)
+    }
   }
 
 
@@ -67,20 +86,36 @@ class Signup extends Component {
     return (
       <div>
         <h1>You're just seconds away from Accelerating your work!</h1>
-        <form onSubmit={this.handleSignupSubmit}>
-          <input value={this.state.firstName} onChange={this.inputFirstName} type="text" placeholder="First Name" />
-          <input value={this.state.lastName} onChange={this.inputLastName} type="text" placeholder="Last Name" />
-          <input value={this.state.email} onChange={this.inputEmail} type="text" placeholder="name@company.com" />
-          <input value={this.state.password} onChange={this.inputPassword} type="password" placeholder="Enter Password" />
-          <label >Please select your title below.</label>
-          <select onChange={this.inputTitle}>
-            <option>Select...</option>
-            <option value="Treasury Solutions Analyst">Treasury Solutions Analyst</option>
-            <option value="Treasury Solutions Officer">Treasury Solutions Officer</option>
-            <option value="Treasury Manager">Treasury Manager</option>
-          </select>
-          <button className="submit-button" type='submit'>Sign Up!</button>
-        </form>
+        <div id='signup-form-panel'>
+          <form onSubmit={this.handleSignupSubmit} id='signup-form'>
+            <div>
+              <input className="name-input" value={this.state.firstName} onChange={this.inputFirstName} type="text" placeholder="First Name" required />
+              <input className="name-input" value={this.state.lastName} onChange={this.inputLastName} type="text" placeholder="Last Name" required />
+            </div>
+            <div>
+              <input className="input" value={this.state.email} onChange={this.inputEmail} type="text" placeholder="name@company.com" required />
+            </div>
+            <div>
+              <input className="password input" value={this.state.password} onChange={this.inputPassword} type="password" placeholder="Enter Password" required />
+            </div>
+            <div>
+              <input className="confirmPassword input" value={this.state.confirmPassword} onChange={this.inputConfirmPassword} type="password" placeholder="Confirm Password" required />
+              {
+                this.state.confirmPassword.length > 0 && this.state.password !== this.state.confirmPassword ? <p>Passwords must match</p> : null
+              }
+            </div>
+            <label >Please select your title below.</label>
+            <div>
+              <select onChange={this.inputTitle} className="title-input" required>
+                <option>Select...</option>
+                <option value="Treasury Solutions Analyst">Treasury Solutions Analyst</option>
+                <option value="Treasury Solutions Officer">Treasury Solutions Officer</option>
+                <option value="Treasury Manager">Treasury Manager</option>
+              </select>
+            </div>
+            <button className="signup-button" type='submit'>Sign Up!</button>
+          </form>
+        </div>
         <div className="form-submit">
           <p id="route-to-login">Have an account? <Link to="/login" className="component-link">Log in here</Link></p>
         </div>

@@ -11,7 +11,7 @@ const Login = (props) => {
 
   return (
     <div>
-      <h3>Welcome back! Login to your account.</h3>
+      <h3 className='login-title'>Welcome back! Log in to your account.</h3>
       <div id='form-panel'>
         <form onSubmit={handleSubmit} name='login' id="login-submit">
           <div className='login-container'>
@@ -23,7 +23,7 @@ const Login = (props) => {
             <input name="password" type="password" placeholder="Password" className="input" />
           </div>
           <div className='login-container'>
-            <button className="submit-button" type='submit'>{displayName}</button>
+            <button className="login-button" type='submit'>{displayName}</button>
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
@@ -43,7 +43,7 @@ const Login = (props) => {
 const mapLogin = (state) => {
   return {
     name: 'login',
-    displayName: 'Login',
+    displayName: 'Log in',
     error: state.user.error
   }
 }
