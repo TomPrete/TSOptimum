@@ -10,9 +10,9 @@ const REMOVE_USER = 'REMOVE_USER'
 const defaultUser = {}
 
 /***** ACTION CREATORS*****/
-const getUser = user => ({type: GET_USER, user})
-const addUser = user => ({type: ADD_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+const getUser = user => ({ type: GET_USER, user })
+const addUser = user => ({ type: ADD_USER, user })
+const removeUser = () => ({ type: REMOVE_USER })
 
 /*****THUNK CREATORS*****/
 export const me = () =>
@@ -22,17 +22,34 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser)))
       .catch(err => console.log(err))
 
-export const postNewUser = (firstName, lastName, email, title, password ) =>
+export const addNewUser = (firstName, lastName, email, title, password) =>
   dispatch =>
-    axios.post(`/auth/signup`, { firstName, lastName, email, title, password })
-      .then(user => user.data)
+    axios.post('/auth/signup', { firstName, lastName, email, title, password })
+      .then(user => {
+        window.location.reload()
+        return user.data})
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
-
         history.push(`/user/${user.personId}`)
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
-        dispatch(getUser({error: authError}))
+        dispatch(getUser({ error: authError }))
+      })
+      .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
+
+export const loginUser = (email, password) =>
+  dispatch =>
+    axios.post('/auth/login', {email, password })
+      .then(user => {
+        window.location.reload()
+        return user.data})
+      .then(user => {
+        const action = getUser(user)
+        dispatch(getUser(action))
+        history.push(`/user/${user.personId}`)
+
+      }, authError => { // rare example: a good use case for parallel (non-catch) error handler
+        dispatch(getUser({ error: authError }))
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 

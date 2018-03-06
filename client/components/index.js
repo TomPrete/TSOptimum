@@ -4,7 +4,9 @@
  * having to figure out which file they belong to!
  */
 export {default as Main} from './main'
-export {default as UserHome} from './user-home'
+// export {default as UserHome} from './user-home'
 // export {Login, Signup} from './auth-form'
 export {default as LandingPage} from './LandingPage'
 export {default as SignUp} from './SignUp'
+export {default as Login} from './Login'
+export {default as UserHome} from './UserHome'

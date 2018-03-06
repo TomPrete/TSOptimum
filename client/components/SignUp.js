@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, NavLink, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { postNewUser } from '../store';
+import { addNewUser } from '../store';
 
 
 
@@ -59,9 +59,6 @@ class Signup extends Component {
   handleSignupSubmit(e) {
     e.preventDefault()
     this.props.submitUser(this.state.firstName, this.state.lastName, this.state.email, this.state.title, this.state.password)
-    this.setState({
-      redirect: true
-    })
   }
 
 
@@ -101,7 +98,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch) => {
   return {
     submitUser: (firstName, lastName, email, title, password) => {
-      dispatch(postNewUser(firstName, lastName, email, title, password))
+      dispatch(addNewUser(firstName, lastName, email, title, password))
     }
   }
 }

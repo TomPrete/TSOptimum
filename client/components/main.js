@@ -11,12 +11,11 @@ import { logout } from '../store'
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { children, handleClick, isLoggedIn } = props
-
+  const { children, handleClick, isLoggedIn, user } = props
   return (
     <div>
       <nav className="flex main-header">
-        <a onClick={'fun'} href='/home'>
+        <a href='/home'>
         <div className="flex logo-container" >
           <img src='/new_logo.png' id="logo" />
           <h1 id="logo-name">hone</h1>
@@ -29,12 +28,12 @@ const Main = (props) => {
             <div className='flex'>
               {/* The navbar will show these links after you log in */}
 
-              <a href='#' className='nav-links' onClick=''>Profile</a>
+              <Link className='nav-links' to={`/user/${user.personId}`}>Profile</Link>
               <a href="#" className='nav-links' onClick={handleClick}>Logout</a>
             </div>
             : <div className='flex'>
               {/* The navbar will show these links before you log in */}
-              <form onSubmit={'this.onLoginSubmit'} id="login-submit">
+              {/*<form onSubmit={'this.onLoginSubmit'} id="login-submit">
                 <div className="form-submit">
                   <div className="form-inputs">
                     <input name="email" type="email" placeholder="Email" className="input" />
@@ -42,8 +41,8 @@ const Main = (props) => {
                   </div>
                 </div>
                 <button className="submit-button" type='submit'>Login</button>
-              </form>
-              {/*<Link to="/login" className='nav-links'>Login</Link>*/}
+        </form>*/}
+              <Link to="/login" className='nav-links'>Login</Link>
               <Link to="/signup" className='nav-links'>Sign Up</Link>
             </div>
 
@@ -62,7 +61,9 @@ const Main = (props) => {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.user.id
+
+    isLoggedIn: !!state.user.id,
+    user: state.user,
   }
 }
 
@@ -78,11 +79,3 @@ const mapDispatch = (dispatch) => {
 // when the url changes
 export default withRouter(connect(mapState, mapDispatch)(Main))
 
-/**
- * PROP TYPES
- */
-Main.propTypes = {
-  children: PropTypes.object,
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired
-}

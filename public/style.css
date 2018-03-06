@@ -80,6 +80,7 @@ div.content-container {
 
 #login-submit {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
