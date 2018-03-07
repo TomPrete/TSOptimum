@@ -28,7 +28,7 @@ const Main = (props) => {
             <div className='flex'>
               {/* The navbar will show these links after you log in */}
 
-              <Link className='nav-links' to={`/user/${user.personId}`}>Profile</Link>
+              <Link className='nav-links' to={`/user/${user.personId}/profile`}>Profile</Link>
               <a href="#" className='nav-links' onClick={handleClick}>Logout</a>
             </div>
             : <div className='flex'>

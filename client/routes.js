@@ -25,7 +25,7 @@ class Routes extends Component {
             <Route exact path='/home' component={LandingPage} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/user/:personId' component={UserHome} />
+            <Route exact path='/user/:personId/board' component={UserHome} />
           </Switch>
         </Main>
       </Router>
