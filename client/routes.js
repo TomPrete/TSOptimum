@@ -4,13 +4,15 @@ import {Route, Switch, Router, Link} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import {Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
-import store, {me, postNewUser, logout, fetchUserTeam} from './store'
+import store, {me, postNewUser, logout, fetchUserTeam, fetchAllCompanies} from './store'
 
 
 /*** COMPONENT ***/
 class Routes extends Component {
   componentDidMount () {
     this.props.loadInitialData()
+    const fetchCompanies = fetchAllCompanies()
+    store.dispatch(fetchCompanies)
     // const addNewUser = postNewUser()
     // store.dispatch(addNewUser)
     // let teamId = this.props.user.teamId

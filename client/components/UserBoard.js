@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { fetchUsers, fetchUserTeam, me } from '../store'
+import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -31,6 +31,8 @@ class UserBoard extends Component {
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
     // this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
     this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
+    this.sortCompanies = this.sortCompanies.bind(this)
+    this.handleOnClick = this.handleOnClick.bind(this)
   }
 
   enableNewProjectFunction() {
@@ -39,7 +41,6 @@ class UserBoard extends Component {
         newProject: true,
       })
       let teamId = this.props.user.teamId
-      console.log("TEAM ID: ", this.props.user.teamId)
       const fetchTeam = fetchUserTeam(teamId)
       store.dispatch(fetchTeam)
     } else {
@@ -47,17 +48,14 @@ class UserBoard extends Component {
         newProject: false,
       })
     }
+    // const fetchCompanies = fetchAllCompanies()
+    // store.dispatch(fetchCompanies)
+
   }
 
   componentDidMount() {
-    // let getUser = me()
-    // store.dispatch(getUser)
-    // let teamId = this.props.user.teamId
-    // console.log("TEAM ID: ", this.props.user.teamId)
-    // const fetchTeam = fetchUserTeam(teamId)
-    // // const getAllUsers = fetchUsers()
-    // store.dispatch(fetchTeam)
-    // store.dispatch(getAllUsers)
+    // const fetchCompanies = fetchAllCompanies()
+    // store.dispatch(fetchCompanies)
   }
 
   inputProjectName(e) {
@@ -106,27 +104,39 @@ class UserBoard extends Component {
     })
   }
 
+  sortCompanies() {
+    const companies = this.props.companies.sort(function (a, b) {
+      var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+      if (nameA < nameB)
+        return -1
+      if (nameA > nameB)
+        return 1
+      return 0;
+    })
+  }
+
+  handleOnClick() {
+    this.enableNewProjectFunction()
+    // this.sortCompanies()
+  }
 
   render() {
-    // console.log("USER HOME PAGE: ", this.props)
-    console.log("PROPS: ", this.props)
-
-
-
-    // const companies = this.props.companies.sort(function(a,b) {
-    //   var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+    console.log("USER HOME PAGE: ", this.props.teamUsers)
+    // const companies = this.props.companies.sort(function (a, b) {
+    //   var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
     //   if (nameA < nameB)
     //     return -1
-    //   if(nameA>nameB)
+    //   if (nameA > nameB)
     //     return 1
     //   return 0;
     // })
 
-    // const tso = this.props.users.filter( user => {
+
+    // const tso = this.props.teamUsers.filter( user => {
     //   return user.title === "Treasury Solutions Officer";
     // })
 
-    // const tsa = this.props.users.filter( user => {
+    // const tsa = this.props.teamUsers.filter( user => {
     //   return user.title === "Treasury Solutions Analyst";
     // })
 
@@ -155,10 +165,10 @@ class UserBoard extends Component {
                 <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
                   <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" />
                   <datalist id="companyList">
-                    {/*
-            companies.map(company =>
-            <option key={company.id} value={company.name}>{company.name}</option>)
-            */}
+                    {
+                      this.props.companies.map(company =>
+                        <option key={company.id} value={company.name}>{company.name}</option>)
+                    }
                   </datalist>
                   <select onChange={this.inputProjectType} className="select-type">
                     <option>Select type</option>
@@ -222,7 +232,9 @@ class UserBoard extends Component {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    teamUsers: state.users,
+    companies: state.companies
   }
 }
 
