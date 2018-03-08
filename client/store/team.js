@@ -16,7 +16,7 @@ const getUserTeam = users => ({ type: GET_USER_TEAM, users })
 
 export const fetchUserTeam = (teamId) =>
   dispatch => {
-    axios.get(`/api/users/team`, { teamId })
+    axios.get(`/api/users/team/${teamId}`)
       .then(res => res.data)
       .then(users => dispatch(getUserTeam(users)))
       .catch(err => console.error(err));

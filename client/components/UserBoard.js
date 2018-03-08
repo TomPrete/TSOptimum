@@ -32,12 +32,12 @@ class UserBoard extends Component {
   }
 
 
-  componentDidMount() {
+  async componentDidMount() {
     let teamId = this.props.user.teamId
     console.log("TEAM ID: ", this.props.user.teamId)
     const fetchTeam = fetchUserTeam(teamId)
     // const getAllUsers = fetchUsers()
-    store.dispatch(fetchTeam)
+   await store.dispatch(fetchTeam)
     // store.dispatch(getAllUsers)
   }
 

@@ -19,10 +19,10 @@ router.get('/all', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/team', (req, res, next) => {
+router.get('/team/:teamId', (req, res, next) => {
   User.findAll({
     where: {
-      teamId: req.body.teamId
+      teamId: req.params.teamId
     }
   })
     .then(users => res.json(users))
