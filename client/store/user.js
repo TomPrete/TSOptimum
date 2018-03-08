@@ -31,7 +31,7 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
-        history.push(`/user/${user.personId}`)
+        history.push(`/user/${user.personId}/board`)
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({ error: authError }))
       })
@@ -46,7 +46,7 @@ export const loginUser = (email, password) =>
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
-        history.push(`/user/${user.personId}`)
+        history.push(`/user/${user.personId}/board`)
 
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({ error: authError }))

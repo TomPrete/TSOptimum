@@ -5,23 +5,25 @@ import { connect } from 'react-redux';
 // import store from '../store;'
 
 
-class UserHome extends Component {
+class UserProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
 
     }
 
-
   }
 
 
-  render() {
 
+  render() {
     // console.log("USER HOME PAGE: ", this.props)
+    console.log("PROPS: ", this.props)
+    let userId = this.props.user.personId
     return (
       <div>
-        <h1>THIS IS THE USER HOME PAGE</h1>
+        <h1>THIS IS {this.props.user.name}'s PROFILE</h1>
+        <Link to={`/user/${userId}/board`}>Back to board</Link>
       </div>
     )
   }
@@ -37,6 +39,6 @@ const mapState = state => {
   }
 }
 
-const UserHomeContainter = connect(mapState)(UserHome)
+const UserProfileContainter = connect(mapState)(UserProfile)
 
-export default UserHomeContainter
+export default UserProfileContainter
