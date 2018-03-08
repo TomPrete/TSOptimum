@@ -4,8 +4,9 @@ import thunkMiddleware from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import user from './user'
 import users from './users'
+import team from './team'
 
-const reducer = combineReducers({user, users})
+const reducer = combineReducers({user, users, team})
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -16,3 +17,4 @@ const store = createStore(reducer, middleware)
 export default store
 export * from './user'
 export * from './users'
+export * from './team'

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, {fetchUsers} from '../store'
+import store, {fetchUsers, fetchUserTeam} from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -33,8 +33,12 @@ class UserBoard extends Component {
 
 
   componentDidMount() {
-    const getAllUsers = fetchUsers()
-    store.dispatch(getAllUsers)
+    let teamId = this.props.user.teamId
+    console.log("TEAM ID: ", this.props.user.teamId)
+    const fetchTeam = fetchUserTeam(teamId)
+    // const getAllUsers = fetchUsers()
+    store.dispatch(fetchTeam)
+    // store.dispatch(getAllUsers)
   }
 
   inputProjectName(e) {
@@ -110,6 +114,7 @@ class UserBoard extends Component {
     // var currentDate = function() {
     //     return new Date()
     // }
+
     return (
       <div id="user-board-container">
       <div id="label-project">

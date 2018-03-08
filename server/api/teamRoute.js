@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const {User, Company} = require('../db/models')
+const {Team} = require('../db/models')
 module.exports = router
 
 // const userRoute = require('./users');
@@ -11,30 +11,30 @@ module.exports = router
 
 
 router.post('/', (req, res, next) => {
-  return Company.bulkCreate(req.body)
-    .then(company => res.json(company))
+  return Team.create(req.body)
+    .then(team => res.json(team))
     .catch(next);
 });
 
   //GET company by company ID
-  router.get('/:companyId', (req, res, next) => {
-		Company.findOne({where: {companyId: req.params.companyId}})
-		.then(company => res.json(company))
+  router.get('/:name', (req, res, next) => {
+		Team.findOne({where: {name: req.params.name}})
+		.then(team => res.json(team))
 		.catch(next);
   });
 
   //GET all companies
-	router.get('/', (req, res, next) => {
-		Company.findAll()
-		.then(companies => res.json(companies))
+	router.get('/:id', (req, res, next) => {
+		Team.findAll()
+		.then(teams => res.json(teams))
 		.catch(next);
 	});
 
   //DELETE a company
-  router.delete('/:companyId', (req, res, next) => {
-    return Company.destroy({
+  router.delete('/:name', (req, res, next) => {
+    return Team.destroy({
       where: {
-        companyId: req.params.companyId
+        name: req.params.name
       }
     })
     .then(affectedRows => res.status(200).json(affectedRows))
@@ -43,5 +43,3 @@ router.post('/', (req, res, next) => {
 
 
 
-
-module.exports = router;
