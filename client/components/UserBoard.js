@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, {fetchUsers, fetchUserTeam} from '../store'
+import store, { fetchUsers, fetchUserTeam, me } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -17,6 +17,7 @@ class UserBoard extends Component {
       dueDate: "",
       status: "",
       notes: "",
+      newProject: false,
       redirect: false
     }
 
@@ -29,15 +30,33 @@ class UserBoard extends Component {
     this.inputNotes = this.inputNotes.bind(this);
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
     // this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
+    this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
   }
 
+  enableNewProjectFunction() {
+    if (this.state.newProject === false) {
+      this.setState({
+        newProject: true,
+      })
+      let teamId = this.props.user.teamId
+      console.log("TEAM ID: ", this.props.user.teamId)
+      const fetchTeam = fetchUserTeam(teamId)
+      store.dispatch(fetchTeam)
+    } else {
+      this.setState({
+        newProject: false,
+      })
+    }
+  }
 
-  async componentDidMount() {
-    let teamId = this.props.user.teamId
-    console.log("TEAM ID: ", this.props.user.teamId)
-    const fetchTeam = fetchUserTeam(teamId)
-    // const getAllUsers = fetchUsers()
-   await store.dispatch(fetchTeam)
+  componentDidMount() {
+    // let getUser = me()
+    // store.dispatch(getUser)
+    // let teamId = this.props.user.teamId
+    // console.log("TEAM ID: ", this.props.user.teamId)
+    // const fetchTeam = fetchUserTeam(teamId)
+    // // const getAllUsers = fetchUsers()
+    // store.dispatch(fetchTeam)
     // store.dispatch(getAllUsers)
   }
 
@@ -81,7 +100,7 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    this.props.submitProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst,this.state.status,this.state.notes)
+    this.props.submitProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.notes)
     this.setState({
       redirect: true
     })
@@ -114,69 +133,84 @@ class UserBoard extends Component {
     // var currentDate = function() {
     //     return new Date()
     // }
-
     return (
       <div id="user-board-container">
-      <div id="label-project">
-      <label >Add a new project below</label>
-      </div>
-      <div id="form-container">
-       <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
-          <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company"  placeholder="Company Name" />
-           <datalist id="companyList">
-          {/*
+        {
+          this.state.newProject === false ?
+            <div>
+              <button onClick={this.enableNewProjectFunction}>+ New Project</button>
+            </div>
+            :
+            <div>
+              <button onClick={this.enableNewProjectFunction}>Hide New Project</button>
+            </div>
+        }
+        {
+          this.state.newProject === true ?
+            <div className='project-form'>
+              <div id="label-project">
+                <label >Add a new project below</label>
+              </div>
+              <div id="form-container">
+                <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
+                  <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" />
+                  <datalist id="companyList">
+                    {/*
             companies.map(company =>
             <option key={company.id} value={company.name}>{company.name}</option>)
             */}
-          </datalist>
-          <select onChange={this.inputProjectType} className="select-type">
-            <option>Select type</option>
-            <option value="Client Call">Client Call</option>
-            <option value="Client Inquire">Client Inquiry</option>
-            <option value="Client Issue">Client Issue</option>
-            <option value="Exception Pricing">Exception Pricing</option>
-            <option value="Implementation Request">Implementation Request</option>
-            <option value="Pricing Proforma">Pricing Proforma</option>
-            <option value="Refund Request">Refund Request</option>
-            <option value="RFP">RFP</option>
-            <option value="TMR">TMR</option>
-            <option value="Special Project">Special Project</option>
-          </select>
-          <select onChange={this.inputTsoName} className="select-tso" >
-          <option>Select TSO</option>
-         {/*
+                  </datalist>
+                  <select onChange={this.inputProjectType} className="select-type">
+                    <option>Select type</option>
+                    <option value="Client Call">Client Call</option>
+                    <option value="Client Inquire">Client Inquiry</option>
+                    <option value="Client Issue">Client Issue</option>
+                    <option value="Exception Pricing">Exception Pricing</option>
+                    <option value="Implementation Request">Implementation Request</option>
+                    <option value="Pricing Proforma">Pricing Proforma</option>
+                    <option value="Refund Request">Refund Request</option>
+                    <option value="RFP">RFP</option>
+                    <option value="TMR">TMR</option>
+                    <option value="Special Project">Special Project</option>
+                  </select>
+                  <select onChange={this.inputTsoName} className="select-tso" >
+                    <option>Select TSO</option>
+                    {/*
            tso.map(users =>
            <option key={users.id} value={users.name}>{users.name}</option>)
            */}
-         </select>
-         <select onChange={this.inputTsaName} className="select-tsa" >
-         <option>Select TSA</option>
-        {/*
+                  </select>
+                  <select onChange={this.inputTsaName} className="select-tsa" >
+                    <option>Select TSA</option>
+                    {/*
           tsa.map(users =>
           <option key={users.id} value={users.name}>{users.name}</option>)
           */}
-        </select>
-        <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" >
-          <option value="In Process">In Process</option>
-          <option value="Complete">Complete</option>
-        </select>
-        <input
-        required
-        name="departure"
-        type="date"
-        onChange={this.handleDueDateChange}
-      />
-          {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
-        {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
-          <div>
-          <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder="Notes:"/>
-          </div>
-       </form>
-          <div className="div-submit">
-          <button className="project-submit" form="project-form" type='submit'>Create New Project</button>
-          </div>
-       </div>
-       {/*<OpenProjects />*/}
+                  </select>
+                  <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" >
+                    <option value="In Process">In Process</option>
+                    <option value="Complete">Complete</option>
+                  </select>
+                  <input
+                    required
+                    name="departure"
+                    type="date"
+                    onChange={this.handleDueDateChange}
+                  />
+                  {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
+                  {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
+                  <div>
+                    <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder="Notes:" />
+                  </div>
+                </form>
+                <div className="div-submit">
+                  <button className="project-submit" form="project-form" type='submit'>Create New Project</button>
+                </div>
+              </div>
+            </div>
+            : ""
+        }
+        {/*<OpenProjects />*/}
       </div>
     )
   }

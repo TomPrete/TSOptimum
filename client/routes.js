@@ -13,10 +13,10 @@ class Routes extends Component {
     this.props.loadInitialData()
     // const addNewUser = postNewUser()
     // store.dispatch(addNewUser)
-    let teamId = this.props.user.teamId
-    console.log("TEAM ID: ", this.props.user.teamId)
-    const fetchTeam = fetchUserTeam(teamId)
-    store.dispatch(fetchTeam)
+    // let teamId = this.props.user.teamId
+    // console.log("TEAM ID: ", this.props.user.teamId)
+    // const fetchTeam = fetchUserTeam(teamId)
+    // store.dispatch(fetchTeam)
   }
 
   render () {
