@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import SideBar from './SideBar';
 import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
@@ -121,7 +122,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    console.log("USER HOME PAGE: ", this.props.teamUsers)
+    console.log("TEAM USERS ", this.props.teamUsers)
     // const companies = this.props.companies.sort(function (a, b) {
     //   var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
     //   if (nameA < nameB)
@@ -145,14 +146,18 @@ class UserBoard extends Component {
     // }
     return (
       <div id="user-board-container">
+        <div className='sidebar-container'>
+          <SideBar />
+        </div>
+        <div id="new-project-container">
         {
           this.state.newProject === false ?
-            <div>
-              <button onClick={this.enableNewProjectFunction}>+ New Project</button>
+            <div className='new-project-button-container'>
+              <button onClick={this.enableNewProjectFunction} className='new-project-button'>+ New Project</button>
             </div>
             :
-            <div>
-              <button onClick={this.enableNewProjectFunction}>Hide New Project</button>
+            <div className='new-project-button-container'>
+              <button onClick={this.enableNewProjectFunction} className='new-project-button'>Hide</button>
             </div>
         }
         {
@@ -220,6 +225,7 @@ class UserBoard extends Component {
             </div>
             : ""
         }
+        </div>
         {/*<OpenProjects />*/}
       </div>
     )
