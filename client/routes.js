@@ -9,11 +9,11 @@ import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies } from
 
 /*** COMPONENT ***/
 class Routes extends Component {
-  async componentDidMount() {
-
-    await this.props.loadInitialData()
-    const fetchCompanies = await fetchAllCompanies()
+  componentDidMount() {
+    this.props.loadInitialData()
+    const fetchCompanies = fetchAllCompanies()
     store.dispatch(fetchAllCompanies())
+
   }
 
 

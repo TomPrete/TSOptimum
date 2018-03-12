@@ -34,7 +34,6 @@ class UserBoard extends Component {
     this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
     this.sortCompanies = this.sortCompanies.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
-    this.filterTsos = this.filterTsos.bind(this)
   }
 
   enableNewProjectFunction() {
@@ -51,8 +50,8 @@ class UserBoard extends Component {
   }
 
   async componentWillReceiveProps(nextProps) {
-    // await console.log("THIS PROPS: ", this.props)
-    // await console.log("NEXT PROPS: ", nextProps)
+    // console.log("THIS PROPS: ", this.props)
+    // console.log("NEXT PROPS: ", nextProps)
     if (nextProps.user.teamId && (nextProps.companies.length === undefined && this.props.companies.length === undefined)) {
       const userTeamId = nextProps.user.teamId
       const fetchTeam = await fetchUserTeam(userTeamId)
@@ -127,23 +126,16 @@ class UserBoard extends Component {
     })
   }
 
-  filterTsos() {
-    // console.log("TEAM: ", this.props)
-    let tso = this.props.team.filter( user => {
-      return user.title === "Treasury Solutions Officer";
-    })
-  }
 
   async handleOnClick() {
-    await this.filterTsos()
     await this.sortCompanies()
     await this.enableNewProjectFunction()
-    console.log("TSO: ", tso)
 
   }
 
   render() {
-    console.log("Team ", this.props.team)
+    // console.log("Team ", this.props.team)
+    // let tso = []
     // console.log("TSOS: ", tso)
     // const companies = this.props.companies.sort(function (a, b) {
     //   var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
@@ -209,17 +201,27 @@ class UserBoard extends Component {
                     </select>
                     <select onChange={this.inputTsoName} className="select-tso" >
                       <option>Select TSO</option>
-                      {/*
-           tso.map(users =>
-           <option key={users.id} value={users.name}>{users.name}</option>)
-           */}
+                      {
+                        this.props.team.length > 0 ? this.props.team.map(users => {
+                          if (users.title === "Treasury Solutions Officer") {
+                            return <option key={users.id} value={users.name}>{users.name}</option>
+                          }
+                        })
+                          :
+                          null
+                      }
                     </select>
                     <select onChange={this.inputTsaName} className="select-tsa" >
                       <option>Select TSA</option>
-                      {/*
-          tsa.map(users =>
-          <option key={users.id} value={users.name}>{users.name}</option>)
-          */}
+                      {
+                        this.props.team.length > 0 ? this.props.team.map(users => {
+                          if (users.title === "Treasury Solutions Analyst") {
+                            return <option key={users.id} value={users.name}>{users.name}</option>
+                          }
+                        })
+                          :
+                          null
+                      }
                     </select>
                     <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" >
                       <option value="In Process">In Process</option>
@@ -263,7 +265,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {fetchUserTeam}
+const mapDispatch = { fetchUserTeam }
 
 const UserBoardContainter = connect(mapState, mapDispatch)(UserBoard)
 
