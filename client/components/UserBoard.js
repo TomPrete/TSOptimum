@@ -232,6 +232,7 @@ class UserBoard extends Component {
                       name="departure"
                       type="date"
                       onChange={this.handleDueDateChange}
+                      className="select-date"
                     />
                     {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
                     {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
