@@ -1,28 +1,25 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Route, Switch, Router, Link} from 'react-router-dom'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import {Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
-import store, {me, postNewUser, logout, fetchUserTeam, fetchAllCompanies} from './store'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
+import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies } from './store'
 
 
 /*** COMPONENT ***/
 class Routes extends Component {
-  componentDidMount () {
-    this.props.loadInitialData()
-    const fetchCompanies = fetchAllCompanies()
-    store.dispatch(fetchCompanies)
-    // const addNewUser = postNewUser()
-    // store.dispatch(addNewUser)
-    // let teamId = this.props.user.teamId
-    // console.log("TEAM ID: ", this.props.user.teamId)
-    // const fetchTeam = fetchUserTeam(teamId)
-    // store.dispatch(fetchTeam)
+  async componentDidMount() {
+
+    await this.props.loadInitialData()
+    const fetchCompanies = await fetchAllCompanies()
+    store.dispatch(fetchAllCompanies())
   }
 
-  render () {
-    const {isLoggedIn, user} = this.props
+
+
+  render() {
+    const { isLoggedIn, user } = this.props
     return (
       <Router history={history}>
         <Main>
@@ -54,7 +51,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData () {
+    loadInitialData() {
       dispatch(me())
     }
   }
