@@ -192,7 +192,7 @@ class UserBoard extends Component {
               this.state.newProject === true ?
                 <div className='project-form'>
                   <div id="label-project">
-                    <label >Add a new project below</label>
+                    <label >CREATE NEW PROJECT BELOW</label>
                   </div>
                   <div id="form-container">
                     <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
@@ -256,14 +256,39 @@ class UserBoard extends Component {
                       <div className="notes-container">
                         <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder="Notes:" />
                         <div className="follow-up">
-                          <h4 className="follow-up-text">Follow up</h4>
-                          <div >
+
+                          <div>
+                            <h4 className="follow-up-text">Follow up date?</h4>
+                          </div>
+                          <div className="follow-up-toggle-switch">
                             <label className="switch">
-                              <input type="checkbox" onClick={this.followUp}/>
+                              <input type="checkbox" onClick={this.followUp} />
                               <span className="slider round"></span>
                             </label>
                           </div>
+                          <div className="follow-up-date">
+                            <input
+                              disabled={!this.state.followUp}
+                              name="departure"
+                              type="date"
+                              onChange={this.handleDueDateChange}
+                              className="select-date"
+                            />
+                            {/*
+                              this.state.followUp === true ?
+                                <input
+                                  required
+                                  name="departure"
+                                  type="date"
+                                  onChange={this.handleDueDateChange}
+                                  className="select-date"
+                                /> : ''
+                            */}
+                          </div>
+
+
                         </div>
+
                       </div>
                     </form>
                     <div className="div-submit">

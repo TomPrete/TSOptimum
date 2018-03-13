@@ -451,6 +451,11 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
 }
 
+.select-date:disabled {
+  background-color: rgb(0, 90, 78);
+  border: none;
+}
+
 .show-project-form {
 
   display: flex;
@@ -473,7 +478,7 @@ div.content-container {
   /* background-color: #fcfcfc; */
   text-align: left;
   margin: 4px 0 0 0;
-  width: 76%;
+  width: 75.5%;
   height: 60px;
   margin: 1px;
   font-size: 11px;
@@ -558,9 +563,49 @@ input:checked + .slider:before {
   width: 15%;
   display: flex;
   justify-content: left;
-  margin: 4px 0 0 0;
+  flex-direction: column;
+  margin: 3px 0 0 0;
 }
+
+/* .follow-up-toggle-container {
+  display: flex;
+} */
 
 .follow-up-text {
   margin: 0 5px;
+}
+
+.follow-up-toggle-switch {
+  margin: 2px 0 0 2px;
+  text-align: left;
+}
+
+.follow-up-date {
+  margin: 0;
+}
+
+.project-submit {
+  font-family: 'Quicksand';
+  width: 87%;
+  border-style: solid;
+  border-color: rgb(0, 151, 131);
+  padding: .8rem;
+  margin: 15px 0 15px 0;
+  align-self: center;
+  color: rgb(93, 93, 94);
+  font-size: 16px;
+  outline: 0;
+  transition: background-color 0.15s ease-in-out;
+  cursor: pointer;
+}
+
+.project-submit:hover {
+  background-color: rgb(0, 151, 131);
+  color: white;
+  box-shadow: 0 2px 10px rgb(1, 110, 96)
+}
+
+.project-submit:active {
+  background-color: rgb(2, 65, 56);
+  color: white;
 }
