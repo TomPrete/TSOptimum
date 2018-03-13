@@ -534,7 +534,7 @@ div.content-container {
   height: 13px;
   width: 13px;
   left: 2px;
-  bottom: 2.5px;
+  bottom: 2.2px;
   background-color: white;
   -webkit-transition: .4s;
   transition: .4s;
@@ -549,9 +549,9 @@ input:focus + .slider {
 }
 
 input:checked + .slider:before {
-  -webkit-transform: translateX(13px);
-  -ms-transform: translateX(13px);
-  transform: translateX(13px);
+  -webkit-transform: translateX(12px);
+  -ms-transform: translateX(12px);
+  transform: translateX(12px);
 }
 
 /* Rounded sliders */
