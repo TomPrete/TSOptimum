@@ -357,6 +357,10 @@ div.content-container {
   color: white;
 }
 
+#label-project {
+  margin-bottom: 10px;
+}
+
 .select-company {
   padding: 10px 0 10px 10px;
   border: 1px solid #e9e9e9;

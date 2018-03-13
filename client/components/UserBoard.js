@@ -149,28 +149,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    console.log("FOLLOW UP: ", this.state.followUp)
-    // console.log("Team ", this.props.team)
-    // let tso = []
-    // console.log("TSOS: ", tso)
-    // const companies = this.props.companies.sort(function (a, b) {
-    //   var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-    //   if (nameA < nameB)
-    //     return -1
-    //   if (nameA > nameB)
-    //     return 1
-    //   return 0;
-    // })
 
-
-
-    // const tsa = this.props.teamUsers.filter( user => {
-    //   return user.title === "Treasury Solutions Analyst";
-    // })
-
-    // var currentDate = function() {
-    //     return new Date()
-    // }
     return (
       <div id="user-board-container">
         <div className='sidebar-container'>
@@ -196,14 +175,14 @@ class UserBoard extends Component {
                   </div>
                   <div id="form-container">
                     <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
-                      <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" />
+                      <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
                       <datalist id="companyList">
                         {
                           this.props.companies.map(company =>
-                            <option key={company.id} value={company.name}>{company.name}</option>)
+                            <option key={company.id} value={company.name} required>{company.name}</option>)
                         }
                       </datalist>
-                      <select onChange={this.inputProjectType} className="select-type">
+                      <select onChange={this.inputProjectType} className="select-type" required >
                         <option>Select type</option>
                         <option value="Client Call">Client Call</option>
                         <option value="Client Inquire">Client Inquiry</option>
@@ -221,7 +200,7 @@ class UserBoard extends Component {
                         {
                           this.props.team.length > 0 ? this.props.team.map(users => {
                             if (users.title === "Treasury Solutions Officer") {
-                              return <option key={users.id} value={users.name}>{users.name}</option>
+                              return <option key={users.id} value={users.name} required>{users.name}</option>
                             }
                           })
                             :
@@ -233,14 +212,14 @@ class UserBoard extends Component {
                         {
                           this.props.team.length > 0 ? this.props.team.map(users => {
                             if (users.title === "Treasury Solutions Analyst") {
-                              return <option key={users.id} value={users.name}>{users.name}</option>
+                              return <option key={users.id} value={users.name} required>{users.name}</option>
                             }
                           })
                             :
                             null
                         }
                       </select>
-                      <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" >
+                      <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" required >
                         <option value="In Process">In Process</option>
                         <option value="Complete">Complete</option>
                       </select>
