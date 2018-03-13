@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
-import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies } from '../store'
+import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -30,6 +30,7 @@ class UserBoard extends Component {
     this.inputStatus = this.inputStatus.bind(this);
     // this.inputDueDate = this.inputDueDate.bind(this);
     this.inputNotes = this.inputNotes.bind(this);
+    this.inputDueDate = this.inputDueDate.bind(this)
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
     // this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
     this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
@@ -120,11 +121,17 @@ class UserBoard extends Component {
     })
   }
 
+  inputDueDate(e) {
+    this.setState({
+      dueDate: e.target.value
+    })
+  }
+
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    this.props.submitProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.notes)
+    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes)
     this.setState({
       redirect: true
     })
@@ -149,6 +156,7 @@ class UserBoard extends Component {
   }
 
   render() {
+    console.log("THIS STATE: ", this.state)
 
     return (
       <div id="user-board-container">
@@ -227,7 +235,7 @@ class UserBoard extends Component {
                         required
                         name="departure"
                         type="date"
-                        onChange={this.handleDueDateChange}
+                        onChange={this.inputDueDate}
                         className="select-date"
                       />
                       {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
@@ -297,7 +305,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { fetchUserTeam }
+const mapDispatch = { fetchUserTeam, createNewProject }
 
 const UserBoardContainter = connect(mapState, mapDispatch)(UserBoard)
 
