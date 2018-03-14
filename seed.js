@@ -1007,118 +1007,251 @@ const companies = [{"name":"Jayo","companyId":10193405},
 
     const users = [
         {
-            "name": "Evvie O'Cahey",
-            "id": 2,
-            "firstName": "Evvie",
-            "lastName": "O'Cahey",
-            "email": "eocahey1@chicagotribune.com",
-            "title": "Analyst",
-            "password": "7arvLCI",
-            "personId": 1006,
-            "createdAt": "2017-12-14T20:39:32.094Z",
-            "updatedAt": "2017-12-14T20:39:32.094Z"
-        },
-        {
-            "name": "Cassie Lacroix",
-            "id": 6,
-            "firstName": "Cassie",
-            "lastName": "Lacroix",
-            "email": "clacroixr@drupal.org",
-            "title": "Analyst",
-            "password": "hqOSccFqhDAH",
-            "personId": 8910,
-            "createdAt": "2017-12-14T20:41:15.560Z",
-            "updatedAt": "2017-12-14T20:41:15.560Z"
-        },
-        {
-            "name": "Carolina Muzzlewhite",
-            "id": 3,
-            "firstName": "Carolina",
-            "lastName": "Muzzlewhite",
-            "email": "cmuzzlewhite2@springer.com",
-            "title": "Analyst",
-            "password": "Fdt5SbcmEv",
-            "personId": 6549,
-            "createdAt": "2017-12-14T20:39:32.094Z",
-            "updatedAt": "2017-12-14T20:39:32.094Z"
-        },
-        {
-            "name": "Cherise Aldrin",
-            "id": 7,
-            "firstName": "Cherise",
-            "lastName": "Aldrin",
-            "email": "caldrins@spiegel.de",
-            "title": "Analyst",
-            "password": "5XCOPK8",
-            "personId": 4705,
-            "createdAt": "2017-12-14T20:41:15.560Z",
-            "updatedAt": "2017-12-14T20:41:15.560Z"
-        },
-        {
-            "name": "Waldemar Powley",
-            "id": 4,
-            "firstName": "Waldemar",
-            "lastName": "Powley",
-            "email": "wpowley3@cpanel.net",
-            "title": "Officer",
-            "password": "zuDgG56a9",
-            "personId": 2564,
-            "createdAt": "2017-12-14T20:39:32.094Z",
-            "updatedAt": "2017-12-14T20:39:32.094Z"
-        },
-        {
-            "name": "Ned Curston",
+            "name": "kelly hawkins",
             "id": 1,
-            "firstName": "Ned",
-            "lastName": "Curston",
-            "email": "ncurston0@gmail.com",
-            "title": "Officer",
-            "password": "fjkdsajfd",
-            "personId": 6929,
-            "createdAt": "2017-12-14T20:37:39.345Z",
-            "updatedAt": "2017-12-14T20:37:39.345Z"
+            "firstName": "kelly",
+            "lastName": "hawkins",
+            "email": "kelly@email.com",
+            "title": "Treasury Solutions Officer",
+            "password": "eeac7f5281821197517875a7ccb4be1573ac61d391988cab8349fb08db31514f",
+            "salt": "czHSex7XwIZi7dB0EXaERw==",
+            "personId": 6008,
+            "createdAt": "2018-03-13T16:16:08.827Z",
+            "updatedAt": "2018-03-13T16:16:08.827Z",
+            "teamId": 1
         },
         {
-            "name": "Josselyn Lovekin",
+            "name": "pat simms",
+            "id": 4,
+            "firstName": "pat",
+            "lastName": "simms",
+            "email": "pat@email.com",
+            "title": "Treasury Solutions Officer",
+            "password": "d0c9d5967a7052d4664b1e19aa9d3cd0b8774e4d96beeafe9bb09268fb1e4d2d",
+            "salt": "waERg7Y15YzTzvbvnrDwcA==",
+            "personId": 8643,
+            "createdAt": "2018-03-13T16:22:52.501Z",
+            "updatedAt": "2018-03-13T16:22:52.501Z",
+            "teamId": 2
+        },
+        {
+            "name": "lori buchanan",
+            "id": 2,
+            "firstName": "lori",
+            "lastName": "buchanan",
+            "email": "lori@email.com",
+            "title": "Treasury Solutions Officer",
+            "password": "8e27b4e4da2cde17ce7a2b7409c7d9db5cfa6cf5b429334397cd1145104b1c6f",
+            "salt": "fR+ORZYqHzMAbM4fQPF5SQ==",
+            "personId": 4712,
+            "createdAt": "2018-03-13T16:21:58.067Z",
+            "updatedAt": "2018-03-13T16:21:58.067Z",
+            "teamId": 1
+        },
+        {
+            "name": "paul asta",
+            "id": 3,
+            "firstName": "paul",
+            "lastName": "asta",
+            "email": "paul@email.com",
+            "title": "Treasury Solutions Analyst",
+            "password": "3367ca5160a1806f079566a5769071a74b2dd738d730e401bddc174c98d28d32",
+            "salt": "QpNchovI6vGh0RdV2EZOZw==",
+            "personId": 8655,
+            "createdAt": "2018-03-13T16:22:35.076Z",
+            "updatedAt": "2018-03-13T16:22:35.076Z",
+            "teamId": 1
+        },
+        {
+            "name": "joe gajewski",
+            "id": 6,
+            "firstName": "joe",
+            "lastName": "gajewski",
+            "email": "joe@email.com",
+            "title": "Treasury Solutions Analyst",
+            "password": "454bc3181afc4e989287d78672e07eb81225d7e98c39079eeaf0281655719b23",
+            "salt": "ZcSRg4MFXOyPGwx6vq8dxQ==",
+            "personId": 6442,
+            "createdAt": "2018-03-13T16:24:02.903Z",
+            "updatedAt": "2018-03-13T16:24:02.903Z",
+            "teamId": 2
+        },
+        {
+            "name": "matt spartz",
+            "id": 7,
+            "firstName": "matt",
+            "lastName": "spartz",
+            "email": "matt@email.com",
+            "title": "Treasury Solutions Officer",
+            "password": "2e86098be4c7109a017e483832399106b7ba80c89cdb09c95922d906990d6c83",
+            "salt": "LANltTHjGHFnk3g0YyrbKA==",
+            "personId": 3268,
+            "createdAt": "2018-03-13T16:24:15.170Z",
+            "updatedAt": "2018-03-13T16:24:15.170Z",
+            "teamId": 2
+        },
+        {
+            "name": "tom prete",
+            "id": 5,
+            "firstName": "tom",
+            "lastName": "prete",
+            "email": "tom@email.com",
+            "title": "Treasury Solutions Analyst",
+            "password": "7e2b711c53bdb481855524599f725658bc793a41ceae5176fe89d463883c445d",
+            "salt": "tDXMlTEyFMiIlNpk4X83zw==",
+            "personId": 4006,
+            "createdAt": "2018-03-13T16:23:40.932Z",
+            "updatedAt": "2018-03-13T16:23:40.932Z",
+            "teamId": 1
+        },
+        {
+            "name": "nate szewczyk",
             "id": 8,
-            "firstName": "Josselyn",
-            "lastName": "Lovekin",
-            "email": "jlovekint@themeforest.net",
-            "title": "Officer",
-            "password": "9Y44ic7P",
-            "personId": 5275,
-            "createdAt": "2017-12-14T20:41:15.560Z",
-            "updatedAt": "2017-12-14T20:41:15.560Z"
+            "firstName": "nate",
+            "lastName": "szewczyk",
+            "email": "nate@email.com",
+            "title": "Treasury Solutions Analyst",
+            "password": "cec08f0810814ec07c8a0178c58f1fb8dc0b946cb0fc5b69d870367020365775",
+            "salt": "dqFG8iSzM6H+Zx91tZBaXg==",
+            "personId": 6256,
+            "createdAt": "2018-03-13T16:30:12.675Z",
+            "updatedAt": "2018-03-13T16:30:12.675Z",
+            "teamId": 2
         },
         {
-            "name": "Tracy Caldeyroux",
-            "id": 9,
-            "firstName": "Tracy",
-            "lastName": "Caldeyroux",
-            "email": "tcaldeyrouxu@sakura.ne.jp",
-            "title": "Officer",
-            "password": "oqwOmDRmxDW",
-            "personId": 5324,
-            "createdAt": "2017-12-14T20:41:15.560Z",
-            "updatedAt": "2017-12-14T20:41:15.560Z"
-        },
-        {
-            "name": "Vern MacGeaney",
+            "name": "stacy babe",
             "id": 10,
-            "firstName": "Vern",
-            "lastName": "MacGeaney",
-            "email": "vmacgeaney4@goodreads.com",
-            "title": "Manager",
-            "password": "soundgoogd",
-            "personId": 3661,
-            "createdAt": "2017-12-14T22:02:27.011Z",
-            "updatedAt": "2017-12-14T22:07:19.567Z"
+            "firstName": "stacy",
+            "lastName": "babe",
+            "email": "stacy@email.com",
+            "title": "Treasury Solutions Analyst",
+            "password": "0a4c4dc55dab528a526f37158386ff4dd807dae779f509593a7ede6de510c753",
+            "salt": "UEMfbhRozENSXqE5xT51yg==",
+            "personId": 3164,
+            "createdAt": "2018-03-13T16:32:57.173Z",
+            "updatedAt": "2018-03-13T16:32:57.173Z",
+            "teamId": 2
         }
-      ]
+    ]
 
+const projects = [
+    {
+        "duration": 17604,
+        "id": 1,
+        "projectId": 844475,
+        "name": "Abatz",
+        "projectType": "Exception Pricing",
+        "officer": "lori buchanan",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-14",
+        "notes": "these are notes",
+        "createdAt": "2018-03-13T15:16:13.015Z",
+        "updatedAt": "2018-03-13T15:16:13.015Z"
+    },
+    {
+        "duration": 17606,
+        "id": 2,
+        "projectId": 745326,
+        "name": "Ailane",
+        "projectType": "RFP",
+        "officer": "lori buchanan",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-16",
+        "notes": "Does this thing still work?\n",
+        "createdAt": "2018-03-13T15:27:11.969Z",
+        "updatedAt": "2018-03-13T15:27:11.969Z"
+    },
+    {
+        "duration": 17620,
+        "id": 3,
+        "projectId": 575094,
+        "name": "Realbridge",
+        "projectType": "Special Project",
+        "officer": "lori buchanan",
+        "analyst": "kelly hawkins",
+        "status": "Complete",
+        "dueDate": "2018-03-30",
+        "notes": "How about now?\n",
+        "createdAt": "2018-03-13T15:27:55.733Z",
+        "updatedAt": "2018-03-13T15:27:55.733Z"
+    },
+    {
+        "duration": 17612,
+        "id": 4,
+        "projectId": 867216,
+        "name": "Vinder",
+        "projectType": "Client Call",
+        "officer": "paul asta",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-22",
+        "notes": "THis is a client call with Vinder",
+        "createdAt": "2018-03-13T15:34:52.619Z",
+        "updatedAt": "2018-03-13T15:34:52.619Z"
+    },
+    {
+        "duration": 17606,
+        "id": 5,
+        "projectId": 536327,
+        "name": "Realmix",
+        "projectType": "Client Issue",
+        "officer": "paul asta",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-16",
+        "notes": "Trying to see data",
+        "createdAt": "2018-03-13T15:47:18.675Z",
+        "updatedAt": "2018-03-13T15:47:18.675Z"
+    },
+    {
+        "duration": 17612,
+        "id": 6,
+        "projectId": 490971,
+        "name": "Dazzlesphere",
+        "projectType": "Exception Pricing",
+        "officer": "lori buchanan",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-22",
+        "notes": "Trying to see data again",
+        "createdAt": "2018-03-13T15:48:08.266Z",
+        "updatedAt": "2018-03-13T15:48:08.266Z"
+    },
+    {
+        "duration": 17605,
+        "id": 7,
+        "projectId": 441090,
+        "name": "Skinder",
+        "projectType": "Client Issue",
+        "officer": "paul asta",
+        "analyst": "kelly hawkins",
+        "status": "In Process",
+        "dueDate": "2018-03-15",
+        "notes": "New project",
+        "createdAt": "2018-03-13T16:03:01.373Z",
+        "updatedAt": "2018-03-13T16:03:01.373Z"
+    }
+]
 
-
-
+const team = [
+    {
+        "name": "midwest"
+    },
+    {
+        "name": "central"
+    },
+    {
+        "name": "south",
+    },
+    {
+        "name": "northeast",
+    },
+    {
+        "name": "southeast",
+    }
+]
 
 
 const seed = () =>

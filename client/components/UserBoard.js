@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
-import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject } from '../store'
+import Projects from './Projects'
+import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject, fetchUserProjects } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -16,7 +17,7 @@ class UserBoard extends Component {
       officer: "",
       analyst: "",
       dueDate: "",
-      status: "",
+      status: "In Process",
       notes: "",
       newProject: false,
       followUp: false,
@@ -70,8 +71,12 @@ class UserBoard extends Component {
     // console.log("NEXT PROPS: ", nextProps)
     if (nextProps.user.teamId && (nextProps.companies.length === undefined && this.props.companies.length === undefined)) {
       const userTeamId = nextProps.user.teamId
+      const userName = nextProps.user.name
+      const userTitle = nextProps.user.title
       const fetchTeam = await fetchUserTeam(userTeamId)
+      const gettingAllUserProjects = await fetchUserProjects(userName, userTitle)
       store.dispatch(fetchTeam)
+      store.dispatch(gettingAllUserProjects)
     } else {
       console.log("ERROR GETTING_USER_TEAM")
     }
@@ -156,7 +161,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    console.log("THIS STATE: ", this.state)
+    // console.log("THIS STATE: ", this.state)
 
     return (
       <div id="user-board-container">
@@ -286,8 +291,11 @@ class UserBoard extends Component {
                 : ""
             }
           </div>
+          <div>
+            <Projects />
+          </div>
         </div>
-        {/*<OpenProjects />*/}
+
       </div>
     )
   }
@@ -305,7 +313,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { fetchUserTeam, createNewProject }
+const mapDispatch = { fetchUserTeam, createNewProject, fetchUserProjects }
 
 const UserBoardContainter = connect(mapState, mapDispatch)(UserBoard)
 

@@ -4,8 +4,8 @@ const router = require('express').Router()
 const {User, Company, Project} = require('../db/models')
 module.exports = router
 
-// const userRoute = require('./users');
-// const projectRoute = require('./projectRoute');
+const userRoute = require('./users');
+const projectRoute = require('./projectRoute');
 const companyRoute = require('./companyRoute')
 
 router.post('/', (req, res, next) => {
@@ -14,20 +14,46 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
+
 router.get('/', (req, res, next) => {
-  Project.findAll()
+  Project.findAll({
+    where: {
+
+    }
+  })
   .then(projects => res.json(projects))
   .catch(next);
 });
+
+router.get('/user-projects', (req, res, next) => {
+  console.log("TITLE AND NAME ", req.body.title, req.body.name)
+  if ( req.body.title === "Treasury Solutions Analyst") {
+    Project.findAll({
+      where: {
+        analyst: req.body.name
+      }
+    })
+    .then(projects => res.json(projects))
+    .catch(next);
+  } else if ( req.body.title === "Treasury Solutions Officer") {
+    Project.findAll({
+      where: {
+        officer: req.body.name
+      }
+    })
+    .then(projects => res.json(projects))
+    .catch(next);
+  }
+})
 
 //GET a project by projectId
-router.get('/:projectId', (req, res, next) => {
-  Project.findOne({where: {projectId: req.params.projectId}})
-  .then(projects => res.json(projects))
-  .catch(next);
-});
-
-
+// router.get('/:id', async (req, res, next) => {
+//   console.log("PROJECT ID: ", req.params.id)
+//   const project = await Project.findOne({where: {projectId: +req.params.id}})
+//   const user = await project.addUser(+req.params.id)
+//   .then(user => res.json(user))
+//   .catch(next);
+// });
 
 
 router.put('/:projectId', (req, res, next) => {

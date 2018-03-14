@@ -34,7 +34,8 @@ Team.hasMany(User)
 
 Project.belongsToMany(User, {through: 'projects_users'})
 User.belongsToMany(Project, {through: 'projects_users'})
-Company.belongsToMany(Project, {through: 'projects_users'})
+
+Project.belongsToMany(Company, {through: 'company_projects'})
 
 module.exports = {
   User,

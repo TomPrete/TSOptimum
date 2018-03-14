@@ -11,7 +11,7 @@ module.exports = router
 
 
 router.post('/', (req, res, next) => {
-  return Team.create(req.body)
+  return Team.bulkCreate(req.body)
     .then(team => res.json(team))
     .catch(next);
 });
@@ -24,7 +24,7 @@ router.post('/', (req, res, next) => {
   });
 
   //GET all companies
-	router.get('/:id', (req, res, next) => {
+	router.get('/', (req, res, next) => {
 		Team.findAll()
 		.then(teams => res.json(teams))
 		.catch(next);
