@@ -5,6 +5,7 @@ import history from '../history'
 // const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 const CREATE_PROJECT = 'CREATE_PROJECT'
 const GET_ALL_USER_PROJECTS = 'GET_ALL_USER_PROJECTS'
+const GET_ALL_PROJECTS = 'GET_ALL_PROJECTS'
 
 
 /***** INITIAL STATE*****/
@@ -13,7 +14,8 @@ const defaultUser = {}
 /***** ACTION CREATORS*****/
 // const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
 const createProject = project => ({ type: CREATE_PROJECT, project })
-const getUserProjects = projects => { type: GET_ALL_USER_PROJECTS, projects }
+const getUserProjects = projects => ({ type: GET_ALL_USER_PROJECTS, projects })
+const getAllProjects = projects => ({ type: GET_ALL_PROJECTS, projects })
 
 
 
@@ -45,11 +47,20 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
 
 export const fetchUserProjects = (name, title) =>
   dispatch => {
-    axios.get(`/api/project/user-projects`, {name, title})
-    .then(res => res.data)
-    .then(projects =>
-    dispatch(getUserProjects(projects)))
-    .catch(err => console.error(err))
+    axios.get(`/api/project/user-projects`, { name, title })
+      .then(res => res.data)
+      .then(projects =>
+        dispatch(getUserProjects(projects)))
+      .catch(err => console.error(err))
+  }
+
+  export const fetchAllProjects = () =>
+  dispatch => {
+    axios.get(`/api/project/all`)
+      .then(res => res.data)
+      .then(projects =>
+        dispatch(getAllProjects(projects)))
+      .catch(err => console.error(err))
   }
 
 /***** REDUCER *****/
@@ -58,6 +69,8 @@ export default function (state = defaultUser, action) {
     // case GET_ALL_COMPANIES:
     //   return action.companies
     case GET_ALL_USER_PROJECTS:
+      return action.projects
+    case GET_ALL_PROJECTS:
       return action.projects
     case CREATE_PROJECT:
       return [...state, action.project]

@@ -306,6 +306,11 @@ div.content-container {
   background-color: rgb(0, 151, 131);
 }
 
+.title-input:target {
+  color: white;
+  background-color: rgb(0, 151, 131);
+}
+
 /****** ADD NEW PROJECT ******/
 
 #user-board-container {
@@ -386,6 +391,11 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
 }
 
+.select-company:target {
+  border: 1px solid rgb(0, 151, 131);
+  border-bottom: 2px solid rgb(0, 151, 131);
+}
+
 .select-type,
 .select-tso,
 .select-tsa,
@@ -428,6 +438,14 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
 }
 
+.select-type:target,
+.select-tso:target,
+.select-tsa:target,
+.select-status:target {
+  border: 1px solid rgb(0, 151, 131);
+  border-bottom: 2px solid rgb(0, 151, 131);
+}
+
 .select-date {
   padding: 10px 0 8px 10px;
   font-size: 11px;
@@ -451,6 +469,11 @@ div.content-container {
 }
 
 .select-date:focus {
+  border: 1px solid rgb(0, 151, 131);
+  border-bottom: 2px solid rgb(0, 151, 131);
+}
+
+.select-date:target {
   border: 1px solid rgb(0, 151, 131);
   border-bottom: 2px solid rgb(0, 151, 131);
 }
@@ -500,6 +523,11 @@ div.content-container {
 }
 
 .notes:focus {
+  border: 1px solid rgb(0, 151, 131);
+  border-bottom: 2px solid rgb(0, 151, 131);
+}
+
+.notes:target {
   border: 1px solid rgb(0, 151, 131);
   border-bottom: 2px solid rgb(0, 151, 131);
 }
@@ -610,6 +638,11 @@ input:checked + .slider:before {
 }
 
 .project-submit:active {
+  background-color: rgb(2, 65, 56);
+  color: white;
+}
+
+.project-submit:target {
   background-color: rgb(2, 65, 56);
   color: white;
 }

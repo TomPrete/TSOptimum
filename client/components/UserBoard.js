@@ -74,9 +74,9 @@ class UserBoard extends Component {
       const userName = nextProps.user.name
       const userTitle = nextProps.user.title
       const fetchTeam = await fetchUserTeam(userTeamId)
-      const gettingAllUserProjects = await fetchUserProjects(userName, userTitle)
+      // const gettingAllUserProjects = await fetchUserProjects(userName, userTitle)
       store.dispatch(fetchTeam)
-      store.dispatch(gettingAllUserProjects)
+      // store.dispatch(gettingAllUserProjects)
     } else {
       console.log("ERROR GETTING_USER_TEAM")
     }

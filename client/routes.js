@@ -4,7 +4,7 @@ import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
-import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies } from './store'
+import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies, fetchAllProjects } from './store'
 
 
 /*** COMPONENT ***/
@@ -12,8 +12,9 @@ class Routes extends Component {
   componentDidMount() {
     this.props.loadInitialData()
     const fetchCompanies = fetchAllCompanies()
-    store.dispatch(fetchAllCompanies())
-
+    // const fetchProjects = fetchAllProjects()
+    store.dispatch(fetchCompanies)
+    // store.dispatch(fetchProjects)
   }
 
 

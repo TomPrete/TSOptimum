@@ -15,18 +15,14 @@ router.post('/', (req, res, next) => {
 });
 
 
-router.get('/', (req, res, next) => {
-  Project.findAll({
-    where: {
-
-    }
-  })
+router.get('/all', (req, res, next) => {
+  Project.findAll()
   .then(projects => res.json(projects))
   .catch(next);
 });
 
 router.get('/user-projects', (req, res, next) => {
-  console.log("TITLE AND NAME ", req.body.title, req.body.name)
+  console.log("TITLE AND NAME ", req.body)
   if ( req.body.title === "Treasury Solutions Analyst") {
     Project.findAll({
       where: {
