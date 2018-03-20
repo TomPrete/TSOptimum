@@ -44,7 +44,7 @@ class Projects extends Component {
 
   render() {
 
-    console.log("THIS PROPS: ", this.props)
+    // console.log("THIS PROPS: ", this.props)
     return (
       <div id="projects-container">
       <label>THESE ARE THE USER PROJECTS</label>

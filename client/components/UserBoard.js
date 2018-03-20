@@ -309,7 +309,8 @@ const mapState = state => {
   return {
     user: state.user,
     team: state.team,
-    companies: state.companies
+    companies: state.companies,
+    projects: state.projects
   }
 }
 
