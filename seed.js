@@ -1243,13 +1243,13 @@ const team = [
         "name": "central"
     },
     {
-        "name": "south",
+        "name": "south"
     },
     {
-        "name": "northeast",
+        "name": "northeast"
     },
     {
-        "name": "southeast",
+        "name": "southeast"
     }
 ]
 

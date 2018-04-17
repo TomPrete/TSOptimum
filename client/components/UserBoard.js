@@ -3,7 +3,7 @@ import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
-import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject, fetchUserProjects } from '../store'
+import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -54,7 +54,6 @@ class UserBoard extends Component {
   }
 
   followUp() {
-
     if (this.state.followUp === false) {
       this.setState({
         followUp: true
@@ -80,6 +79,8 @@ class UserBoard extends Component {
     } else {
       console.log("ERROR GETTING_USER_TEAM")
     }
+      // await this.filterProjects()
+
 
   }
 
@@ -136,7 +137,8 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes)
+    console.log("PERSON ID?: ", this.props.user.personId)
+    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.personId)
     this.setState({
       redirect: true
     })
@@ -161,7 +163,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    // console.log("THIS STATE: ", this.state)
+    // console.log("PROPS: ", this.props.user.personId)
 
     return (
       <div id="user-board-container">
@@ -277,10 +279,7 @@ class UserBoard extends Component {
                                 /> : ''
                             */}
                           </div>
-
-
                         </div>
-
                       </div>
                     </form>
                     <div className="div-submit">
@@ -299,10 +298,6 @@ class UserBoard extends Component {
       </div>
     )
   }
-
-
-
-
 }
 
 const mapState = state => {

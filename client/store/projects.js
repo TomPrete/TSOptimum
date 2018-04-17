@@ -31,30 +31,30 @@ const getAllProjects = projects => ({ type: GET_ALL_PROJECTS, projects })
 
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes) =>
+export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, fk_personId) =>
   dispatch => {
-    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes })
+    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, fk_personId})
       .then(res => { console.log("DATA: ", res.data); return res.data })
       .then(project => {
         // dispatch(createProject(project));
         console.log("DOES THIS WORK?");
-        window.location.reload()
+        // window.location.reload()
         // axios.get(`/api/project/${project.id}`)
       }
       )
       .catch(err => console.error(err))
   }
 
-export const fetchUserProjects = (name, title) =>
+export const fetchUserProjects = (fk_personId) =>
   dispatch => {
-    axios.get(`/api/project/user-projects`, { name, title })
+    axios.get(`/api/project/user-projects`, {fk_personId})
       .then(res => res.data)
-      .then(projects =>
-        dispatch(getUserProjects(projects)))
+      .then(projects => {console.log("HELP!!: ", projects),
+        dispatch(getUserProjects(projects))})
       .catch(err => console.error(err))
   }
 
-  export const fetchAllProjects = () =>
+export const fetchAllProjects = () =>
   dispatch => {
     axios.get(`/api/project/all`)
       .then(res => res.data)

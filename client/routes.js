@@ -4,7 +4,7 @@ import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
-import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies, fetchAllProjects } from './store'
+import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies, fetchAllProjects, fetchUserProjects } from './store'
 
 
 /*** COMPONENT ***/

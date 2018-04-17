@@ -1,7 +1,7 @@
 'use strict'
 
 const router = require('express').Router()
-const {User, Company, Project} = require('../db/models')
+const { User, Company, Project } = require('../db/models')
 module.exports = router
 
 const userRoute = require('./users');
@@ -17,29 +17,19 @@ router.post('/', (req, res, next) => {
 
 router.get('/all', (req, res, next) => {
   Project.findAll()
-  .then(projects => res.json(projects))
-  .catch(next);
+    .then(projects => res.json(projects))
+    .catch(next);
 });
 
 router.get('/user-projects', (req, res, next) => {
   console.log("TITLE AND NAME ", req.body)
-  if ( req.body.title === "Treasury Solutions Analyst") {
-    Project.findAll({
-      where: {
-        analyst: req.body.name
-      }
-    })
+  Project.findAll({
+    where: {
+      fK_personId: req.body.personId
+    }
+  })
     .then(projects => res.json(projects))
     .catch(next);
-  } else if ( req.body.title === "Treasury Solutions Officer") {
-    Project.findAll({
-      where: {
-        officer: req.body.name
-      }
-    })
-    .then(projects => res.json(projects))
-    .catch(next);
-  }
 })
 
 //GET a project by projectId
@@ -58,10 +48,10 @@ router.put('/:projectId', (req, res, next) => {
     returning: true,
     plain: true
   })
-  .then(([numRows, updatedRows]) => {
-    res.json(updatedRows[0]);
-  })
-  .catch(next);
+    .then(([numRows, updatedRows]) => {
+      res.json(updatedRows[0]);
+    })
+    .catch(next);
 });
 
 module.exports = router;
