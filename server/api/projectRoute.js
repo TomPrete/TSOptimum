@@ -21,16 +21,38 @@ router.get('/all', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/user-projects', (req, res, next) => {
-  console.log("TITLE AND NAME ", req.body)
+router.get('/:id', (req, res, next) => {
+  // console.log("**********REQ BODY************: ", req.params)
+  const id = +req.params.id
+  // console.log("**********PERSON ID***********: ", +req.params.id)
   Project.findAll({
     where: {
-      fK_personId: req.body.personId
+      userId: id,
+      status: 'In Process'
     }
   })
     .then(projects => res.json(projects))
     .catch(next);
 })
+
+// router.get('/:id/orders', async (req, res, next) => {
+//   try {
+//     const orders = await Order.findAll({
+//       where: {
+//         status: 'Completed',
+//         userId: +req.params.id
+//       },
+//       include: [{
+//         model: OrderItem
+//       }]
+//     })
+//     res.json(orders)
+//   }
+//   catch (error) {
+//     next(error)
+//   }
+// })
+
 
 //GET a project by projectId
 // router.get('/:id', async (req, res, next) => {

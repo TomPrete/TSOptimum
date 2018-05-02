@@ -31,9 +31,9 @@ const getAllProjects = projects => ({ type: GET_ALL_PROJECTS, projects })
 
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, fk_personId) =>
+export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId) =>
   dispatch => {
-    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, fk_personId})
+    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId})
       .then(res => { console.log("DATA: ", res.data); return res.data })
       .then(project => {
         // dispatch(createProject(project));
@@ -45,12 +45,12 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
       .catch(err => console.error(err))
   }
 
-export const fetchUserProjects = (fk_personId) =>
+export const fetchUserProjects = (id) =>
   dispatch => {
-    axios.get(`/api/project/user-projects`, {fk_personId})
+    axios.get(`/api/project/${id}`)
       .then(res => res.data)
-      .then(projects => {console.log("HELP!!: ", projects),
-        dispatch(getUserProjects(projects))})
+      .then(projects =>
+        dispatch(getUserProjects(projects)))
       .catch(err => console.error(err))
   }
 

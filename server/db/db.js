@@ -8,6 +8,7 @@ const db = new Sequelize(
   {
     logging: false,
     sync: true
+    // ,
     // force: true
   }
 )

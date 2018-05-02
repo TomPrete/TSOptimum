@@ -32,7 +32,8 @@ const Team = require('./Team')
 
 Team.hasMany(User)
 
-Project.belongsTo(User, {foreignKey: 'fk_personId', targetKey: 'personId'})
+// Project.belongsTo(User, {foreignKey: 'fk_personId', targetKey: 'personId'})
+Project.belongsTo(User)
 // Project.belongsToMany(User, {through: 'projects_users'})
 User.belongsToMany(Project, {through: 'projects_users'})
 

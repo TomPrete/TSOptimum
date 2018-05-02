@@ -3,18 +3,22 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage } from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects } from './components'
 import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies, fetchAllProjects, fetchUserProjects } from './store'
 
 
 /*** COMPONENT ***/
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
-    const fetchCompanies = fetchAllCompanies()
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    const fetchCompanies = await fetchAllCompanies()
     // const fetchProjects = fetchAllProjects()
     store.dispatch(fetchCompanies)
     // store.dispatch(fetchProjects)
+    // await console.log("PERSON ID: ", this.props.user.id)
+    // const fetchAllUserProjects = await fetchUserProjects(this.props.user.id)
+    // await store.dispatch(fetchAllUserProjects)
+
   }
 
 
@@ -30,6 +34,7 @@ class Routes extends Component {
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
             <Route exact path='/user/:personId/board' component={UserBoard} />
+            <Route exact path='/user/:personId/projects' component={Projects} />
             <Route exact path='/user/:personId/profile' component={UserProfile} />
           </Switch>
         </Main>

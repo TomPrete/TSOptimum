@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import SideBar from './SideBar';
+import SideBar from './SideBar';
 import store, { fetchAllProjects, fetchUserProjects } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
@@ -27,10 +27,12 @@ class Projects extends Component {
 
 
 
-  componentWillReceiveProps(props) {
-    let personId = this.props.user.personId
-    const fetchAllUserProjects = fetchUserProjects(personId)
-    store.dispatch(fetchAllUserProjects)
+  async componentDidMount() {
+    // let fk_personId = this.props.user.personId
+    // console.log('previous Props: ', prevProps)
+    await console.log("PERSON ID: ", this.props)
+    const fetchAllUserProjects = await fetchUserProjects(this.props.user.id)
+    await store.dispatch(fetchAllUserProjects)
   }
 
   async filterProjects() {
@@ -47,7 +49,7 @@ class Projects extends Component {
     // console.log("THIS PROPS: ", this.props)
     return (
       <div id="projects-container">
-        <label>THESE ARE THE USER PROJECTS</label>
+        {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.props.projects.length > 0 ? this.props.projects.map(project => {
             return (

@@ -20,6 +20,7 @@ class UserBoard extends Component {
       status: "In Process",
       notes: "",
       newProject: false,
+      showOpenProjects: false,
       followUp: false,
       redirect: false
     }
@@ -33,11 +34,13 @@ class UserBoard extends Component {
     this.inputNotes = this.inputNotes.bind(this);
     this.inputDueDate = this.inputDueDate.bind(this)
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
+    this.enableAllOpenProjects = this.enableAllOpenProjects.bind(this)
     // this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
     this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
     this.sortCompanies = this.sortCompanies.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
     this.followUp = this.followUp.bind(this)
+    this.handleGetProjects = this.handleGetProjects.bind(this)
   }
 
   enableNewProjectFunction() {
@@ -49,6 +52,19 @@ class UserBoard extends Component {
     } else {
       this.setState({
         newProject: false,
+      })
+    }
+  }
+
+  enableAllOpenProjects() {
+    if (this.state.showOpenProjects === false) {
+      this.setState({
+        showOpenProjects: true,
+      })
+
+    } else {
+      this.setState({
+        showOpenProjects: false,
       })
     }
   }
@@ -79,16 +95,16 @@ class UserBoard extends Component {
     } else {
       console.log("ERROR GETTING_USER_TEAM")
     }
-      // await this.filterProjects()
+    // await this.filterProjects()
 
 
   }
 
   // async componentDidMount() {
-  //   let teamId = await this.props.user.teamId
-  //   console.log("TEAM ID: ", teamId)
-  //   const fetchTeam = fetchUserTeam(teamId)
-  //   store.dispatch(fetchTeam)
+  //   // let teamId = await this.props.user.teamId
+  //   // console.log("TEAM ID: ", teamId)
+  //   // const fetchTeam = fetchUserTeam(teamId)
+  //   // store.dispatch(fetchTeam)
   // }
 
   inputProjectName(e) {
@@ -137,8 +153,8 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    console.log("PERSON ID?: ", this.props.user.personId)
-    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.personId)
+    console.log("PERSON ID?: ", this.props.user.id)
+    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.id)
     this.setState({
       redirect: true
     })
@@ -162,8 +178,14 @@ class UserBoard extends Component {
 
   }
 
+  async handleGetProjects() {
+    await this.enableAllOpenProjects()
+  }
+
   render() {
-    // console.log("PROPS: ", this.props.user.personId)
+    console.log("PROPS: ", this.props.user.personId)
+    console.log("Show Open Projects: ", this.state.showOpenProjects)
+    let user = this.props.user
 
     return (
       <div id="user-board-container">
@@ -291,7 +313,17 @@ class UserBoard extends Component {
             }
           </div>
           <div>
-            <Projects />
+            {
+              this.state.showOpenProjects === false ?
+                <div className='new-project-button-container'>
+                  <button onClick={this.handleGetProjects} className='new-project-button'>Show Open Projects</button>
+                </div>
+                :
+                <div className='new-project-button-container'>
+                  <button onClick={this.enableAllOpenProjects} className='new-project-button'>Hide Open Projects</button>
+                </div>
+            }
+            {this.state.showOpenProjects === true ? <Projects /> : null}
           </div>
         </div>
 
@@ -299,6 +331,8 @@ class UserBoard extends Component {
     )
   }
 }
+
+//<Link className='nav-links' to={`/user/${user.personId}/projects`}>Your Projects</Link>
 
 const mapState = state => {
   return {
