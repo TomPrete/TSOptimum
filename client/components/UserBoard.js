@@ -183,8 +183,6 @@ class UserBoard extends Component {
   }
 
   render() {
-    console.log("PROPS: ", this.props.user.personId)
-    console.log("Show Open Projects: ", this.state.showOpenProjects)
     let user = this.props.user
 
     return (

@@ -22,9 +22,7 @@ router.get('/all', (req, res, next) => {
 });
 
 router.get('/:id', (req, res, next) => {
-  // console.log("**********REQ BODY************: ", req.params)
   const id = +req.params.id
-  // console.log("**********PERSON ID***********: ", +req.params.id)
   Project.findAll({
     where: {
       userId: id,
@@ -34,6 +32,22 @@ router.get('/:id', (req, res, next) => {
     .then(projects => res.json(projects))
     .catch(next);
 })
+
+
+router.put('/:projectId', (req, res, next) => {
+  return Project.update(req.body, {
+    where: {
+      projectId: req.params.projectId
+    },
+    returning: true,
+    plain: true
+  })
+  .then(project => res.json(project))
+  // .then(([numRows, updatedRows]) => {
+  //   res.json(updatedRows[0]);
+  // })
+  .catch(next);
+});
 
 // router.get('/:id/orders', async (req, res, next) => {
 //   try {

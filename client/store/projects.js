@@ -6,6 +6,7 @@ import history from '../history'
 const CREATE_PROJECT = 'CREATE_PROJECT'
 const GET_ALL_USER_PROJECTS = 'GET_ALL_USER_PROJECTS'
 const GET_ALL_PROJECTS = 'GET_ALL_PROJECTS'
+const COMPLETED_PROJECT = 'COMPLETED_PROJECT';
 
 
 /***** INITIAL STATE*****/
@@ -15,7 +16,16 @@ const defaultUser = {}
 // const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
 const createProject = project => ({ type: CREATE_PROJECT, project })
 const getUserProjects = projects => ({ type: GET_ALL_USER_PROJECTS, projects })
+
 const getAllProjects = projects => ({ type: GET_ALL_PROJECTS, projects })
+
+const updateCompletedProject = (project) => {
+  return {
+    type: COMPLETED_PROJECT,
+    project
+  }
+}
+
 
 
 
@@ -37,12 +47,19 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
       .then(res => { console.log("DATA: ", res.data); return res.data })
       .then(project => {
         // dispatch(createProject(project));
-        console.log("DOES THIS WORK?");
         // window.location.reload()
         // axios.get(`/api/project/${project.id}`)
       }
       )
       .catch(err => console.error(err))
+  }
+
+  export const submitCompletedProject = (projectId) => dispatch => {
+    axios.put(`/api/project/${projectId}`, {
+      status:'Complete'
+    })
+    .then(project => dispatch(updateCompletedProject(project)))
+    .catch(err => console.error(err))
   }
 
 export const fetchUserProjects = (id) =>
@@ -74,6 +91,9 @@ export default function (state = defaultUser, action) {
       return action.projects
     case CREATE_PROJECT:
       return [...state, action.project]
+    case COMPLETED_PROJECT:
+      return [...state, action.project];
+    // case UPDATE_PROJECT:
     default:
       return state
   }

@@ -2,51 +2,44 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
-import store, { fetchAllProjects, fetchUserProjects } from '../store'
+import store, { fetchAllProjects, fetchUserProjects, submitCompletedProject } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
 
 class Projects extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     name: "",
-  //     projectType: "",
-  //     officer: "",
-  //     analyst: "",
-  //     dueDate: "",
-  //     status: "In Process",
-  //     notes: "",
-  //     newProject: false,
-  //     followUp: false,
-  //     redirect: false
-  //   }
-  //   this.filterProjects = this.filterProjects.bind(this)
-  // }
+  constructor(props) {
+    super(props);
+    this.state = {
+
+      redirect: false
+    }
+    // this.filterProjects = this.filterProjects.bind(this)
+    // this.completeProject = this.completeProject.bind(this)
+  }
 
 
 
   async componentDidMount() {
     // let fk_personId = this.props.user.personId
     // console.log('previous Props: ', prevProps)
-    await console.log("PERSON ID: ", this.props)
+    // await console.log("PERSON ID: ", this.props)
     const fetchAllUserProjects = await fetchUserProjects(this.props.user.id)
     await store.dispatch(fetchAllUserProjects)
   }
 
-  async filterProjects() {
-    const userProjects = this.props.projects
-    const openProjects = await userProjects.filter(project => {
-      return project.status === "In Process"
-    })
-  }
+  // async filterProjects() {
+  //   const userProjects = this.props.projects
+  //   const openProjects = await userProjects.filter(project => {
+  //     return project.status === "In Process"
+  //   })
+  // }
 
 
 
   render() {
-
-    // console.log("THIS PROPS: ", this.props)
+    // console.log('type of: ', typeof project.dueDate)
+    console.log("THIS PROPS: ", this.props)
     return (
       <div id="projects-container">
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
@@ -60,9 +53,10 @@ class Projects extends Component {
                     <li className="user-queue">{project.projectType}</li>
                     <li className="user-queue">{project.officer}</li>
                     <li className="user-queue">{project.status}</li>
+                    <li className="user-queue">{project.dueDate}</li>
                     <textarea value="" className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
-                      <button type='button' value={project.projectId} onClick={() => this.props.completeProject(project.projectId)} className='complete-btn'>Complete</button>
+                      <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
                       <Link to={`/projects/${project.projectId}`}>
                         <button type='submit' className='edit-btn'>Edit</button>
                       </Link>
@@ -92,7 +86,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {}
+const mapDispatch = {submitCompletedProject}
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 
