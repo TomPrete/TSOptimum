@@ -319,11 +319,6 @@ div.content-container {
   text-align: center;
 }
 
-.sidebar-container {
-  width: 20%;
-  height: 100vh;
-  border-right: solid;
-}
 
 #new-project-container{
   text-align: left;
@@ -645,4 +640,17 @@ input:checked + .slider:before {
 .project-submit:target {
   background-color: rgb(2, 65, 56);
   color: white;
+}
+
+/*****SIDEBAR*****/
+.sidebar-container {
+  width: 20%;
+  height: 100vh;
+  border-right: solid;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid #646f79;
+  margin-bottom: 10px;
+  padding-bottom: 3px;
 }

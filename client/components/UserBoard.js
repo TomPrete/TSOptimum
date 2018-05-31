@@ -321,7 +321,10 @@ class UserBoard extends Component {
                   <button onClick={this.enableAllOpenProjects} className='new-project-button'>Hide Open Projects</button>
                 </div>
             }
-            {this.state.showOpenProjects === true ? <Projects /> : null}
+            {this.state.showOpenProjects === true ? <Projects />
+              :
+              null
+            }
           </div>
         </div>
 

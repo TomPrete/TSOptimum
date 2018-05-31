@@ -65,7 +65,9 @@ class Projects extends Component {
                 </form>
               </div>
             )
-          }) : ""
+          })
+          :
+          <div>You have no open projects!</div>
 
         }
       </div>

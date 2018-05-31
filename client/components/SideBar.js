@@ -19,9 +19,13 @@ class SideBar extends Component {
   render() {
     // console.log("USER HOME PAGE: ", this.props)
     let userId = this.props.user.personId
+    let teamId = this.props.user.teamId
     return (
       <div>
-        <h3>THIS IS THE SIDEBAR</h3>
+        <h3 className="sidebar-header">Analytics</h3>
+        <Link to={`/user/${userId}/team/${teamId}/analytics`}>Team Analytics</Link>
+        <h3 className="sidebar-header">Reports</h3>
+        <Link to={`/user/${userId}/completed_projects`}>Completed Projects</Link>
       </div>
     )
   }

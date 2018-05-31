@@ -47,7 +47,7 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
       .then(res => { console.log("DATA: ", res.data); return res.data })
       .then(project => {
         // dispatch(createProject(project));
-        // window.location.reload()
+        window.location.reload()
         // axios.get(`/api/project/${project.id}`)
       }
       )
@@ -59,6 +59,7 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
       status:'Complete'
     })
     .then(project => dispatch(updateCompletedProject(project)))
+    .then(project => window.location.reload())
     .catch(err => console.error(err))
   }
 
