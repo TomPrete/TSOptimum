@@ -668,3 +668,11 @@ input:checked + .slider:before {
   text-align: left;
   width: 100%
 }
+
+/*****COMPLETED PROJECTS*****/
+
+#completed-projects-container {
+  display: flex;
+  flex-direction: center;
+  text-align: center;
+}

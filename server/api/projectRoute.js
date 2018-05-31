@@ -21,8 +21,9 @@ router.get('/all', (req, res, next) => {
     .catch(next);
 });
 
+
 router.get('/:id', (req, res, next) => {
-  const id = +req.params.id
+  let id = +req.params.id
   Project.findAll({
     where: {
       userId: id,
@@ -33,6 +34,18 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 })
 
+router.get('/completed/:id', (req,res,next) => {
+  let id = +req.params.id;
+  console.log("----------ID------------", id)
+  Project.findAll({
+    where: {
+      userId: id,
+      status: 'Completed'
+    }
+  })
+  .then(projects => res.json(projects))
+  .catch(next)
+})
 
 router.put('/:projectId', (req, res, next) => {
   return Project.update(req.body, {
