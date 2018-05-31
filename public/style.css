@@ -654,3 +654,17 @@ input:checked + .slider:before {
   margin-bottom: 10px;
   padding-bottom: 3px;
 }
+
+
+/*****USER PROFILE*****/
+
+#user-profile-container {
+  display: flex;
+  flex-direction: center;
+  text-align: center;
+}
+
+#user-profile {
+  text-align: left;
+  width: 100%
+}

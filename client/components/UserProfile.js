@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import AddNewUserContainer from '.';
+import SideBar from './SideBar'
 // import store from '../store;'
 
 
@@ -20,10 +21,16 @@ class UserProfile extends Component {
     // console.log("USER HOME PAGE: ", this.props)
     console.log("PROPS: ", this.props)
     let userId = this.props.user.personId
+    // let teamId = this.props.user.teamId
     return (
-      <div>
-        <h1>THIS IS {this.props.user.name}'s PROFILE</h1>
+      <div id='user-profile-container'>
+        <div className='sidebar-container'>
+          <SideBar />
+        </div>
+        <div id='user-profile'>
+        <h1>This is {this.props.user.name}'s profile</h1>
         <Link to={`/user/${userId}/board`}>Back to board</Link>
+        </div>
       </div>
     )
   }

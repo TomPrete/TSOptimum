@@ -25,7 +25,12 @@ class SideBar extends Component {
         <h3 className="sidebar-header">Analytics</h3>
         <Link to={`/user/${userId}/team/${teamId}/analytics`}>Team Analytics</Link>
         <h3 className="sidebar-header">Reports</h3>
+        <div>
         <Link to={`/user/${userId}/completed_projects`}>Completed Projects</Link>
+        </div>
+        <div>
+        <Link to={`/user/${userId}/created_projects`}>Created Projects</Link>
+        </div>
       </div>
     )
   }
