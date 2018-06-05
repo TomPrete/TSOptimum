@@ -21,19 +21,17 @@ class SideBar extends Component {
     let userId = this.props.user.personId
     let teamId = this.props.user.teamId
     return (
-      <div>
-        <h3 className="sidebar-header">Analytics</h3>
-        <Link to={`/user/${userId}/team/${teamId}/analytics`}>Team Analytics</Link>
-        <h3 className="sidebar-header">Reports</h3>
-        <div>
-          <Link to={`/user/${userId}/completed_projects`}>Completed Projects</Link>
-        </div>
-        <div>
-          <Link to={`/user/${userId}/created_projects`}>Created Projects</Link>
-        </div>
+      <div id="sidebar-container">
+        <p className="sidebar-header">Analytics</p>
+        <Link to={`/user/${userId}/team/${teamId}/analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
+        <p className="sidebar-header">Reports</p>
+
+          <Link to={`/user/${userId}/completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
+
+
+          <Link to={`/user/${userId}/created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
 
           <Link to={`/user/${userId}/board`}><div className="myboard-title">My Board</div></Link>
-
       </div>
     )
   }

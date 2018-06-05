@@ -28,8 +28,7 @@ class UserProfile extends Component {
           <SideBar />
         </div>
         <div id='user-profile'>
-        <h1>This is {this.props.user.name}'s profile</h1>
-        <Link to={`/user/${userId}/board`}>Back to board</Link>
+          <h1>This is {this.props.user.name}'s profile</h1>
         </div>
       </div>
     )
