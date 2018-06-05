@@ -326,7 +326,7 @@ div.content-container {
 }
 
 .new-project-button-container {
-  width: 100%;
+  /* width: 100%; */
   text-align: right
 }
 
@@ -647,6 +647,7 @@ input:checked + .slider:before {
   width: 20%;
   height: 100vh;
   background-color: rgb(2, 65, 56);
+  text-align: center;
 }
 
 .sidebar-header {
@@ -716,5 +717,23 @@ input:checked + .slider:before {
   flex-direction: center;
   text-align: center;
 }
+
+/*****All USER PROJECTS*****/
+
+#all-user-projects-container {
+  display: flex;
+  flex-direction: center;
+  text-align: center;
+}
+
+.container-width {
+  width: 100%
+}
+
+#queue-list {
+  text-align: left;
+}
+
+
 
 

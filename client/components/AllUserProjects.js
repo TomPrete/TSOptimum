@@ -41,10 +41,11 @@ class AllUserProjects extends Component {
     // console.log('type of: ', typeof project.dueDate)
     console.log("THIS PROPS: ", this.props)
     return (
-      <div id="completed-projects-container">
+      <div id="all-user-projects-container">
         <div className='sidebar-container'>
           <SideBar />
         </div>
+        <div className="container-width">
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.props.projects.length > 0 ? this.props.projects.map(project => {
@@ -73,6 +74,7 @@ class AllUserProjects extends Component {
           <div>You have no completed projects!</div>
 
         }
+        </div>
       </div>
     )
   }

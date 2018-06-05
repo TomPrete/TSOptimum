@@ -45,11 +45,12 @@ class CompletedProjects extends Component {
         <div className='sidebar-container'>
           <SideBar />
         </div>
+        <div className="container-width">
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.props.projects.length > 0 ? this.props.projects.map(project => {
             return (
-              <div key={project.projectId} >
+              <div key={project.projectId} className="project-list" >
                 <form>
                   <div id="queue-list">
                     <li className="user-queue">{project.name}</li>
@@ -73,6 +74,7 @@ class CompletedProjects extends Component {
           <div>You have no completed projects!</div>
 
         }
+        </div>
       </div>
     )
   }

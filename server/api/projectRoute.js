@@ -42,7 +42,18 @@ router.get('/complete/:id', (req,res,next) => {
       status: 'Complete'
     }
   })
-  .then(projects => {res.json(projects), console.log("------------PROJECTS: ",projects)})
+  .then(projects => res.json(projects))
+  .catch(next)
+})
+
+router.get('/:id', (req, res, next) => {
+  let id = +req.params.id;
+  Project.findAll({
+    where: {
+      userId: id
+    }
+  })
+  .then(projects => res.json(projects))
   .catch(next)
 })
 
