@@ -82,30 +82,16 @@ class UserBoard extends Component {
   }
 
   async componentWillReceiveProps(nextProps) {
-    // console.log("THIS PROPS: ", this.props)
-    // console.log("NEXT PROPS: ", nextProps)
     if (nextProps.user.teamId && (nextProps.companies.length === undefined && this.props.companies.length === undefined)) {
       const userTeamId = nextProps.user.teamId
       const userName = nextProps.user.name
       const userTitle = nextProps.user.title
       const fetchTeam = await fetchUserTeam(userTeamId)
-      // const gettingAllUserProjects = await fetchUserProjects(userName, userTitle)
       store.dispatch(fetchTeam)
-      // store.dispatch(gettingAllUserProjects)
     } else {
       console.log("ERROR GETTING_USER_TEAM")
     }
-    // await this.filterProjects()
-
-
   }
-
-  // async componentDidMount() {
-  //   // let teamId = await this.props.user.teamId
-  //   // console.log("TEAM ID: ", teamId)
-  //   // const fetchTeam = fetchUserTeam(teamId)
-  //   // store.dispatch(fetchTeam)
-  // }
 
   inputProjectName(e) {
     this.setState({
@@ -153,7 +139,6 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    console.log("PERSON ID?: ", this.props.user.id)
     this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.id)
     this.setState({
       redirect: true
