@@ -22,7 +22,7 @@ router.get('/all', (req, res, next) => {
 });
 
 
-router.get('/:id', (req, res, next) => {
+router.get('/in-process/:id', (req, res, next) => {
   let id = +req.params.id
   Project.findAll({
     where: {
@@ -34,16 +34,15 @@ router.get('/:id', (req, res, next) => {
     .catch(next);
 })
 
-router.get('/completed/:id', (req,res,next) => {
+router.get('/complete/:id', (req,res,next) => {
   let id = +req.params.id;
-  console.log("----------ID------------", id)
   Project.findAll({
     where: {
       userId: id,
-      status: 'Completed'
+      status: 'Complete'
     }
   })
-  .then(projects => res.json(projects))
+  .then(projects => {res.json(projects), console.log("------------PROJECTS: ",projects)})
   .catch(next)
 })
 

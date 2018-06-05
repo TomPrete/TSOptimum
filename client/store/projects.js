@@ -15,12 +15,33 @@ const defaultUser = {}
 
 /***** ACTION CREATORS*****/
 // const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
-const createProject = project => ({ type: CREATE_PROJECT, project })
-const getUserProjects = projects => ({ type: GET_USER_PROJECTS, projects })
+const createProject = project => (
+  {
+    type: CREATE_PROJECT,
+    project
+  }
+)
 
-const getAllProjects = projects => ({ type: GET_ALL_PROJECTS, projects })
+const getUserProjects = projects => (
+  {
+    type: GET_USER_PROJECTS,
+    projects
+  }
+)
 
-const getCompletedUserProjects = projects => ({ type: GET_COMPLETED_USER_PROJECTS, projects})
+const getAllProjects = projects => (
+  {
+    type: GET_ALL_PROJECTS,
+    projects
+  }
+)
+
+const getCompletedUserProjects = projects => (
+  {
+    type: GET_COMPLETED_USER_PROJECTS,
+    projects
+  }
+)
 
 const updateCompletedProject = (project) => {
   return {
@@ -47,7 +68,7 @@ const updateCompletedProject = (project) => {
 export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId) =>
   dispatch => {
     axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId})
-      .then(res => { console.log("DATA: ", res.data); return res.data })
+      .then(res => res.data)
       .then(project => {
         // dispatch(createProject(project));
         window.location.reload()
@@ -63,12 +84,12 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
     })
     .then(project => dispatch(updateCompletedProject(project)))
     .then(project => window.location.reload())
-    .catch(err => console.error(err))
+    .catch(err => console.error("error submitting completed project: ", error))
   }
 
 export const fetchUserProjects = (id) =>
   dispatch => {
-    axios.get(`/api/project/${id}`)
+    axios.get(`/api/project/in-process/${id}`)
       .then(res => res.data)
       .then(projects =>
         dispatch(getUserProjects(projects)))
@@ -77,10 +98,11 @@ export const fetchUserProjects = (id) =>
 
 export const fetchCompletedUserProjects = id =>
 dispatch => {
-  axios.get(`/api/project/completed/${id}`)
+  axios.get(`/api/project/complete/${id}`)
   .then(res => res.data)
-  .then(projects => dispatch(getCompletedUserProjects(projects)))
-  .catch(err = console.error(err))
+  .then(projects =>
+    dispatch(getCompletedUserProjects(projects)))
+  .catch(error = console.error("error fetching completed user projects: ", error))
 }
 
 export const fetchAllProjects = () =>
