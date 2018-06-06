@@ -60,7 +60,6 @@ class CompletedProjects extends Component {
                     <li className="user-queue">{project.dueDate}</li>
                     <textarea value="" className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
-                      <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
                       <Link to={`/projects/${project.projectId}`}>
                         <button type='submit' className='edit-btn'>Edit</button>
                       </Link>

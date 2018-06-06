@@ -245,6 +245,8 @@ class UserBoard extends Component {
                       </select>
                       <input
                         required
+                        placeholder="Due Date:"
+                        id='date'
                         name="departure"
                         type="date"
                         onChange={this.inputDueDate}
@@ -267,8 +269,7 @@ class UserBoard extends Component {
                           </div>
                           <div className="follow-up-date">
                             <input
-                              disabled={!this.state.followUp}
-                              name="departure"
+                              disabled={!this.state.followUp}             name="departure"
                               type="date"
                               onChange={this.handleDueDateChange}
                               className="select-date"

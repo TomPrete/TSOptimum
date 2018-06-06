@@ -441,16 +441,29 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
 }
 
+/*****DATE*****/
 .select-date {
   padding: 10px 0 8px 10px;
   font-size: 11px;
   border: 1px solid #e9e9e9;
-  /* background-color: #fcfcfc; */
   color: rgb(93, 93, 94);
   border-bottom: 2px solid rgb(0, 151, 131);
   transition: border 0.15s ease-in-out;
   outline: none;
   border-radius: 0px;
+}
+
+.select-date:before {
+  content: attr(placeholder);
+  margin-right: 0.5em;
+  font-size: 11px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+}
+
+.select-date:focus,
+.select-date:valid:before {
+  content: none;
 }
 
 .select-date:hover {
@@ -479,7 +492,6 @@ div.content-container {
 }
 
 .show-project-form {
-
   display: flex;
   justify-content: center;
 }
