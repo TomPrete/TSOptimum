@@ -8,8 +8,8 @@ const db = new Sequelize(
   {
     logging: false,
     sync: true
-    // ,
-    // force: true
+  //   ,
+  //   force: true
   }
 )
 module.exports = db

@@ -73,12 +73,12 @@ const updateCompletedProject = (project) => {
 
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId) =>
+export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) =>
   dispatch => {
-    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId })
+    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId, teamId })
       .then(res => res.data)
       .then(project => {
-        // dispatch(createProject(project));
+        dispatch(createProject(project));
         window.location.reload()
         // axios.get(`/api/project/${project.id}`)
       }

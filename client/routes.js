@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects } from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics } from './components'
 import store, { me, postNewUser, logout, fetchUserTeam, fetchAllCompanies, fetchAllProjects, fetchUserProjects } from './store'
 
 
@@ -38,6 +38,7 @@ class Routes extends Component {
             <Route exact path='/user/:personId/profile' component={UserProfile} />
             <Route exact path='/user/:personId/completed_projects' component={CompletedProjects} />
             <Route exact path='/user/:personId/created_projects' component={AllUserProjects} />
+            <Route exact path='/user/:personId/team/:teamId/analytics' component={TeamAnalytics} />
           </Switch>
         </Main>
       </Router>
