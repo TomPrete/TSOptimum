@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+// we should use react-router (4) to architect the routes
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'

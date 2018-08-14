@@ -25,6 +25,7 @@ class Projects extends Component {
     // console.log('previous Props: ', prevProps)
     // await console.log("PERSON ID: ", this.props)
     const getInProcessUserProjects = await fetchInProcessUserProjects(this.props.user.id)
+    // The store.dispatch(...) isn't a promise so you don't have to await
     await store.dispatch(getInProcessUserProjects)
   }
 
@@ -66,8 +67,8 @@ class Projects extends Component {
               </div>
             )
           })
-          :
-          <div>You have no open projects!</div>
+            :
+            <div>You have no open projects!</div>
 
         }
       </div>
@@ -88,7 +89,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {submitCompletedProject}
+const mapDispatch = { submitCompletedProject }
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 

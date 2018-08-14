@@ -48,7 +48,13 @@ const mapLogin = (state) => {
   }
 }
 
-
+/*
+  We should move handleSubmit into the actual Login component
+  and this could be:
+  const mapDispatchToProps = {
+    loginUser,
+  }
+*/
 const mapDispatch = (dispatch) => {
   return {
     handleSubmit(evt) {
