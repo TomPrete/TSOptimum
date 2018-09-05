@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { Router, Route, Switch, Link,    } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
@@ -293,6 +293,9 @@ class UserBoard extends Component {
                 </div>
                 : ""
             }
+          </div>
+          <div>
+          <hr />
           </div>
           <div>
             {
