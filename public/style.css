@@ -742,10 +742,54 @@ input:checked + .slider:before {
   width: 100%
 }
 
-#queue-list {
+
+
+#column-list {
+  font-weight: bold;
   text-align: left;
+  display: flex;
+  justify-content: left
 }
 
+.column-titles {
+  font-weight: bold;
+  padding: 0 11px;
+  list-style-type: none;
+  text-align: center;
+}
+
+.column-titles,
+.user-queue {
+  width: 12%
+}
+
+.column-notes {
+  width: 15.5%
+}
+
+
+.column-notes {
+  padding: 0 10px;
+  list-style-type: none;
+  text-align: center;
+}
+
+#queue-list {
+  text-align: left;
+  display: flex;
+  justify-content: left
+}
+
+.user-queue {
+  padding: 1rem 10px;
+  list-style-type: none;
+  text-align: center;
+  border: 1px solid rgb(0, 151, 131);
+}
+
+.user-notes {
+  width: 17.5%
+}
 
 
 

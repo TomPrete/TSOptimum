@@ -33,7 +33,7 @@ class Routes extends Component {
             <Route exact path='/home' component={LandingPage} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/user/:personId/board' component={UserBoard} />
+            <Route exact path='/user/:personId/board' component={UserBoard} userid={this.props.user.id}/>
             <Route exact path='/user/:personId/projects' component={Projects} />
             <Route exact path='/user/:personId/profile' component={UserProfile} />
             <Route exact path='/user/:personId/completed_projects' component={CompletedProjects} />

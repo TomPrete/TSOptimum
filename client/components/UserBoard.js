@@ -4,8 +4,6 @@ import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
 import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
-// import AddNewUserContainer from '.';
-// import store from '../store;'
 
 
 class UserBoard extends Component {
@@ -330,7 +328,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { fetchUserTeam, createNewProject, fetchUserProjects }
+const mapDispatch = { fetchUserTeam, createNewProject }
 
 const UserBoardContainter = connect(mapState, mapDispatch)(UserBoard)
 

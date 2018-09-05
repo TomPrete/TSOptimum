@@ -23,9 +23,8 @@ class Projects extends Component {
   async componentDidMount() {
     // let fk_personId = this.props.user.personId
     // console.log('previous Props: ', prevProps)
-    // await console.log("PERSON ID: ", this.props)
     const getInProcessUserProjects = await fetchInProcessUserProjects(this.props.user.id)
-    await store.dispatch(getInProcessUserProjects)
+    store.dispatch(getInProcessUserProjects)
   }
 
   // async filterProjects() {
@@ -42,6 +41,14 @@ class Projects extends Component {
     // console.log("THIS PROPS: ", this.props)
     return (
       <div id="projects-container">
+        <div id='column-list'>
+          <p className="column-titles">Company</p>
+          <p className="column-titles">Type</p>
+          <p className="column-titles">TSO</p>
+          <p className="column-titles">TSA</p>
+          <p className="column-titles">Due Date</p>
+          <p className="column-notes">Notes</p>
+        </div>
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.props.projects.length > 0 ? this.props.projects.map(project => {
