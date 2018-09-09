@@ -315,7 +315,6 @@ div.content-container {
 
 #user-board-container {
   display: flex;
-  flex-direction: center;
   text-align: center;
 }
 
@@ -713,7 +712,6 @@ input:checked + .slider:before {
 
 #user-profile-container {
   display: flex;
-  flex-direction: center;
   text-align: center;
 }
 
@@ -726,7 +724,6 @@ input:checked + .slider:before {
 
 #completed-projects-container {
   display: flex;
-  flex-direction: center;
   text-align: center;
 }
 
@@ -734,7 +731,6 @@ input:checked + .slider:before {
 
 #all-user-projects-container {
   display: flex;
-  flex-direction: center;
   text-align: center;
 }
 
@@ -769,6 +765,13 @@ input:checked + .slider:before {
 
 
 .column-notes {
+  padding: 0 7px;
+  list-style-type: none;
+  text-align: center;
+}
+
+.column-action {
+  width: 17%;
   padding: 0 7px;
   list-style-type: none;
   text-align: center;

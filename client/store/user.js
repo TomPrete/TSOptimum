@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import { fetchInProcessUserProjects } from './projects.js'
 
 /***** ACTION TYPES*****/
 const GET_USER = 'GET_USER'
@@ -16,10 +17,12 @@ const removeUser = () => ({ type: REMOVE_USER })
 
 /*****THUNK CREATORS*****/
 export const me = () =>
-  dispatch =>
+  async dispatch =>
     axios.get('/auth/me')
-      .then(res =>
-        dispatch(getUser(res.data || defaultUser)))
+      .then(res => {
+        dispatch(getUser(res.data)),
+        dispatch(fetchInProcessUserProjects(res.data.id))
+      })
       .catch(err => console.log(err))
 
 export const addNewUser = (firstName, lastName, email, title, password) =>

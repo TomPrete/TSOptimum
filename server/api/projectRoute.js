@@ -4,10 +4,6 @@ const router = require('express').Router()
 const { User, Company, Project } = require('../db/models')
 module.exports = router
 
-const userRoute = require('./users');
-const projectRoute = require('./projectRoute');
-const companyRoute = require('./companyRoute')
-
 router.post('/', (req, res, next) => {
   return Project.create(req.body)
     .then(project => res.json(project))
@@ -43,7 +39,7 @@ router.get('/complete/:id', (req,res,next) => {
     }
   })
   .then(projects => res.json(projects))
-  .catch(next)
+  // .catch(next => {console.log("HERE")})
 })
 
 router.get('/:id', (req, res, next) => {
@@ -54,7 +50,7 @@ router.get('/:id', (req, res, next) => {
     }
   })
   .then(projects => res.json(projects))
-  .catch(next)
+  // .catch(next)
 })
 
 router.put('/:projectId', (req, res, next) => {
@@ -69,7 +65,7 @@ router.put('/:projectId', (req, res, next) => {
   // .then(([numRows, updatedRows]) => {
   //   res.json(updatedRows[0]);
   // })
-  .catch(next);
+  // .catch(next);
 });
 
 // router.get('/:id/orders', async (req, res, next) => {
@@ -97,7 +93,7 @@ router.put('/:projectId', (req, res, next) => {
 //   const project = await Project.findOne({where: {projectId: +req.params.id}})
 //   const user = await project.addUser(+req.params.id)
 //   .then(user => res.json(user))
-//   .catch(next);
+  // .catch(next);
 // });
 
 
@@ -110,7 +106,7 @@ router.put('/:projectId', (req, res, next) => {
     .then(([numRows, updatedRows]) => {
       res.json(updatedRows[0]);
     })
-    .catch(next);
+    // .catch(next);
 });
 
 module.exports = router;

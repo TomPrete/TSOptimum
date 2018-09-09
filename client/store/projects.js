@@ -83,7 +83,7 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
         // axios.get(`/api/project/${project.id}`)
       }
       )
-      .catch(err => console.error(err))
+      .catch(err => console.log(err))
   }
 
 export const submitCompletedProject = (projectId) => dispatch => {
@@ -92,16 +92,16 @@ export const submitCompletedProject = (projectId) => dispatch => {
   })
     .then(project => dispatch(updateCompletedProject(project)))
     .then(project => window.location.reload())
-    .catch(err => console.error("error submitting completed project: ", error))
+    .catch(err => console.log("error submitting completed project: ", error))
 }
 
-export const fetchInProcessUserProjects = (id) =>
+export const fetchInProcessUserProjects = id =>
   dispatch => {
     axios.get(`/api/project/in-process/${id}`)
       .then(res => res.data)
       .then(projects =>
         dispatch(getInProcessUserProjects(projects)))
-      .catch(err => console.error(err))
+      .catch(error => console.log(error))
   }
 
 export const fetchCompletedUserProjects = id =>
@@ -110,7 +110,6 @@ export const fetchCompletedUserProjects = id =>
       .then(res => res.data)
       .then(projects =>
         dispatch(getCompletedUserProjects(projects)))
-      .catch(error = console.error("error fetching completed user projects: ", error))
   }
 
 export const fetchAllUserProjects = id =>
@@ -119,7 +118,6 @@ export const fetchAllUserProjects = id =>
       .then(res => res.data)
       .then(projects =>
         dispatch(getAllUserProjects(projects)))
-      .catch(error = console.error("error fetching all user projects: ", error))
   }
 
   export const fetchAllProjects = () =>
@@ -128,7 +126,7 @@ export const fetchAllUserProjects = id =>
         .then(res => res.data)
         .then(projects =>
           dispatch(getAllProjects(projects)))
-        .catch(err => console.error(err))
+        .catch(error => console.log(error))
     }
 
   /***** REDUCER *****/

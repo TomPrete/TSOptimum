@@ -82,7 +82,6 @@ class Signup extends Component {
 
 
   render() {
-    { console.log("STATE: ", this.state) }
     return (
       <div>
         <h1>You're just seconds away from Accelerating your work!</h1>

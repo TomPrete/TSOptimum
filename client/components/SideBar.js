@@ -17,7 +17,6 @@ class SideBar extends Component {
 
 
   render() {
-    // console.log("USER HOME PAGE: ", this.props)
     let userId = this.props.user.personId
     let teamId = this.props.user.teamId
     return (

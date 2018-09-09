@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
-import store, { fetchAllProjects, fetchCompletedUserProjects, submitCompletedProject } from '../store'
+import store, { fetchCompletedUserProjects, submitCompletedProject } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -22,10 +22,8 @@ class CompletedProjects extends Component {
 
   async componentDidMount() {
     // let fk_personId = this.props.user.personId
-    // console.log('previous Props: ', prevProps)
-    await console.log("PERSON ID: ", this.props)
     const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
-    await store.dispatch(fetchAllCompletedUserProjects)
+    store.dispatch(fetchAllCompletedUserProjects)
   }
 
   // async filterProjects() {
@@ -38,14 +36,24 @@ class CompletedProjects extends Component {
 
 
   render() {
-    // console.log('type of: ', typeof project.dueDate)
-    console.log("THIS PROPS: ", this.props)
     return (
       <div id="completed-projects-container">
         <div className='sidebar-container'>
           <SideBar />
         </div>
         <div className="container-width">
+        <div>
+          <p>All Completed Projects</p>
+        </div>
+        <div id='column-list'>
+          <p className="column-titles">Company</p>
+          <p className="column-titles">Type</p>
+          <p className="column-titles">TSO</p>
+          <p className="column-titles">TSA</p>
+          <p className="column-titles">Due Date</p>
+          <p className="column-notes">Notes</p>
+          <p className="column-action">Action</p>
+        </div>
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.props.projects.length > 0 ? this.props.projects.map(project => {

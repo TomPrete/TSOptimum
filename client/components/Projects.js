@@ -14,31 +14,20 @@ class Projects extends Component {
 
       redirect: false
     }
-    // this.filterProjects = this.filterProjects.bind(this)
-    // this.completeProject = this.completeProject.bind(this)
   }
 
 
 
   async componentDidMount() {
-    // let fk_personId = this.props.user.personId
-    // console.log('previous Props: ', prevProps)
-    const getInProcessUserProjects = await fetchInProcessUserProjects(this.props.user.id)
-    store.dispatch(getInProcessUserProjects)
+    if (this.props.user.id) {
+      const getInProcessUserProjects = await fetchInProcessUserProjects(this.props.user.id)
+      store.dispatch(getInProcessUserProjects)
+    }
   }
-
-  // async filterProjects() {
-  //   const userProjects = this.props.projects
-  //   const openProjects = await userProjects.filter(project => {
-  //     return project.status === "In Process"
-  //   })
-  // }
 
 
 
   render() {
-    // console.log('type of: ', typeof project.dueDate)
-    // console.log("THIS PROPS: ", this.props)
     return (
       <div id="projects-container">
         <div id='column-list'>
@@ -48,6 +37,7 @@ class Projects extends Component {
           <p className="column-titles">TSA</p>
           <p className="column-titles">Due Date</p>
           <p className="column-notes">Notes</p>
+          <p className="column-action">Action</p>
         </div>
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
@@ -74,7 +64,7 @@ class Projects extends Component {
             )
           })
           :
-          <div>You have no open projects!</div>
+          <div >You have no open projects!</div>
 
         }
       </div>

@@ -18,7 +18,7 @@ class UserBoard extends Component {
       status: "In Process",
       notes: "",
       newProject: false,
-      showOpenProjects: false,
+      showOpenProjects: true,
       followUp: false,
       redirect: false
     }
@@ -86,8 +86,6 @@ class UserBoard extends Component {
       const userTitle = nextProps.user.title
       const fetchTeam = await fetchUserTeam(userTeamId)
       store.dispatch(fetchTeam)
-    } else {
-      console.log("ERROR GETTING_USER_TEAM")
     }
   }
 
