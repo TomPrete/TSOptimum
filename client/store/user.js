@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { fetchInProcessUserProjects } from './projects.js'
+import { fetchInProcessUserProjects, fetchAllUserProjects } from './projects.js'
 import { fetchUserTeam } from './team.js'
 
 /***** ACTION TYPES*****/
@@ -22,7 +22,8 @@ export const me = () =>
     axios.get('/auth/me')
       .then(res => {
         dispatch(getUser(res.data)),
-        dispatch(fetchInProcessUserProjects(res.data.id))
+        // dispatch(fetchInProcessUserProjects(res.data.id))
+        dispatch(fetchAllUserProjects(res.data.id))
         dispatch(fetchUserTeam(res.data.teamId))
       })
       .catch(err => console.log(err))

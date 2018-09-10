@@ -21,14 +21,14 @@ class AllUserProjects extends Component {
 
 
   async componentDidMount() {
-    // let fk_personId = this.props.user.personId
     const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
     store.dispatch(getAllUserProjects)
   }
 
-  // async filterProjects() {
+  // filterProjects() {
   //   const userProjects = this.props.projects
-  //   const openProjects = await userProjects.filter(project => {
+  //   const openProjects = userProjects.filter(project => {
+  //     console.log('PROJECT: ', project)
   //     return project.status === "In Process"
   //   })
   // }
@@ -36,6 +36,7 @@ class AllUserProjects extends Component {
 
 
   render() {
+    // console.log("openProjects: ", openProjects)
     return (
       <div id="all-user-projects-container">
         <div className='sidebar-container'>
@@ -80,7 +81,7 @@ class AllUserProjects extends Component {
               )
             })
               :
-              <div>You have no created projects!</div>
+              <div>You have no completed projects!</div>
 
           }
         </div>

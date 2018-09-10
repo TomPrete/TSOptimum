@@ -11,7 +11,7 @@ class CompletedProjects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      completedProjects: null,
       redirect: false
     }
     // this.filterProjects = this.filterProjects.bind(this)
@@ -21,15 +21,27 @@ class CompletedProjects extends Component {
 
 
   async componentDidMount() {
-    // let fk_personId = this.props.user.personId
-    const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
-    store.dispatch(fetchAllCompletedUserProjects)
+    const userProjects = this.props.projects
+    if (userProjects.length > 0) {
+      const completedProjects = userProjects.filter(project => {
+        return project.status === "Complete"
+      })
+      this.setState({
+        completedProjects: completedProjects
+      })
+    }
+    else {
+      const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
+      store.dispatch(fetchAllCompletedUserProjects)
+      console.log("PROPS: ", this.props.projects)
+    }
+
   }
 
   // async filterProjects() {
   //   const userProjects = this.props.projects
   //   const openProjects = await userProjects.filter(project => {
-  //     return project.status === "In Process"
+  //     return project.status === "Completed"
   //   })
   // }
 
@@ -56,7 +68,7 @@ class CompletedProjects extends Component {
         </div>
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
-          this.props.projects.length > 0 ? this.props.projects.map(project => {
+          this.state.completedProjects !== null ? this.state.completedProjects.map(project => {
             return (
               <div key={project.projectId} className="project-list" >
                 <form>

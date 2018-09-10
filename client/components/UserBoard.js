@@ -18,9 +18,8 @@ class UserBoard extends Component {
       status: "In Process",
       notes: "",
       newProject: false,
-      showOpenProjects: true,
       followUp: false,
-      redirect: false
+      redirect: false,
     }
 
     this.inputProjectName = this.inputProjectName.bind(this);
@@ -155,7 +154,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    let user = this.props.user
+    // console.log("PROPS: ", this.props.projects)
 
     return (
       <div id="user-board-container">
@@ -287,7 +286,7 @@ class UserBoard extends Component {
           <hr />
           </div>
           <div>
-            {
+            {/* {
               this.state.showOpenProjects === false ?
                 <div className='new-project-button-container'>
                   <button onClick={this.handleGetProjects} className='new-project-button'>Show Open Projects</button>
@@ -300,7 +299,8 @@ class UserBoard extends Component {
             {this.state.showOpenProjects === true ? <Projects />
               :
               null
-            }
+            } */}
+            <Projects />
           </div>
         </div>
 

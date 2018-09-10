@@ -11,7 +11,7 @@ class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      inProcessProjects: null,
       redirect: false
     }
   }
@@ -19,13 +19,28 @@ class Projects extends Component {
 
 
   async componentDidMount() {
-    if (this.props.user.id) {
-      const getInProcessUserProjects = await fetchInProcessUserProjects(this.props.user.id)
-      store.dispatch(getInProcessUserProjects)
+    const userProjects = this.props.projects
+    if (userProjects.length > 0) {
+      const inProcessProjects = userProjects.filter(project => {
+        return project.status === "In Process"
+      })
+      this.setState({
+        inProcessProjects: inProcessProjects
+      })
     }
   }
 
-
+  async componentWillReceiveProps() {
+    const userProjects = this.props.projects
+    if (userProjects.length > 0) {
+      const inProcessProjects = userProjects.filter(project => {
+        return project.status === "In Process"
+      })
+      this.setState({
+        inProcessProjects: inProcessProjects
+      })
+    }
+  }
 
   render() {
     return (
@@ -41,7 +56,7 @@ class Projects extends Component {
         </div>
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
-          this.props.projects.length > 0 ? this.props.projects.map(project => {
+          this.state.inProcessProjects !== null ? this.state.inProcessProjects.map(project => {
             return (
               <div key={project.projectId} >
                 <form>
