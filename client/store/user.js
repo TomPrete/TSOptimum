@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import { fetchInProcessUserProjects } from './projects.js'
+import { fetchUserTeam } from './team.js'
 
 /***** ACTION TYPES*****/
 const GET_USER = 'GET_USER'
@@ -22,6 +23,7 @@ export const me = () =>
       .then(res => {
         dispatch(getUser(res.data)),
         dispatch(fetchInProcessUserProjects(res.data.id))
+        dispatch(fetchUserTeam(res.data.teamId))
       })
       .catch(err => console.log(err))
 

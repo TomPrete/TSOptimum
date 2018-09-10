@@ -79,15 +79,6 @@ class UserBoard extends Component {
     }
   }
 
-  async componentWillReceiveProps(nextProps) {
-    if (nextProps.user.teamId && (nextProps.companies.length === undefined && this.props.companies.length === undefined)) {
-      const userTeamId = nextProps.user.teamId
-      const userName = nextProps.user.name
-      const userTitle = nextProps.user.title
-      const fetchTeam = await fetchUserTeam(userTeamId)
-      store.dispatch(fetchTeam)
-    }
-  }
 
   inputProjectName(e) {
     this.setState({
