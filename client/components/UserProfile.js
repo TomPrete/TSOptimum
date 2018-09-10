@@ -18,10 +18,6 @@ class UserProfile extends Component {
 
 
   render() {
-    // console.log("USER HOME PAGE: ", this.props)
-    console.log("PROPS: ", this.props)
-    let userId = this.props.user.personId
-    // let teamId = this.props.user.teamId
     return (
       <div id='user-profile-container'>
         <div className='sidebar-container'>

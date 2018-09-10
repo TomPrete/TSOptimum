@@ -22,9 +22,10 @@ export const me = () =>
     axios.get('/auth/me')
       .then(res => {
         dispatch(getUser(res.data)),
-        // dispatch(fetchInProcessUserProjects(res.data.id))
         dispatch(fetchAllUserProjects(res.data.id))
-        dispatch(fetchUserTeam(res.data.teamId))
+        if (res.data.teamId) {
+          dispatch(fetchUserTeam(res.data.teamId))
+        }
       })
       .catch(err => console.log(err))
 
