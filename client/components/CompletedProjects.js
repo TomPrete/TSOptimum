@@ -33,9 +33,20 @@ class CompletedProjects extends Component {
     else {
       const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
       store.dispatch(fetchAllCompletedUserProjects)
-      console.log("PROPS: ", this.props.projects)
     }
 
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const userProjects = nextProps.projects
+    if (userProjects.length > 0) {
+      const completedProjects = userProjects.filter(project => {
+        return project.status === "Complete"
+      })
+      this.setState({
+        completedProjects: completedProjects
+      })
+    }
   }
 
   // async filterProjects() {

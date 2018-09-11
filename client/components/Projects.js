@@ -18,7 +18,7 @@ class Projects extends Component {
 
 
 
-  async componentDidMount() {
+  componentDidMount() {
     const userProjects = this.props.projects
     if (userProjects.length > 0) {
       const inProcessProjects = userProjects.filter(project => {
@@ -30,8 +30,8 @@ class Projects extends Component {
     }
   }
 
-  async componentWillReceiveProps() {
-    const userProjects = this.props.projects
+  componentWillReceiveProps(nextProps) {
+    const userProjects = nextProps.projects
     if (userProjects.length > 0) {
       const inProcessProjects = userProjects.filter(project => {
         return project.status === "In Process"

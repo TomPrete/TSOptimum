@@ -21,9 +21,9 @@ export const me = () =>
   async dispatch =>
     axios.get('/auth/me')
       .then(res => {
-        dispatch(getUser(res.data)),
-        dispatch(fetchAllUserProjects(res.data.id))
-        if (res.data.teamId) {
+        dispatch(getUser(res.data))
+        if (res.data.teamId && res.data.id) {
+          dispatch(fetchAllUserProjects(res.data.id))
           dispatch(fetchUserTeam(res.data.teamId))
         }
       })

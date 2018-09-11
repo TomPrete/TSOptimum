@@ -14,20 +14,7 @@ class TeamAnalytics extends Component {
   }
 
 
-
-  async componentDidMount() {
-    // let fk_personId = this.props.user.personId
-    // console.log('previous Props: ', prevProps)
-    await console.log("PERSON ID: ", this.props)
-    const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
-    await store.dispatch(getAllUserProjects)
-  }
-
-
-
   render() {
-    // console.log('type of: ', typeof project.dueDate)
-    console.log("THIS PROPS: ", this.props.projects.length)
     let numProjects = this.props.projects.length;
     return (
       <div id="completed-projects-container">

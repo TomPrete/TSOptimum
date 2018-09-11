@@ -11,7 +11,6 @@ class AllUserProjects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-
       redirect: false
     }
     // this.filterProjects = this.filterProjects.bind(this)
@@ -24,6 +23,8 @@ class AllUserProjects extends Component {
     const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
     store.dispatch(getAllUserProjects)
   }
+
+
 
   // filterProjects() {
   //   const userProjects = this.props.projects
