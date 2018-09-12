@@ -13,31 +13,20 @@ class AllUserProjects extends Component {
     this.state = {
       redirect: false
     }
-    // this.filterProjects = this.filterProjects.bind(this)
-    // this.completeProject = this.completeProject.bind(this)
   }
 
 
 
   async componentDidMount() {
-    const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
-    store.dispatch(getAllUserProjects)
+    if (this.props.user.id) {
+      const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
+      store.dispatch(getAllUserProjects)
+    }
   }
 
 
 
-  // filterProjects() {
-  //   const userProjects = this.props.projects
-  //   const openProjects = userProjects.filter(project => {
-  //     console.log('PROJECT: ', project)
-  //     return project.status === "In Process"
-  //   })
-  // }
-
-
-
   render() {
-    // console.log("openProjects: ", openProjects)
     return (
       <div id="all-user-projects-container">
         <div className='sidebar-container'>
