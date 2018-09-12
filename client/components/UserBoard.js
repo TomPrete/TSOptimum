@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch, Link,    } from 'react-router-dom';
+import { Router, Route, Switch, Link, } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
@@ -255,7 +255,7 @@ class UserBoard extends Component {
                           </div>
                           <div className="follow-up-date">
                             <input
-                              disabled={!this.state.followUp}             name="departure"
+                              disabled={!this.state.followUp} name="departure"
                               type="date"
                               onChange={this.handleDueDateChange}
                               className="select-date"
@@ -283,23 +283,9 @@ class UserBoard extends Component {
             }
           </div>
           <div>
-          <hr />
+            <hr />
           </div>
           <div>
-            {/* {
-              this.state.showOpenProjects === false ?
-                <div className='new-project-button-container'>
-                  <button onClick={this.handleGetProjects} className='new-project-button'>Show Open Projects</button>
-                </div>
-                :
-                <div className='new-project-button-container'>
-                  <button onClick={this.enableAllOpenProjects} className='new-project-button'>Hide Open Projects</button>
-                </div>
-            }
-            {this.state.showOpenProjects === true ? <Projects />
-              :
-              null
-            } */}
             <Projects />
           </div>
         </div>

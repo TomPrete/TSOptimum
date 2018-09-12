@@ -63,15 +63,6 @@ const updateCompletedProject = (project) => {
 
 /*****THUNK CREATORS*****/
 
-// export const fetchAllCompanies = () =>
-//   dispatch => {
-//     axios.get(`/api/company`)
-//       .then(res => res.data)
-//       .then(companies => dispatch(getAllCompanies(companies)))
-//       .catch(err => console.error(err));
-// }
-
-
 
 export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) =>
   dispatch => {

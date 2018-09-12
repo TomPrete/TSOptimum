@@ -12,7 +12,7 @@ class Projects extends Component {
     this.state = {
       inProcessProjects: null,
       redirect: false,
-      showModal: false
+      projectId: false
     }
     this.showModal = this.showModal.bind(this)
   }
@@ -43,22 +43,21 @@ class Projects extends Component {
     }
   }
 
-  showModal() {
-    if (this.state.showModal === false) {
+  showModal(project) {
+    if (!this.state.projectId) {
       this.setState({
-        showModal: true
+        projectId: project
       })
-      return false
     } else {
       this.setState({
-        showModal: false
+        projectId: null
       })
-      return false
     }
 
   }
 
   render() {
+    const project = this.state.projectId
     return (
       <div id="projects-container">
         <div id='column-list'>
@@ -73,7 +72,6 @@ class Projects extends Component {
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.state.inProcessProjects !== null ? this.state.inProcessProjects.map(project => {
-            const projectId = project.projectId
             return (
               <div key={project.projectId} >
                 <div>
@@ -86,16 +84,9 @@ class Projects extends Component {
                     <textarea value="" className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
-
-                        <button className='edit-btn' onClick={this.showModal} >Edit</button>
-
-
+                      <button className='edit-btn' onClick={() => this.showModal(project.projectId)} >Edit</button>
                     </div>
                   </div>
-                  {
-                    this.state.showModal ? <ProjectModal projectId={projectId}/> : null
-                  }
-
                 </div>
               </div>
             )
@@ -103,7 +94,9 @@ class Projects extends Component {
           :
           <div >You have no open projects!</div>
         }
-
+        {
+          this.state.projectId ? <ProjectModal projectId={this.state.projectId}/> : null
+        }
       </div>
     )
   }
