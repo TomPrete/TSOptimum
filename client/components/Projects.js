@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import SideBar from './SideBar';
-import store, { fetchAllProjects, fetchInProcessUserProjects, submitCompletedProject } from '../store'
-// import AddNewUserContainer from '.';
-// import store from '../store;'
+import { submitCompletedProject } from '../store'
+import ProjectModal from './ProjectModal.js'
+
 
 
 class Projects extends Component {
@@ -12,8 +11,10 @@ class Projects extends Component {
     super(props);
     this.state = {
       inProcessProjects: null,
-      redirect: false
+      redirect: false,
+      showModal: false
     }
+    this.showModal = this.showModal.bind(this)
   }
 
 
@@ -42,6 +43,21 @@ class Projects extends Component {
     }
   }
 
+  showModal() {
+    if (this.state.showModal === false) {
+      this.setState({
+        showModal: true
+      })
+      return false
+    } else {
+      this.setState({
+        showModal: false
+      })
+      return false
+    }
+
+  }
+
   render() {
     return (
       <div id="projects-container">
@@ -57,9 +73,10 @@ class Projects extends Component {
         {/*<label>THESE ARE THE USER PROJECTS</label>*/}
         {
           this.state.inProcessProjects !== null ? this.state.inProcessProjects.map(project => {
+            const projectId = project.projectId
             return (
               <div key={project.projectId} >
-                <form>
+                <div>
                   <div id="queue-list">
                     <li className="user-queue">{project.name}</li>
                     <li className="user-queue">{project.projectType}</li>
@@ -69,19 +86,24 @@ class Projects extends Component {
                     <textarea value="" className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
-                      <Link to={`/projects/${project.projectId}`}>
-                        <button type='submit' className='edit-btn'>Edit</button>
-                      </Link>
+
+                        <button className='edit-btn' onClick={this.showModal} >Edit</button>
+
+
                     </div>
                   </div>
-                </form>
+                  {
+                    this.state.showModal ? <ProjectModal projectId={projectId}/> : null
+                  }
+
+                </div>
               </div>
             )
           })
           :
           <div >You have no open projects!</div>
-
         }
+
       </div>
     )
   }
