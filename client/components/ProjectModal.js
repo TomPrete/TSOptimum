@@ -17,7 +17,7 @@ class ProjectModal extends Component {
       analyst: "",
       dueDate: "",
       status: "In Process",
-      notes: "",
+      notes: this.props.project.notes,
       dueDate: false,
       followUp: false
     }
@@ -107,7 +107,6 @@ class ProjectModal extends Component {
 
 
   render() {
-    // console.log("STATE: ", this.state)
 
     return (
       <div id="projects-modal-container">
@@ -190,7 +189,7 @@ class ProjectModal extends Component {
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
               <div className="edit-notes-container">
-                <textarea value={this.state.notes} onChange={this.inputNotes} className="edit-notes" placeholder={this.state.notes} />
+                <textarea value={!this.state.notes ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes"/>
                 <div className="follow-up">
 
                   <div>
