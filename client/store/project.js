@@ -26,10 +26,10 @@ const getProject = project => (
   }
 )
 
-const removeProject = project => (
+const removeProject = () => (
   {
     type: REMOVE_PROJECT,
-    project
+    project: {}
   }
 )
 
@@ -55,9 +55,7 @@ export const getUserProject = projectId => dispatch => {
 }
 
 export const removeUserProject = () => dispatch => {
-  let project = {}
-  dispatch(removeProject(project))
-  .catch(error => console.log("error getting project: ", error))
+  dispatch(removeProject())
 }
 
 
