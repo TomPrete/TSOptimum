@@ -34,7 +34,6 @@ class UserBoard extends Component {
     this.enableAllOpenProjects = this.enableAllOpenProjects.bind(this)
     // this.handleCompleteSubmit = this.handleCompleteSubmit.bind(this)
     this.enableNewProjectFunction = this.enableNewProjectFunction.bind(this)
-    this.sortCompanies = this.sortCompanies.bind(this)
     this.handleOnClick = this.handleOnClick.bind(this)
     this.followUp = this.followUp.bind(this)
     this.handleGetProjects = this.handleGetProjects.bind(this)
@@ -131,20 +130,9 @@ class UserBoard extends Component {
     })
   }
 
-  sortCompanies() {
-    const companies = this.props.companies.sort(function (a, b) {
-      var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-      if (nameA < nameB)
-        return -1
-      if (nameA > nameB)
-        return 1
-      return 0;
-    })
-  }
 
 
   async handleOnClick() {
-    await this.sortCompanies()
     await this.enableNewProjectFunction()
 
   }

@@ -5,6 +5,7 @@ import history from '../history'
 // const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 const EDIT_PROJECT = 'EDIT_PROJECT'
 const GET_PROJECT = 'GET_PROJECT'
+const REMOVE_PROJECT = 'REMOVE_PROJECT'
 
 
 /***** INITIAL STATE*****/
@@ -21,6 +22,13 @@ const editProject = project => (
 const getProject = project => (
   {
     type: GET_PROJECT,
+    project
+  }
+)
+
+const removeProject = project => (
+  {
+    type: REMOVE_PROJECT,
     project
   }
 )
@@ -46,6 +54,12 @@ export const getUserProject = projectId => dispatch => {
     .catch(error => console.log("error getting project: ", error))
 }
 
+export const removeUserProject = () => dispatch => {
+  let project = {}
+  dispatch(removeProject(project))
+  .catch(error => console.log("error getting project: ", error))
+}
+
 
   /***** REDUCER *****/
   export default function (state = defaultUser, action) {
@@ -53,6 +67,8 @@ export const getUserProject = projectId => dispatch => {
       case EDIT_PROJECT:
         return action.project
       case GET_PROJECT:
+        return action.project
+      case REMOVE_PROJECT:
         return action.project
       default:
         return state

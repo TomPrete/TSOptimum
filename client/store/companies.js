@@ -18,7 +18,15 @@ export const fetchAllCompanies = () =>
   dispatch => {
     axios.get(`/api/company`)
       .then(res => res.data)
-      .then(companies => dispatch(getAllCompanies(companies)))
+      .then(companies => {let sortedCompanies = companies.sort(function (a, b) {
+        var nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+        if (nameA < nameB)
+          return -1
+        if (nameA > nameB)
+          return 1
+        return 0;
+      }); return sortedCompanies})
+      .then(sortedCompanies => dispatch(getAllCompanies(sortedCompanies)))
       .catch(err => console.error(err));
   }
 
