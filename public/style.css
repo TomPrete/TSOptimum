@@ -470,9 +470,6 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
   transition: border 0.15s ease-in-out;
   box-shadow: inset 0px 0px 10px rgb(1, 110, 96)
-  /* -webkit-appearance: menulist; */
-  /* -moz-appearance: menulist;
-  appearance: menulist; */
 }
 
 .select-date:focus {
@@ -794,6 +791,7 @@ input:checked + .slider:before {
   list-style-type: none;
   text-align: center;
   border: 1px solid rgb(0, 151, 131);
+  cursor: pointer;
 }
 
 .user-notes {
@@ -863,6 +861,10 @@ input:checked + .slider:before {
   width: 70%;
   height: 50%;
   box-shadow: 0 5px 8px 0 rgba(0,0,0, 0.2), 0 7px 20px 0 rgba(0,0,0, 0.17);
+  border-style: solid;
+  border-radius: 10px;
+  border-width: 2px;
+  border: none;
 }
 
 

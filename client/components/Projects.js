@@ -26,9 +26,14 @@ class Projects extends Component {
       const inProcessProjects = userProjects.filter(project => {
         return project.status === "In Process"
       })
-      this.setState({
-        inProcessProjects: inProcessProjects
-      })
+
+      if (inProcessProjects.length > 0) {
+        console.log(inProcessProjects.length)
+        this.setState({
+          inProcessProjects: inProcessProjects
+        })
+      }
+
     }
   }
 
@@ -38,9 +43,11 @@ class Projects extends Component {
       const inProcessProjects = userProjects.filter(project => {
         return project.status === "In Process"
       })
-      this.setState({
-        inProcessProjects: inProcessProjects
-      })
+      if (inProcessProjects.length > 0) {
+        this.setState({
+          inProcessProjects: inProcessProjects
+        })
+      }
     }
   }
 
@@ -77,12 +84,12 @@ class Projects extends Component {
             return (
               <div key={project.projectId} >
                 <div>
-                  <div id="queue-list">
-                    <li className="user-queue">{project.name}</li>
-                    <li className="user-queue">{project.projectType}</li>
-                    <li className="user-queue">{project.officer}</li>
-                    <li className="user-queue">{project.status}</li>
-                    <li className="user-queue">{project.dueDate}</li>
+                  <div id="queue-list" >
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.name}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.projectType}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.officer}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.status}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.dueDate}</li>
                     <textarea value="" className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>

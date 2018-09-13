@@ -36,8 +36,8 @@ class ProjectModal extends Component {
 
   componentDidMount() {
     store.dispatch(getUserProject(this.props.projectId))
-    // this.setState({
-    //   dueDate: this.props.project.dueDate
+    // await this.setState({
+    //   notes: this.props.project.notes
     // })
   }
 
@@ -107,7 +107,7 @@ class ProjectModal extends Component {
 
 
   render() {
-    console.log("STATE: ", this.state)
+    // console.log("STATE: ", this.state)
 
     return (
       <div id="projects-modal-container">
@@ -190,7 +190,7 @@ class ProjectModal extends Component {
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
               <div className="edit-notes-container">
-                <textarea value={this.state.notes} onChange={this.inputNotes} className="edit-notes" placeholder={this.props.project.notes} />
+                <textarea value={this.state.notes} onChange={this.inputNotes} className="edit-notes" placeholder={this.state.notes} />
                 <div className="follow-up">
 
                   <div>

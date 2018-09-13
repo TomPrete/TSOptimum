@@ -2,7 +2,6 @@ import axios from 'axios'
 import history from '../history'
 
 /***** ACTION TYPES*****/
-// const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 const EDIT_PROJECT = 'EDIT_PROJECT'
 const GET_PROJECT = 'GET_PROJECT'
 const REMOVE_PROJECT = 'REMOVE_PROJECT'
