@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { submitCompletedProject } from '../store'
+import store, { submitCompletedProject, removeUserProject } from '../store'
 import ProjectModal from './ProjectModal.js'
 
 
@@ -15,7 +15,7 @@ class Projects extends Component {
       projectId: false
     }
     this.showModal = this.showModal.bind(this)
-
+    this.clickOutside = this.clickOutside.bind(this)
   }
 
 
@@ -33,8 +33,8 @@ class Projects extends Component {
           inProcessProjects: inProcessProjects
         })
       }
-
     }
+    window.addEventListener('click', this.clickOutside)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,6 +63,15 @@ class Projects extends Component {
     }
   }
 
+  clickOutside(e) {
+    const modal = document.getElementById('modal-component')
+    if (e.target === modal) {
+      this.setState({
+        projectId: null
+      })
+      store.dispatch(removeUserProject())
+    }
+  }
 
 
   render() {
@@ -107,22 +116,15 @@ class Projects extends Component {
         {
           this.state.projectId
             ?
-            <div>
             <div id='modal-component'>
-              <ProjectModal projectId={this.state.projectId} showModal={this.showModal}/>
-            </div>
+              <ProjectModal projectId={this.state.projectId} showModal={this.showModal} />
             </div>
             :
             null
         }
-
-
       </div>
     )
   }
-
-
-
 
 }
 
@@ -135,7 +137,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { submitCompletedProject }
+const mapDispatch = { submitCompletedProject, removeUserProject }
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 
