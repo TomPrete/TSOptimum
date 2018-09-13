@@ -42,7 +42,7 @@ router.get('/complete/:id', (req,res,next) => {
   // .catch(next => {console.log("HERE")})
 })
 
-router.get('/:id', (req, res, next) => {
+router.get('/user_:id', (req, res, next) => {
   let id = +req.params.id;
   Project.findAll({
     where: {
@@ -53,15 +53,24 @@ router.get('/:id', (req, res, next) => {
   // .catch(next)
 })
 
+router.get('/:projectId', (req, res, next) => {
+  let id = +req.params.projectId;
+  Project.findOne({
+    where: {
+      projectId: id
+    }
+  })
+  .then(project => res.json(project.dataValues))
+  .catch(next)
+})
+
 router.put('/:projectId', (req, res, next) => {
   return Project.update(req.body, {
     where: {
       projectId: req.params.projectId
-    },
-    returning: true,
-    plain: true
+    }
   })
-  .then(project => res.json(project))
+  .then(project => res.json(project.data))
   // .then(([numRows, updatedRows]) => {
   //   res.json(updatedRows[0]);
   // })

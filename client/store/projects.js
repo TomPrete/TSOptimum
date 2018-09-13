@@ -105,11 +105,12 @@ export const fetchCompletedUserProjects = id =>
 
 export const fetchAllUserProjects = id =>
   dispatch => {
-    axios.get(`/api/project/${id}`)
+    axios.get(`/api/project/user_${id}`)
       .then(res => res.data)
       .then(projects =>
         dispatch(getAllUserProjects(projects)))
   }
+
 
   export const fetchAllProjects = () =>
     dispatch => {

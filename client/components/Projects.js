@@ -15,6 +15,7 @@ class Projects extends Component {
       projectId: false
     }
     this.showModal = this.showModal.bind(this)
+
   }
 
 
@@ -53,8 +54,9 @@ class Projects extends Component {
         projectId: null
       })
     }
-
   }
+
+
 
   render() {
     const project = this.state.projectId
@@ -91,12 +93,23 @@ class Projects extends Component {
               </div>
             )
           })
-          :
-          <div >You have no open projects!</div>
+            :
+            <div >You have no open projects!</div>
         }
+
         {
-          this.state.projectId ? <ProjectModal projectId={this.state.projectId}/> : null
+          this.state.projectId
+            ?
+            <div>
+            <div id='modal-component'>
+              <ProjectModal projectId={this.state.projectId} showModal={this.showModal}/>
+            </div>
+            </div>
+            :
+            null
         }
+
+
       </div>
     )
   }
@@ -115,7 +128,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {submitCompletedProject}
+const mapDispatch = { submitCompletedProject }
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 

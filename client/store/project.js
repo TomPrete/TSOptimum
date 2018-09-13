@@ -4,6 +4,7 @@ import history from '../history'
 /***** ACTION TYPES*****/
 // const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 const EDIT_PROJECT = 'EDIT_PROJECT'
+const GET_PROJECT = 'GET_PROJECT'
 
 
 /***** INITIAL STATE*****/
@@ -17,45 +18,42 @@ const editProject = project => (
   }
 )
 
+const getProject = project => (
+  {
+    type: GET_PROJECT,
+    project
+  }
+)
 
 
 
 /*****THUNK CREATORS*****/
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) =>
-  dispatch => {
-    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId, teamId })
-      .then(res => res.data)
-      .then(project => {
-        dispatch(createProject(project));
-        window.location.reload()
-        // axios.get(`/api/project/${project.id}`)
-      }
-      )
-      .catch(err => console.log(err))
-  }
-
-export const submitCompletedProject = (projectId) => dispatch => {
+export const editUserProject = (projectId, name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) => dispatch => {
   axios.put(`/api/project/${projectId}`, {
-    status: 'Complete'
+    name, projectType, officer, analyst, status, dueDate, notes, userId, teamId
   })
-    .then(project => dispatch(updateCompletedProject(project)))
+    .then(project => dispatch(editProject(project)))
     .then(project => window.location.reload())
-    .catch(err => console.log("error submitting completed project: ", error))
+    .catch(err => console.log("error editing project: ", error))
+}
+
+export const getUserProject = projectId => dispatch => {
+  axios.get(`/api/project/${projectId}`)
+    .then(res => res.data)
+    .then(project => dispatch(getProject(project)))
+    .catch(error => console.log("error getting project: ", error))
 }
 
 
   /***** REDUCER *****/
   export default function (state = defaultUser, action) {
     switch (action.type) {
-      case GET_ALL_USER_PROJECTS:
-        return action.projects
-      case CREATE_PROJECT:
-        return [...state, action.project]
-      case COMPLETED_PROJECT:
-        return [...state, action.project];
-      // case UPDATE_PROJECT:
+      case EDIT_PROJECT:
+        return action.project
+      case GET_PROJECT:
+        return action.project
       default:
         return state
     }

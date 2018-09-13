@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { submitCompletedProject } from '../store'
+import store, { submitCompletedProject,  getUserProject, editUserProject} from '../store'
+
 
 
 
@@ -10,29 +11,34 @@ class ProjectModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      dueDate: false
     }
   }
 
   componentDidMount() {
-
+    store.dispatch(getUserProject(this.props.projectId))
+    this.setState({
+      dueDate: this.props.project.dueDate
+    })
   }
 
 
+
   render() {
-    // const {projectsId} = this.props
-    console.log("PROPS: ", this.props.projectId)
 
     return (
       <div id="projects-modal-container">
-        <h1>Project Modal: {this.props.projectId}</h1>
-        <div className='show-project-form' >
           <div className='project-form'>
+          <div>
+          <span className='closeBtn' onClick={this.props.showModal}>&times;</span>
+          </div>
+
             <div id="label-project">
               <label>EDIT PROJECT</label>
             </div>
             <div id="form-container">
               <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
-                <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
+                <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder={this.props.project.name} required />
                 <datalist id="companyList">
                   {
                     this.props.companies.map(company =>
@@ -40,7 +46,9 @@ class ProjectModal extends Component {
                   }
                 </datalist>
                 <select onChange={this.inputProjectType} className="select-type" required >
-                  <option>Select type</option>
+                  <option value={this.props.project.projectType
+                  }>{this.props.project.projectType
+                  }</option>
                   <option value="Client Call">Client Call</option>
                   <option value="Client Inquire">Client Inquiry</option>
                   <option value="Client Issue">Client Issue</option>
@@ -53,7 +61,7 @@ class ProjectModal extends Component {
                   <option value="Special Project">Special Project</option>
                 </select>
                 <select onChange={this.inputTsoName} className="select-tso" >
-                  <option>Select TSO</option>
+                  <option value={this.props.project.officer}>{this.props.project.officer}</option>
                   {
                     this.props.team.length > 0 ? this.props.team.map(users => {
                       if (users.title === "Treasury Solutions Officer") {
@@ -65,7 +73,7 @@ class ProjectModal extends Component {
                   }
                 </select>
                 <select onChange={this.inputTsaName} className="select-tsa" >
-                  <option>Select TSA</option>
+                  <option value={this.props.project.analyst}>{this.props.project.analyst}</option>
                   {
                     this.props.team.length > 0 ? this.props.team.map(users => {
                       if (users.title === "Treasury Solutions Analyst") {
@@ -82,17 +90,18 @@ class ProjectModal extends Component {
                 </select>
                 <input
                   required
-                  placeholder="Due Date:"
+                  placeholder={this.props.project.dueDate}
                   id='date'
                   name="departure"
                   type="date"
+                  defaultValue={this.props.project.dueDate}
                   onChange={this.inputDueDate}
                   className="select-date"
                 />
                 {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
                 {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
                 <div className="notes-container">
-                  <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder="Notes:" />
+                  <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder={this.props.project.notes} />
                   <div className="follow-up">
 
                     <div>
@@ -126,11 +135,10 @@ class ProjectModal extends Component {
                 </div>
               </form>
               <div className="div-submit">
-                <button className="project-submit" form="project-form" type='submit'>Create New Project</button>
+                <button className="project-submit" form="project-form" type='submit'>Save and Close</button>
               </div>
             </div>
           </div>
-        </div>
       </div>
     )
   }
@@ -141,11 +149,11 @@ const mapState = state => {
     user: state.user,
     team: state.team,
     companies: state.companies,
-    projects: state.projects
+    project: state.project
   }
 }
 
-const mapDispatch = { submitCompletedProject }
+const mapDispatch = { submitCompletedProject, getUserProject, editUserProject }
 
 const ProjectModalContainer = connect(mapState, mapDispatch)(ProjectModal)
 

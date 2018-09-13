@@ -821,23 +821,37 @@ input:checked + .slider:before {
   width: 5rem
 }
 
-/* .edit-btn {
+#modal-component{
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  height: 100%;
   width: 100%;
-  height: 100%
-} */
+  overflow: auto;
+  background-color: rgba(0,0,0, 0.5)
+}
 
-/* font-family: 'Quicksand';
-width: 90%;
-border-style: solid;
-border-color: rgb(0, 151, 131);
-padding: .8rem;
-margin: 15px 0 15px 0;
-align-self: center;
-color: rgb(93, 93, 94);
-font-size: 16px;
-outline: 0;
-transition: background-color 0.15s ease-in-out;
-cursor: pointer; */
+.closeBtn {
+  color: #ccc;
+  float: right;
+  font-size: 60px;
+}
 
+.closeBtn:hover, .closeBtn:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer
+}
+
+
+#projects-modal-container {
+  background-color: #f4f4f4;
+  margin: 10% auto 10% 22%;
+  padding: 20px;
+  width: 70%;
+  height: 50%;
+  box-shadow: 0 5px 8px 0 rgba(0,0,0, 0.2), 0 7px 20px 0 rgba(0,0,0, 0.17);
+}
 
 
