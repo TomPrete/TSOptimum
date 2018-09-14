@@ -63,10 +63,10 @@ class Projects extends Component {
     }
   }
 
-  clickOutside(e) {
+  async clickOutside(e) {
     const modal = document.getElementById('modal-component')
     if (e.target === modal) {
-      this.setState({
+      await this.setState({
         projectId: null
       })
       store.dispatch(removeUserProject())

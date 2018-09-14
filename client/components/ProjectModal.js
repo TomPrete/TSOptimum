@@ -19,10 +19,10 @@ class ProjectModal extends Component {
       status: "In Process",
       notes: this.props.project.notes,
       dueDate: false,
-      followUp: false
+      followUp: false,
+      redirect: false
     }
     this.followUp = this.followUp.bind(this)
-
     this.inputProjectName = this.inputProjectName.bind(this);
     this.inputProjectType = this.inputProjectType.bind(this);
     this.inputTsoName = this.inputTsoName.bind(this);
@@ -30,15 +30,12 @@ class ProjectModal extends Component {
     this.inputStatus = this.inputStatus.bind(this);
     this.inputNotes = this.inputNotes.bind(this);
     this.inputDueDate = this.inputDueDate.bind(this)
-    // this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
     this.removeProject = this.removeProject.bind(this)
+    this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
   }
 
   componentDidMount() {
     store.dispatch(getUserProject(this.props.projectId))
-    // await this.setState({
-    //   notes: this.props.project.notes
-    // })
   }
 
 
@@ -105,9 +102,26 @@ class ProjectModal extends Component {
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
 
 
+  async handleProjectSubmit(e) {
+    e.preventDefault()
+    let projectId = this.props.project.projectId
+    let name = !this.state.name ? this.props.project.name : this.state.name;
+    let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
+    let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
+    let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
+    let status = !this.state.status ? this.props.project.status : this.state.status;
+    let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
+    let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
+
+    await this.props.editUserProject( projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
+    await store.dispatch(removeUserProject())
+    await this.props.showModal()
+    // this.setState({
+    //   redirect: true
+    // })
+  }
 
   render() {
-
     return (
       <div id="projects-modal-container">
         <div className='project-modal-header'>
@@ -119,14 +133,14 @@ class ProjectModal extends Component {
           <div id="edit-form-container">
             <form onSubmit={this.handleProjectSubmit} className="edit-project-form" id="edit-project-form">
               <div>
-                <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} required />
+                <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} />
                 <datalist id="companyList">
                   {
                     this.props.companies.map(company =>
-                      <option key={company.id} value={company.name} required>{company.name}</option>)
+                      <option key={company.id} value={company.name}>{company.name}</option>)
                   }
                 </datalist>
-                <select onChange={this.inputProjectType} className="edit-select-type" required >
+                <select onChange={this.inputProjectType} className="edit-select-type" >
                   <option value={this.props.project.projectType
                   }>{this.props.project.projectType
                     }</option>
@@ -141,7 +155,7 @@ class ProjectModal extends Component {
                   <option value="TMR">TMR</option>
                   <option value="Special Project">Special Project</option>
                 </select>
-                <select onChange={this.inputStatus} defaultValue="In Process" className="edit-select-status" required >
+                <select onChange={this.inputStatus} defaultValue="In Process" className="edit-select-status" >
                   <option value="In Process">In Process</option>
                   <option value="Complete">Complete</option>
                 </select>
@@ -152,7 +166,7 @@ class ProjectModal extends Component {
                   {
                     this.props.team.length > 0 ? this.props.team.map(users => {
                       if (users.title === "Treasury Solutions Officer") {
-                        return <option key={users.id} value={users.name} required>{users.name}</option>
+                        return <option key={users.id} value={users.name}>{users.name}</option>
                       }
                     })
                       :
@@ -164,7 +178,7 @@ class ProjectModal extends Component {
                   {
                     this.props.team.length > 0 ? this.props.team.map(users => {
                       if (users.title === "Treasury Solutions Analyst") {
-                        return <option key={users.id} value={users.name} required>{users.name}</option>
+                        return <option key={users.id} value={users.name}>{users.name}</option>
                       }
                     })
                       :
@@ -172,12 +186,12 @@ class ProjectModal extends Component {
                   }
                 </select>
                 <input
-                  required
-                  placeholder={this.props.project.dueDate}
+
+                  placeholder={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
                   id='date'
                   name="departure"
                   type="date"
-                  defaultValue={this.props.project.dueDate}
+                  defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
                   onChange={this.inputDueDate}
                   className="edit-select-date"
                 />
@@ -211,7 +225,7 @@ class ProjectModal extends Component {
                     {/*
                               this.state.followUp === true ?
                                 <input
-                                  required
+
                                   name="departure"
                                   type="date"
                                   onChange={this.handleDueDateChange}

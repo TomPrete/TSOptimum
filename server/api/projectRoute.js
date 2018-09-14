@@ -65,6 +65,7 @@ router.get('/:projectId', (req, res, next) => {
 })
 
 router.put('/:projectId', (req, res, next) => {
+  console.log("HERE: ", req.params.projectId)
   return Project.update(req.body, {
     where: {
       projectId: req.params.projectId
@@ -106,17 +107,17 @@ router.put('/:projectId', (req, res, next) => {
 // });
 
 
-router.put('/:projectId', (req, res, next) => {
-  return Project.update(req.body, {
-    where: { projectId: req.params.projectId },
-    returning: true,
-    plain: true
-  })
-    .then(([numRows, updatedRows]) => {
-      res.json(updatedRows[0]);
-    })
-    // .catch(next);
-});
+// router.put('/:projectId', (req, res, next) => {
+//   return Project.update(req.body, {
+//     where: { projectId: req.params.projectId },
+//     returning: true,
+//     plain: true
+//   })
+//     .then(([numRows, updatedRows]) => {
+//       res.json(updatedRows[0]);
+//     })
+//     // .catch(next);
+// });
 
 module.exports = router;
 
