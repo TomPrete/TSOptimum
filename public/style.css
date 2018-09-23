@@ -75,7 +75,8 @@ div.content-container {
   border-bottom: 2px solid rgb(0, 151, 131);
   box-sizing: border-box;
   outline: 0;
-  transition: background 0.2s ease-in-out
+  transition: background 0.2s ease-in-out;
+  font-size: 18px
 }
 
 .input:focus::placeholder {
