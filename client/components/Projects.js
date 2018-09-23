@@ -28,7 +28,6 @@ class Projects extends Component {
       })
 
       if (inProcessProjects.length > 0) {
-        console.log(inProcessProjects.length)
         this.setState({
           inProcessProjects: inProcessProjects
         })

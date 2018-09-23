@@ -17,7 +17,7 @@ class ProjectModal extends Component {
       analyst: "",
       dueDate: "",
       status: "In Process",
-      notes: this.props.project.notes,
+      notes: null,
       dueDate: false,
       followUp: false,
       redirect: false
@@ -187,11 +187,10 @@ class ProjectModal extends Component {
                 </select>
                 <input
 
-                  placeholder={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
+                  placeholder={this.props.project.dueDate}
                   id='date'
-                  name="departure"
                   type="date"
-                  defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
+                  // defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
                   onChange={this.inputDueDate}
                   className="edit-select-date"
                 />
@@ -203,7 +202,7 @@ class ProjectModal extends Component {
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
               <div className="edit-notes-container">
-                <textarea value={!this.state.notes ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes"/>
+                <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes"/>
                 <div className="follow-up">
 
                   <div>

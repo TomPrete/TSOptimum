@@ -221,7 +221,6 @@ class UserBoard extends Component {
                         required
                         placeholder="Due Date:"
                         id='date'
-                        name="departure"
                         type="date"
                         onChange={this.inputDueDate}
                         className="select-date"
