@@ -1327,7 +1327,7 @@ Promise.all(teams.map(team =>
 
 
 const main = () => {
-console.log('Syncing db...');
+console.log('Syncing heroku db...');
 db.sync({ force: true })
   .then(() => {
     console.log('Seeding database...');

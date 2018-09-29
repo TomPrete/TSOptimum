@@ -98,7 +98,7 @@ class Projects extends Component {
                     <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.officer}</li>
                     <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.status}</li>
                     <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.dueDate}</li>
-                    <textarea value="" className="user-notes" placeholder={project.notes} />
+                    <textarea className="user-notes" placeholder={project.notes} />
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
                       <button className='edit-btn' onClick={() => this.showModal(project.projectId)} >Edit</button>
