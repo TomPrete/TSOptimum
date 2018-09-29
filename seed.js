@@ -2,6 +2,8 @@ const db = require('./server/db');
 const Company = require('./server/db/models/Company');
 const index = require('./server/db/models/index');
 const User = require('./server/db/models/user');
+const Project = require('./server/db/models/Project')
+const Team = require('./server/db/models/Team')
 
 
 const companies = [{"name":"Jayo","companyId":10193405},
@@ -1235,7 +1237,7 @@ const projects = [
     }
 ]
 
-const team = [
+const teams = [
     {
         "name": "midwest"
     },
@@ -1261,6 +1263,14 @@ Promise.all(companies.map(company =>
 .then(() =>
 Promise.all(users.map(user =>
   User.create(user))
+))
+.then(() =>
+Promise.all(projects.map(project =>
+    Project.create(project))
+))
+.then(() =>
+Promise.all(teams.map(team =>
+    Team.create(team))
 ));
 
 
