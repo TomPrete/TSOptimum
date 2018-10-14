@@ -226,7 +226,11 @@ div.content-container {
 
  /****** SIGNUP PAGE ******/
 
-#signup-form {
+.signup-title {
+  text-align: center;
+}
+
+#signup-form, .signup-title, #route-to-login {
   text-align: center;
 }
 
@@ -244,6 +248,7 @@ div.content-container {
 }
 
 .name-input {
+  font-size: 18px;
   width: 43.5%;
   padding: 8px 20px;
   margin: 8px ;
@@ -312,6 +317,21 @@ div.content-container {
   color: white;
   background-color: rgb(0, 151, 131);
 }
+
+.component-link {
+  text-decoration: none;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 151, 131);
+  transition: background 0.1s ease-in-out
+}
+
+.component-link:hover {
+  color: white;
+  background-color: rgb(0, 151, 131)
+}
+
+
 
 /****** ADD NEW PROJECT ******/
 
