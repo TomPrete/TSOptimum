@@ -30,7 +30,7 @@ class ProjectModal extends Component {
     this.inputStatus = this.inputStatus.bind(this);
     this.inputNotes = this.inputNotes.bind(this);
     this.inputDueDate = this.inputDueDate.bind(this)
-    this.removeProject = this.removeProject.bind(this)
+    // this.removeProject = this.removeProject.bind(this)
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
   }
 
@@ -52,10 +52,12 @@ class ProjectModal extends Component {
     }
   }
 
-  removeProject() {
-    store.dispatch(removeUserProject())
+  componentWillUnmount() {
+      store.dispatch(removeUserProject())
+
   }
-//**** FUNCTIONS THAT HANDLE CHANGES TO THE INPUT FORM ****/
+
+  //**** FUNCTIONS THAT HANDLE CHANGES TO THE INPUT FORM ****/
 
   inputProjectName(e) {
     this.setState({
@@ -113,7 +115,7 @@ class ProjectModal extends Component {
     let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
 
-    await this.props.editUserProject( projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
+    await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
     await store.dispatch(removeUserProject())
     await this.props.showModal()
     // this.setState({
@@ -126,7 +128,7 @@ class ProjectModal extends Component {
       <div id="projects-modal-container">
         <div className='project-modal-header'>
           <label className='project-label'>EDIT PROJECT</label>
-          <span className='closeBtn' onClick={() => {this.props.showModal(); this.removeProject()}}>&times;</span>
+          <span className='closeBtn' onClick={() => { this.props.showModal(); this.componentWillUnmount() }}>&times;</span>
         </div>
 
         <div className='edit-project-form'>
@@ -155,10 +157,19 @@ class ProjectModal extends Component {
                   <option value="TMR">TMR</option>
                   <option value="Special Project">Special Project</option>
                 </select>
-                <select onChange={this.inputStatus} defaultValue="In Process" className="edit-select-status" >
-                  <option value="In Process">In Process</option>
-                  <option value="Complete">Complete</option>
-                </select>
+                {
+                  this.props.project.status === "In Process"
+                    ?
+                    <select onChange={this.inputStatus} defaultValue={this.props.project.status} className="edit-select-status" >
+                      <option value="In Process">In Process</option>
+                      <option value="Complete">Complete</option>
+                    </select>
+                    :
+                    <select onChange={this.inputStatus} defaultValue={this.props.project.status} className="edit-select-status" >
+                      <option value="Complete">Complete</option>
+                      <option value="In Process">In Process</option>
+                    </select>
+                }
               </div>
               <div>
                 <select onChange={this.inputTsoName} className="edit-select-tso" >
@@ -202,7 +213,7 @@ class ProjectModal extends Component {
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
               <div className="edit-notes-container">
-                <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes"/>
+                <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes" />
                 <div className="follow-up">
 
                   <div>

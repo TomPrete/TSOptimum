@@ -13,7 +13,6 @@ class Routes extends Component {
     await this.props.loadInitialData()
     const fetchCompanies = await fetchAllCompanies()
     store.dispatch(fetchCompanies)
-
   }
 
 

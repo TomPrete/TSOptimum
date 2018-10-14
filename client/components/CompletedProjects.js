@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
-import store, { fetchCompletedUserProjects, submitCompletedProject } from '../store'
+import ProjectModal from './ProjectModal.js'
+import store, { removeUserProject, fetchCompletedUserProjects, submitCompletedProject } from '../store'
 // import AddNewUserContainer from '.';
 // import store from '../store;'
 
@@ -12,9 +13,12 @@ class CompletedProjects extends Component {
     super(props);
     this.state = {
       completedProjects: null,
-      redirect: false
+      redirect: false,
+      projectId: false
     }
     // this.filterProjects = this.filterProjects.bind(this)
+    this.showModal = this.showModal.bind(this)
+    this.clickOutside = this.clickOutside.bind(this)
     // this.completeProject = this.completeProject.bind(this)
   }
 
@@ -26,6 +30,11 @@ class CompletedProjects extends Component {
       const completedProjects = userProjects.filter(project => {
         return project.status === "Complete"
       })
+      completedProjects.sort((a,b) => {
+        a = new Date(a.updatedAt)
+        b = new Date(b.updatedAt)
+        return a<b ? -1 : a>b ? 1 : 0
+      })
       this.setState({
         completedProjects: completedProjects
       })
@@ -34,7 +43,7 @@ class CompletedProjects extends Component {
       const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
       store.dispatch(fetchAllCompletedUserProjects)
     }
-
+    window.addEventListener('click', this.clickOutside)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,18 +52,39 @@ class CompletedProjects extends Component {
       const completedProjects = userProjects.filter(project => {
         return project.status === "Complete"
       })
+      completedProjects.sort((a,b) => {
+        a = new Date(a.updatedAt)
+        b = new Date(b.updatedAt)
+        return a<b ? -1 : a>b ? 1 : 0
+      })
       this.setState({
         completedProjects: completedProjects
       })
     }
   }
 
-  // async filterProjects() {
-  //   const userProjects = this.props.projects
-  //   const openProjects = await userProjects.filter(project => {
-  //     return project.status === "Completed"
-  //   })
-  // }
+  showModal(project) {
+    if (!this.state.projectId) {
+      this.setState({
+        projectId: project
+      })
+    } else {
+      this.setState({
+        projectId: null
+      })
+    }
+  }
+
+  clickOutside(e) {
+    const modal = document.getElementById('modal-component')
+    if (e.target === modal) {
+      // store.dispatch(removeUserProject())
+      this.setState({
+        projectId: null
+      })
+
+    }
+  }
 
 
 
@@ -72,7 +102,7 @@ class CompletedProjects extends Component {
           <p className="column-titles">Company</p>
           <p className="column-titles">Type</p>
           <p className="column-titles">TSO</p>
-          <p className="column-titles">TSA</p>
+          <p className="column-titles">Status</p>
           <p className="column-titles">Due Date</p>
           <p className="column-notes">Notes</p>
           <p className="column-action">Action</p>
@@ -84,16 +114,14 @@ class CompletedProjects extends Component {
               <div key={project.projectId} className="project-list" >
                 <form>
                   <div id="queue-list">
-                    <li className="user-queue">{project.name}</li>
-                    <li className="user-queue">{project.projectType}</li>
-                    <li className="user-queue">{project.officer}</li>
-                    <li className="user-queue">{project.status}</li>
-                    <li className="user-queue">{project.dueDate}</li>
-                    <textarea value="" className="user-notes" placeholder={project.notes} />
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.name}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.projectType}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.officer}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.status}</li>
+                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.dueDate}</li>
+                    <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showModal(project.projectId)} readOnly/>
                     <div className="queue-complete">
-                      <Link to={`/projects/${project.projectId}`}>
-                        <button type='submit' className='edit-btn'>Edit</button>
-                      </Link>
+                        <button type='button' className='edit-btn' onClick={() => this.showModal(project.projectId)}>Edit</button>
                     </div>
                   </div>
                 </form>
@@ -102,7 +130,15 @@ class CompletedProjects extends Component {
           })
           :
           <div>You have no completed projects!</div>
-
+        }
+        {
+          this.state.projectId
+            ?
+            <div id='modal-component'>
+              <ProjectModal projectId={this.state.projectId} showModal={this.showModal} />
+            </div>
+            :
+            null
         }
         </div>
       </div>
