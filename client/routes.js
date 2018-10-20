@@ -19,6 +19,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, user } = this.props
+    console.log("loadIniital Data")
     return (
       <Router history={history}>
         <Main>

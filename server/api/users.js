@@ -3,6 +3,7 @@ const { User } = require('../db/models')
 module.exports = router
 
 router.get('/', (req, res, next) => {
+
   User.findAll({
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
@@ -20,12 +21,22 @@ router.get('/all', (req, res, next) => {
 });
 
 router.get('/team/:teamId', (req, res, next) => {
-  User.findAll({
-    where: {
-      teamId: req.params.teamId
-    }
-  })
-    .then(users => res.json(users))
-    .catch(next);
+  try {
+    User.findAll({
+      where: {
+        teamId: req.params.teamId
+      }
+    })
+      .then(users => {
+        let userData = [];
+        users.filter(user => {
+          let {id, name, firstName, lastName, title, email, personId, teamId} = user
+          return userData.push( {id, name, firstName, lastName, title, email, personId, teamId})
+        })
+        res.json(userData)})
+  }
+  catch (error) {
+    next(error)
+  }
 });
 

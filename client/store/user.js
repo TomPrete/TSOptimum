@@ -46,10 +46,12 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
 
 export const loginUser = (email, password) =>
   dispatch =>
-    axios.post('/auth/login', {email, password })
+    axios.post('/auth/login', {email, password})
       .then(user => {
+        let {id, firstName, lastName, email, title, personId, teamId} = user.data
+        let userData = {id, firstName, lastName, email, title, personId, teamId}
         window.location.reload()
-        return user.data})
+        return userData})
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
