@@ -117,7 +117,7 @@ class ProjectModal extends Component {
 
     await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
     await store.dispatch(removeUserProject())
-    await this.props.showModal()
+    await this.props.showProjectModal()
     // this.setState({
     //   redirect: true
     // })
@@ -128,7 +128,7 @@ class ProjectModal extends Component {
       <div id="projects-modal-container">
         <div className='project-modal-header'>
           <label className='project-label'>EDIT PROJECT</label>
-          <span className='closeBtn' onClick={() => { this.props.showModal(); this.componentWillUnmount() }}>&times;</span>
+          <span className='closeBtn' onClick={() => { this.props.showProjectModal(); this.componentWillUnmount() }}>&times;</span>
         </div>
 
         <div className='edit-project-form'>

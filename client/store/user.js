@@ -8,6 +8,7 @@ import { fetchUserTeam } from './team.js'
 const GET_USER = 'GET_USER'
 const ADD_USER = 'ADD_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const UPDATE_USER = 'UPDATE_USER'
 
 /***** INITIAL STATE*****/
 const defaultUser = {}
@@ -16,6 +17,7 @@ const defaultUser = {}
 const getUser = user => ({ type: GET_USER, user })
 const addUser = user => ({ type: ADD_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
+const updateUser = user => ({ type: UPDATE_USER, user })
 
 /*****THUNK CREATORS*****/
 export const me = () =>
@@ -36,7 +38,8 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
     axios.post('/auth/signup', { firstName, lastName, email, title, password })
       .then(user => {
         window.location.reload()
-        return user.data})
+        return user.data
+      })
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
@@ -48,12 +51,13 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
 
 export const loginUser = (email, password) =>
   dispatch =>
-    axios.post('/auth/login', {email, password})
+    axios.post('/auth/login', { email, password })
       .then(user => {
-        let {id, firstName, lastName, email, title, personId, teamId} = user.data
-        let userData = {id, firstName, lastName, email, title, personId, teamId}
+        let { id, firstName, lastName, email, title, personId, teamId } = user.data
+        let userData = { id, firstName, lastName, email, title, personId, teamId }
         window.location.reload()
-        return userData})
+        return userData
+      })
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
@@ -73,6 +77,25 @@ export const logout = () =>
       })
       .catch(err => console.log(err))
 
+export const updateUserThunk = (id, firstName, lastName, email) =>
+  dispatch => {
+    axios.put(`/api/users/update/${id}`, { firstName, lastName, email })
+      .then(user => {
+        dispatch(updateUser(user.data))
+      })
+      .catch(err => console.error(err))
+  }
+
+export const updateUserPasswordThunk = (id, email, currentPassword, newPassword) =>
+  dispatch => {
+    axios.put(`/api/users/update-password/${id}`, { email, currentPassword, newPassword })
+      .then(user => {
+        dispatch(getUser(user.data))
+      })
+      .catch(err => console.error(err))
+  }
+
+
 /***** REDUCER *****/
 export default function (state = defaultUser, action) {
   switch (action.type) {
@@ -82,6 +105,8 @@ export default function (state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+    case UPDATE_USER:
+      return action.user
     default:
       return state
   }

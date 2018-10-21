@@ -15,7 +15,7 @@ class Projects extends Component {
       projectId: false,
       loading: true
     }
-    this.showModal = this.showModal.bind(this)
+    this.showProjectModel = this.showProjectModel.bind(this)
     this.clickOutside = this.clickOutside.bind(this)
   }
 
@@ -62,7 +62,7 @@ class Projects extends Component {
     }
   }
 
-  showModal(project) {
+  showProjectModel(project) {
     if (!this.state.projectId) {
       this.setState({
         projectId: project
@@ -107,15 +107,15 @@ class Projects extends Component {
               <div key={project.projectId} >
                 <div>
                   <div id="queue-list" >
-                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.name}</li>
-                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.projectType}</li>
-                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.officer}</li>
-                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.status}</li>
-                    <li className="user-queue" onClick={() => this.showModal(project.projectId)}>{project.dueDate}</li>
-                    <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showModal(project.projectId)} readOnly/>
+                    <li className="user-queue" onClick={() => this.showProjectModel(project.projectId)}>{project.name}</li>
+                    <li className="user-queue" onClick={() => this.showProjectModel(project.projectId)}>{project.projectType}</li>
+                    <li className="user-queue" onClick={() => this.showProjectModel(project.projectId)}>{project.officer}</li>
+                    <li className="user-queue" onClick={() => this.showProjectModel(project.projectId)}>{project.status}</li>
+                    <li className="user-queue" onClick={() => this.showProjectModel(project.projectId)}>{project.dueDate}</li>
+                    <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showProjectModel(project.projectId)} readOnly/>
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
-                      <button className='edit-btn' onClick={() => this.showModal(project.projectId)} >Edit</button>
+                      <button className='edit-btn' onClick={() => this.showProjectModel(project.projectId)} >Edit</button>
                     </div>
                   </div>
                 </div>
@@ -130,7 +130,7 @@ class Projects extends Component {
           this.state.projectId
             ?
             <div id='modal-component'>
-              <ProjectModal projectId={this.state.projectId} showModal={this.showModal} />
+              <ProjectModal projectId={this.state.projectId} showProjectModel={this.showProjectModel} />
             </div>
             :
             null
