@@ -4,7 +4,8 @@ module.exports = router
 
 
 router.post('/login', (req, res, next) => {
-  User.findOne({where: {email: req.body.email}})
+  try {
+    User.findOne({where: {email: req.body.email}})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
@@ -14,7 +15,10 @@ router.post('/login', (req, res, next) => {
         req.login(user, err => (err ? next(err) : res.json(user)))
       }
     })
-    .catch(next)
+  }
+  catch(error) {
+    next(error)
+  }
 })
 
 router.post('/signup', (req, res, next) => {
@@ -36,9 +40,17 @@ router.post('/logout', (req, res) => {
   req.session.destroy()
   res.redirect('/')
 })
+
 router.get('/me', (req, res) => {
-  let {id, firstName, lastName, email, title, personId, teamId } = req.user.dataValues
-  res.json({id, firstName, lastName, email, title, personId, teamId })
+  try {
+    if (req.user) {
+      let {id, firstName, lastName, email, title, personId, teamId } = req.user.dataValues
+      res.json({id, firstName, lastName, email, title, personId, teamId })
+    }
+  }
+  catch(error) {
+    next(error)
+  }
 })
 
 router.use('/google', require('./google'))

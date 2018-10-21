@@ -2,31 +2,31 @@ import axios from 'axios'
 import history from '../history'
 
 /***** ACTION TYPES*****/
-const GET_USER_TEAM = 'GET_USER_TEAM'
+const GET_USER_TEAM_MATES = 'GET_USER_TEAM_MATES'
 
 
 /***** INITIAL STATE*****/
-const defaultUser = null
+const defaultUser = {}
 
 /***** ACTION CREATORS*****/
-const getUserTeam = team => ({ type: GET_USER_TEAM, team })
+const getUserTeamMates = users => ({ type: GET_USER_TEAM_MATES, users })
 
 
 /*****THUNK CREATORS*****/
 
-export const fetchUserTeam = (teamId) =>
+export const fetchUserTeamMates = (teamId) =>
   dispatch => {
-    axios.get(`/api/team/${teamId}`)
+    axios.get(`/api/users/team/${teamId}`)
       .then(res => res.data)
-      .then(team => dispatch(getUserTeam(team)))
+      .then(users => dispatch(getUserTeamMates(users)))
       .catch(err => console.error(err));
   }
 
 /***** REDUCER *****/
 export default function (state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER_TEAM:
-      return action.team
+    case GET_USER_TEAM_MATES:
+      return action.users
     default:
       return state
   }

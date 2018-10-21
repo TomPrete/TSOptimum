@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '../history'
 import { fetchInProcessUserProjects, fetchAllUserProjects } from './projects.js'
+import { fetchUserTeamMates } from './team_mates.js'
 import { fetchUserTeam } from './team.js'
 
 /***** ACTION TYPES*****/
@@ -24,6 +25,7 @@ export const me = () =>
         dispatch(getUser(res.data))
         if (res.data.teamId && res.data.id) {
           dispatch(fetchAllUserProjects(res.data.id))
+          dispatch(fetchUserTeamMates(res.data.teamId))
           dispatch(fetchUserTeam(res.data.teamId))
         }
       })

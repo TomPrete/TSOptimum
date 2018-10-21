@@ -3,7 +3,7 @@ import { Router, Route, Switch, Link, } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
-import store, { fetchUsers, fetchUserTeam, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
+import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
 
 
 class UserBoard extends Component {
@@ -142,7 +142,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    // console.log("PROPS: ", this.props.projects)
+    // console.log("PROPS: ", this.props.team)
 
     return (
       <div id="user-board-container">
@@ -192,7 +192,7 @@ class UserBoard extends Component {
                       <select onChange={this.inputTsoName} className="select-tso" >
                         <option>Select TSO</option>
                         {
-                          this.props.team.length > 0 ? this.props.team.map(users => {
+                          this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
                             if (users.title === "Treasury Solutions Officer") {
                               return <option key={users.id} value={users.name} required>{users.name}</option>
                             }
@@ -204,7 +204,7 @@ class UserBoard extends Component {
                       <select onChange={this.inputTsaName} className="select-tsa" >
                         <option>Select TSA</option>
                         {
-                          this.props.team.length > 0 ? this.props.team.map(users => {
+                          this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
                             if (users.title === "Treasury Solutions Analyst") {
                               return <option key={users.id} value={users.name} required>{users.name}</option>
                             }
@@ -266,7 +266,7 @@ class UserBoard extends Component {
                     </div>
                   </div>
                 </div>
-                : ""
+                : null
             }
           </div>
           <div>
@@ -287,13 +287,13 @@ class UserBoard extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    team: state.team,
+    teamMates: state.teamMates,
     companies: state.companies,
     projects: state.projects
   }
 }
 
-const mapDispatch = { fetchUserTeam, createNewProject }
+const mapDispatch = { fetchUserTeamMates, createNewProject }
 
 const UserBoardContainter = connect(mapState, mapDispatch)(UserBoard)
 

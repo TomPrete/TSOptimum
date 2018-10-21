@@ -175,7 +175,7 @@ class ProjectModal extends Component {
                 <select onChange={this.inputTsoName} className="edit-select-tso" >
                   <option value={this.props.project.officer}>{this.props.project.officer}</option>
                   {
-                    this.props.team.length > 0 ? this.props.team.map(users => {
+                    this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
                       if (users.title === "Treasury Solutions Officer") {
                         return <option key={users.id} value={users.name}>{users.name}</option>
                       }
@@ -187,7 +187,7 @@ class ProjectModal extends Component {
                 <select onChange={this.inputTsaName} className="edit-select-tsa" >
                   <option value={this.props.project.analyst}>{this.props.project.analyst}</option>
                   {
-                    this.props.team.length > 0 ? this.props.team.map(users => {
+                    this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
                       if (users.title === "Treasury Solutions Analyst") {
                         return <option key={users.id} value={users.name}>{users.name}</option>
                       }
@@ -259,7 +259,7 @@ class ProjectModal extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    team: state.team,
+    teamMates: state.teamMates,
     companies: state.companies,
     project: state.project
   }

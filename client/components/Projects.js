@@ -144,7 +144,7 @@ class Projects extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    team: state.team,
+    teamMates: state.teamMates,
     companies: state.companies,
     projects: state.projects
   }

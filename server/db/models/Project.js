@@ -94,10 +94,13 @@ const Project = db.define('project', {
 // })
 
 Project.hook('beforeValidate',(project) => {
-  if(project.projectId) {
+  if (project.projectId) {
     project.projectId;
-  } else project.projectId = Math.floor(100000 + Math.random() * 900000);
-  if(project.status === null){
+  }
+  else {
+    project.projectId = Math.floor(100000 + Math.random() * 900000);
+  }
+  if (project.status === null) {
     project.status === "In Process"
   } else project.status
 })

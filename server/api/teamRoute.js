@@ -16,21 +16,23 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-  //GET company by company ID
-  router.get('/:name', (req, res, next) => {
-		Team.findOne({where: {name: req.params.name}})
-		.then(team => res.json(team))
+  //GET company by teamId
+  router.get('/:id', (req, res, next) => {
+		Team.findOne({where: {id: req.params.id}})
+		.then(team => {
+      let teamName = team.dataValues.name.charAt(0).toUpperCase() + team.dataValues.name.slice(1);
+      return res.json(teamName)})
 		.catch(next);
   });
 
-  //GET all companies
+  //GET all Teams
 	router.get('/', (req, res, next) => {
 		Team.findAll()
 		.then(teams => res.json(teams))
 		.catch(next);
 	});
 
-  //DELETE a company
+  //DELETE a team
   router.delete('/:name', (req, res, next) => {
     return Team.destroy({
       where: {

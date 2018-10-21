@@ -50,6 +50,16 @@ const User = db.define('user', {
       min: 0,
       max: 9999
     }
+  },
+
+  isAdmin: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  },
+
+  resetPassword: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   }
 }, {
   getterMethods: {
