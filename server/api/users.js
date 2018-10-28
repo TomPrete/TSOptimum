@@ -1,6 +1,18 @@
 const router = require('express').Router()
 const { User } = require('../db/models')
+const nodemailer = require('nodemailer')
+
 module.exports = router
+
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+         user: 'tso.optimum@gmail.com',
+         pass: process.env.GOOGLE_AUTO_EMAIL
+     }
+ });
+
 
 // router.get('/', (req, res, next) => {
 
@@ -41,18 +53,40 @@ router.put('/update/:id', async (req, res, next) => {
 })
 
 router.put('/update-password/:id', async (req, res, next) => {
-  console.log("-------------------------BODY----------------", req.body)
   try {
-    User.findOne({where: {id: +req.body.id}})
+    await User.findOne({where: {id: +req.params.id}})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
-      } else if (!user.correctPassword(req.body.currentPassword)) {
+      } else if (!user.correctPassword(req.body.oldPassword)) {
         res.status(401).send('Incorrect current password')
-      } else {
+      }
+      else {
+        const text = `<p>Hi ${user.dataValues.firstName},</p><h1>You succesfully changed your password!</h1><p>If you did not request to change your password please contact tso.optimum@gmail.com and we'll sort everything out for you.</p><p>Onward,</p><p>TSO Optimum Security Team</p><p>Helping you manage your tasks</p>`
+
+        const mailOptions = {
+          from: 'tso.optimum@email.com', // sender address
+          to: `${req.body.email}`, // list of receivers
+          subject: 'TSO Optimum: PASSWORD CHANGED!', // Subject line
+          html: text// plain text body
+        };
+
         user.update({
           password: req.body.newPassword
         })
+
+
+        transporter.sendMail(mailOptions, function (error, info) {
+          if (error) {
+            console.log(error);
+            res.json({ yo: 'error' });
+          } else {
+            console.log('Message sent: ' + info.response);
+            res.json({ yo: info.response });
+          }
+        });
+
+
       }
     })
   }

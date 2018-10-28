@@ -10,13 +10,21 @@ class ResetPasswordModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      oldPassword: '',
       newPassword: '',
       confirmNewPassword: ''
     }
 
     this.inputNewPassword = this.inputNewPassword.bind(this)
     this.inputConfirmNewPassword = this.inputConfirmNewPassword.bind(this)
+    this.inputOldPassword = this.inputOldPassword.bind(this)
     this.onSubmitResetPassword = this.onSubmitResetPassword.bind(this)
+  }
+
+  inputOldPassword(e) {
+    this.setState({
+      oldPassword: e.target.value
+    })
   }
 
   inputNewPassword(e) {
@@ -33,12 +41,12 @@ class ResetPasswordModal extends Component {
 
   onSubmitResetPassword(e) {
     e.preventDefault()
-    let currentPassword = e.target.name.old_password
+    let oldPassword = this.state.oldPassword
     let newPassword = this.state.newPassword
     let confirmNewPassword = this.state.confirmNewPassword
     let email = this.props.user.email
     let id = this.props.user.id
-    this.props.updateUserPasswordThunk(id, email, currentPassword, newPassword)
+    this.props.updateUserPasswordThunk(id, email, oldPassword, newPassword)
     window.location.reload()
   }
 
@@ -56,7 +64,7 @@ class ResetPasswordModal extends Component {
             <form onSubmit={this.onSubmitResetPassword}  id="edit-project-form">
               <div>
               <p>Current Password</p>
-              <input name="old_password" type="password" className="edit-select-company" required />
+              <input name="old_password" onChange={this.inputOldPassword} type="password" className="edit-select-company" required />
               </div>
               <div>
               <p>New Password</p>

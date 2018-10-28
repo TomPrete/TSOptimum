@@ -86,9 +86,10 @@ export const updateUserThunk = (id, firstName, lastName, email) =>
       .catch(err => console.error(err))
   }
 
-export const updateUserPasswordThunk = (id, email, currentPassword, newPassword) =>
+export const updateUserPasswordThunk = (id, email, oldPassword, newPassword) =>
   dispatch => {
-    axios.put(`/api/users/update-password/${id}`, { email, currentPassword, newPassword })
+    console.log("OLD PASSWORD: ", oldPassword)
+    axios.put(`/api/users/update-password/${id}`, { email, oldPassword, newPassword })
       .then(user => {
         dispatch(getUser(user.data))
       })
