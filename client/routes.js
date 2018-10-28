@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics } from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword } from './components'
 import store, { me, fetchAllCompanies } from './store'
 
 
@@ -34,6 +34,7 @@ class Routes extends Component {
             <Route exact path='/user/:personId/completed_projects' component={CompletedProjects} />
             <Route exact path='/user/:personId/created_projects' component={AllUserProjects} />
             <Route exact path='/user/:personId/team/:teamId/analytics' component={TeamAnalytics} />
+            <Route exact path='/forgot_password' component={ForgotPassword} />
           </Switch>
         </Main>
       </Router>

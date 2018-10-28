@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 import { loginUser } from '../store'
 
@@ -27,6 +28,9 @@ const Login = (props) => {
           </div>
           {error && error.response && <div> {error.response.data} </div>}
         </form>
+      </div>
+      <div className="form-submit">
+        <Link id="route-to-forgot-passord" to="/forgot_password"><p>Forgot your passord?</p></Link>
       </div>
     </div>
   )
