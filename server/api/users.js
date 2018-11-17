@@ -162,7 +162,7 @@ router.post('/reset-password/:token', async (req, res, next) => {
           let { id, name, firstName, lastName, title, email, personId, teamId } = user.dataValues
           res.json({id, name, firstName, lastName, title, email, personId, teamId})
 
-          const text = `<p>Hi ${user.dataValues.firstName}</p><h1>You succesfully reset your password!</h1><p>If you did not request to change your password please contact tso.optimum@gmail.com and we'll sort everything out for you.</p><p>Onward,</p><p>TSO Optimum Security Team</p><p>Helping you manage your tasks</p>`
+          const text = `<p>Hi ${user.dataValues.firstName},</p><h1>You succesfully reset your password!</h1><p>If you did not request to change your password please contact tso.optimum@gmail.com and we'll sort everything out for you.</p><p>Onward,</p><p>TSO Optimum Security Team</p><p>Helping you manage your tasks</p>`
 
           const mailOptions = {
             from: 'tso.optimum@email.com', // sender address

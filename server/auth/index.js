@@ -44,8 +44,8 @@ router.post('/logout', (req, res) => {
 router.get('/me', (req, res) => {
   try {
     if (req.user) {
-      let {id, firstName, lastName, email, title, personId, teamId } = req.user.dataValues
-      res.json({id, firstName, lastName, email, title, personId, teamId })
+      let {id, firstName, lastName, email, title, personId, isAdmin, teamId } = req.user.dataValues
+      res.json({id, firstName, lastName, email, title, personId, isAdmin, teamId })
     }
   }
   catch(error) {

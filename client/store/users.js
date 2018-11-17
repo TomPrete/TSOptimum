@@ -1,32 +1,32 @@
-// import axios from 'axios'
-// import history from '../history'
+import axios from 'axios'
+import history from '../history'
 
-// /***** ACTION TYPES*****/
-// const GET_USERS = 'GET_USERS'
-
-
-// /***** INITIAL STATE*****/
-// const defaultUser = {}
-
-// /***** ACTION CREATORS*****/
-// const getUsers = users => ({ type: GET_USERS, users })
+/***** ACTION TYPES*****/
+const GET_ALL_USERS = 'GET_ALL_USERS'
 
 
-// /*****THUNK CREATORS*****/
+/***** INITIAL STATE*****/
+const defaultUser = {}
 
-// export const fetchUsers = () => dispatch => {
-//   axios.get('/api/users/all')
-//     .then(res => res.data)
-//     .then(users => dispatch(getUsers(users)))
-//     .catch(err => console.error(err));
-// }
+/***** ACTION CREATORS*****/
+const getAllUsers = users => ({ type: GET_ALL_USERS, users })
 
-// /***** REDUCER *****/
-// export default function (state = defaultUser, action) {
-//   switch (action.type) {
-//     case GET_USERS:
-//       return action.users
-//     default:
-//       return state
-//   }
-// }
+
+/*****THUNK CREATORS*****/
+
+export const fetchAllUsers = () => dispatch => {
+  axios.get('/api/users/all')
+    .then(res => res.data)
+    .then(users => dispatch(getAllUsers(users)))
+    .catch(err => console.error(err));
+}
+
+/***** REDUCER *****/
+export default function (state = defaultUser, action) {
+  switch (action.type) {
+    case GET_ALL_USERS:
+      return action.users
+    default:
+      return state
+  }
+}

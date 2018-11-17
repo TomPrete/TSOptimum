@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset} from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers} from './components'
 import store, { me, fetchAllCompanies } from './store'
 
 
@@ -24,19 +24,34 @@ class Routes extends Component {
       <Router history={history}>
         <Main>
           <Switch>
+
             <Route exact path='/' component={LandingPage} />
             <Route exact path='/home' component={LandingPage} />
             <Route exact path='/login' component={Login} />
             <Route exact path='/signup' component={SignUp} />
-            <Route exact path='/user/:personId/board' component={UserBoard} userid={this.props.user.id}/>
-            <Route exact path='/user/:personId/projects' component={Projects} />
-            <Route exact path='/user/:personId/profile' component={UserProfile} />
-            <Route exact path='/user/:personId/completed_projects' component={CompletedProjects} />
-            <Route exact path='/user/:personId/created_projects' component={AllUserProjects} />
-            <Route exact path='/user/:personId/team/:teamId/analytics' component={TeamAnalytics} />
+
             <Route exact path='/forgot_password' component={ForgotPassword} />
             <Route exact path='/reset/:resetToken' component={PasswordReset} />
           </Switch>
+
+
+          {
+            isLoggedIn
+            ?
+            <Switch>
+            <Route exact path='/my-board' component={UserBoard} userid={this.props.user.id}/>
+            <Route exact path='/my-projects' component={Projects} />
+            <Route exact path='/my-profile' component={UserProfile} />
+            <Route exact path='/my-completed_projects' component={CompletedProjects} />
+            <Route exact path='/my-created_projects' component={AllUserProjects} />
+            <Route exact path='/team-analytics' component={TeamAnalytics} />
+            <Route exact path='/my-admin' component={AdminHome} />
+            <Route exact path='/my-admin/users' component={AdminUsers} />
+            </Switch>
+            :
+            null
+          }
+
         </Main>
       </Router>
     )

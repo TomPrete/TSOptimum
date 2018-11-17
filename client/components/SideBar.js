@@ -22,15 +22,15 @@ class SideBar extends Component {
     return (
       <div id="sidebar-container">
         <p className="sidebar-header">Analytics</p>
-        <Link to={`/user/${userId}/team/${teamId}/analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
+        <Link to={`/team-analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
         <p className="sidebar-header">Reports</p>
 
-          <Link to={`/user/${userId}/completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
+          <Link to={`/my-completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
 
 
-          <Link to={`/user/${userId}/created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
+          <Link to={`/my-created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
 
-          <Link to={`/user/${userId}/board`}><div className="myboard-title">My Board</div></Link>
+          <Link to={`/my-board`}><div className="myboard-title">My Board</div></Link>
       </div>
     )
   }

@@ -16,25 +16,41 @@ const Main = (props) => {
     <div>
       <nav className="flex main-header">
         <a href='/home'>
-        <div className="flex logo-container" >
-          <img src='/new_logo.png' id="logo" />
-          <h1 id="logo-name">hone</h1>
+          <div className="flex logo-container" >
+            <img src='/new_logo.png' id="logo" />
+            <h1 id="logo-name">hone</h1>
 
-        </div>
+          </div>
         </a>
         {
-          isLoggedIn
+          isLoggedIn && !user.isAdmin
             ?
             <div className='flex'>
               {/* The navbar will show these links after you log in */}
 
-              <Link className='nav-links' to={`/user/${user.personId}/board`}>My Board</Link>
-              <Link className='nav-links' to={`/user/${user.personId}/profile`}>My Profile</Link>
+              <Link className='nav-links' to={`/my-board`}>My Board</Link>
+              <Link className='nav-links' to={`/my-profile`}>My Profile</Link>
               <a href="#" className='nav-links' onClick={handleClick}>Logout</a>
             </div>
-            : <div className='flex'>
-              {/* The navbar will show these links before you log in */}
-              {/*<form onSubmit={'this.onLoginSubmit'} id="login-submit">
+            :
+
+            user.isAdmin
+
+              ?
+
+              <div className='flex'>
+                {/* The navbar will show these links after you log in */}
+
+                <Link className='nav-links' to={`/my-board`}>My Board</Link>
+                <Link className='nav-links' to={`/my-profile`}>My Profile</Link>
+                <Link className='nav-links' to={`/my-admin`}>Admin</Link>
+                <a href="#" className='nav-links' onClick={handleClick}>Logout</a>
+              </div>
+              :
+
+              <div className='flex'>
+                {/* The navbar will show these links before you log in */}
+                {/*<form onSubmit={'this.onLoginSubmit'} id="login-submit">
                 <div className="form-submit">
                   <div className="form-inputs">
                     <input name="email" type="email" placeholder="Email" className="input" />
@@ -43,15 +59,15 @@ const Main = (props) => {
                 </div>
                 <button className="submit-button" type='submit'>Login</button>
         </form>*/}
-              <Link to="/login" className='nav-links'>Login</Link>
-              <Link to="/signup" className='nav-links'>Sign Up</Link>
-            </div>
+                <Link to="/login" className='nav-links'>Login</Link>
+                <Link to="/signup" className='nav-links'>Sign Up</Link>
+              </div>
 
         }
 
       </nav>
 
-        {children}
+      {children}
 
     </div>
   )

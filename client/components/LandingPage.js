@@ -3,6 +3,12 @@ import React, { Component } from 'react'
 // import {Parallax} from 'react-parallax'
 import { Login, Signup } from './index'
 // import {NavLink} from 'react-router-dom'
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+
 
 let LandingPage = () => {
 
@@ -19,19 +25,38 @@ let LandingPage = () => {
           <p className='page-center-content'>hone lets you organize, prioritize, and measure your tasks and projects while keeping you up to date on what's due</p>
         </div>
         <div className='page-center-row'>
-          <div>
-            <h2>organize</h2>
-            <p className='page-center-content'>text</p>
-          </div>
-          <div>
-            <h2>measure</h2>
-            <p className='page-center-content'>text</p>
-          </div>
-          <div>
-            <h2>improve</h2>
-            <p className='page-center-content'>text</p>
-          </div>
+          <Card className="landing-card">
+            <CardHeader title="Organize" />
+            <CardMedia image="/img/organize.png" />
+            <CardContent>
+              <Typography component="h1">
+                Create and assign projects based on project type and manage your project details over time.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card className="landing-card">
+            <CardHeader title="Measure" />
+            <CardMedia image="/img/measure.png" />
+            <CardContent>
+              <Typography component="h1">
+                Visualize and track your projects to see what's going on in your world.
+              </Typography>
+            </CardContent>
+          </Card>
+          <Card className="landing-card">
+            <CardHeader title="Improve" />
+            <CardMedia image="/img/improve.png" />
+            <CardContent>
+              <Typography component="h1">
+                Analyze how you manage projects overtime to improve your business.
+              </Typography>
+            </CardContent>
+          </Card>
         </div>
+
+      </div>
+      <div className="footer">
+        THIS IS THE div
       </div>
     </div>
   )

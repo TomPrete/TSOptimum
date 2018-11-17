@@ -21,6 +21,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^3.5.1",
+    "@material-ui/icons": "^3.0.1",
     "async": "^2.6.1",
     "axios": "^0.15.3",
     "body-parser": "^1.16.1",
