@@ -5,7 +5,7 @@ import store, {updateUserPasswordThunk} from '../store'
 
 
 
-class ResetPasswordModal extends Component {
+class ChangePasswordModal extends Component {
 
   constructor(props) {
     super(props);
@@ -18,7 +18,7 @@ class ResetPasswordModal extends Component {
     this.inputNewPassword = this.inputNewPassword.bind(this)
     this.inputConfirmNewPassword = this.inputConfirmNewPassword.bind(this)
     this.inputOldPassword = this.inputOldPassword.bind(this)
-    this.onSubmitResetPassword = this.onSubmitResetPassword.bind(this)
+    this.onSubmitChangePassword = this.onSubmitChangePassword.bind(this)
   }
 
   inputOldPassword(e) {
@@ -39,7 +39,7 @@ class ResetPasswordModal extends Component {
     })
   }
 
-  onSubmitResetPassword(e) {
+  onSubmitChangePassword(e) {
     e.preventDefault()
     let oldPassword = this.state.oldPassword
     let newPassword = this.state.newPassword
@@ -55,13 +55,13 @@ class ResetPasswordModal extends Component {
     return (
       <div id="projects-modal-container">
         <div className='project-modal-header'>
-          <label className='project-label'>Reset Your Password</label>
-          <span className='closeBtn' onClick={() => this.props.showResetPasswordModal()}>&times;</span>
+          <label className='project-label'>Change Your Password</label>
+          <span className='closeBtn' onClick={() => this.props.showChangePasswordModal()}>&times;</span>
         </div>
 
         <div className='edit-project-form'>
           <div id="edit-form-container">
-            <form onSubmit={this.onSubmitResetPassword}  id="edit-project-form">
+            <form onSubmit={this.onSubmitChangePassword}  id="edit-project-form">
               <div>
               <p>Current Password</p>
               <input name="old_password" onChange={this.inputOldPassword} type="password" className="edit-select-company" required />
@@ -103,6 +103,6 @@ const mapState = state => {
 
 const mapDispatch = {updateUserPasswordThunk}
 
-const ResetPasswordModalContainer = connect(mapState, mapDispatch)(ResetPasswordModal)
+const ChangePasswordModalContainer = connect(mapState, mapDispatch)(ChangePasswordModal)
 
-export default ResetPasswordModalContainer
+export default ChangePasswordModalContainer

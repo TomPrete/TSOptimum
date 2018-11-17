@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, NavLink, Redirect, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addNewUser } from '../store';
+import store, { addNewUser, forgotUserPasswordThunk } from '../store';
 
 
 
@@ -16,17 +16,26 @@ class ForgotPassword extends Component {
     this.handleEmailSubmit = this.handleEmailSubmit.bind(this);
   };
 
+
   handleEmailSubmit(e) {
     e.preventDefault()
     const email = e.target.email.value
-    console.log("email: ", email)
-
+    this.props.forgotUserPasswordThunk(email);
   }
 
 
   render() {
     return (
       <div>
+      {
+        this.props.user.message
+        ?
+        <div>
+        {this.props.user.message}
+        </div>
+        :
+        null
+      }
 
         <div id='forgot-password-form-panel'>
         <h1 className="forgot-password-title">Forgot you password?</h1>
@@ -34,7 +43,7 @@ class ForgotPassword extends Component {
             <div>
               <input className="email-input" name='email' type="email" placeholder="Email" required />
             </div>
-            <button className="signup-button" type='submit'>Send Instructions</button>
+            <button className="signup-button" type='submit' >Send Instructions</button>
           </form>
         </div>
       </div>
@@ -44,17 +53,11 @@ class ForgotPassword extends Component {
 
 const mapStateToProps = state => {
   return {
-    users: state.users
+    user: state.user
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    submitUser: (firstName, lastName, email, title, password) => {
-      dispatch(addNewUser(firstName, lastName, email, title, password))
-    }
-  }
-}
+const mapDispatchToProps = { forgotUserPasswordThunk }
 
 const ForgotPasswordContainer = connect(mapStateToProps, mapDispatchToProps)(ForgotPassword)
 

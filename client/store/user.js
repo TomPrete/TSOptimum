@@ -88,12 +88,32 @@ export const updateUserThunk = (id, firstName, lastName, email) =>
 
 export const updateUserPasswordThunk = (id, email, oldPassword, newPassword) =>
   dispatch => {
-    console.log("OLD PASSWORD: ", oldPassword)
     axios.put(`/api/users/update-password/${id}`, { email, oldPassword, newPassword })
       .then(user => {
         dispatch(getUser(user.data))
       })
       .catch(err => console.error(err))
+  }
+
+export const forgotUserPasswordThunk = email =>
+  dispatch => {
+    axios.post('/api/users/forgot-password', {email})
+    .then(user => {
+      dispatch(getUser(user.data))
+      // history.push('/home')
+    })
+    .catch(err => console.error(err))
+  }
+
+export const resetPassowordThunk = (token, newPassword, confirmedPassword) =>
+  dispatch => {
+    axios.post(`/api/users/reset-password/${token}`, {newPassword, confirmedPassword})
+    .then(user => {
+
+      history.push(`/login`)
+
+    })
+    .catch(err => console.error(err))
   }
 
 

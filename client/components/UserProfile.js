@@ -3,7 +3,7 @@ import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import AddNewUserContainer from '.';
 import SideBar from './SideBar'
-import ResetPasswordModal from './ResetPasswordModal.js'
+import ChangePasswordModal from './ChangePasswordModal.js'
 import store, { updateUserThunk } from '../store'
 
 
@@ -19,7 +19,7 @@ class UserProfile extends Component {
     // this.filterTeamMates = this.filterTeamMates.bind(this)
     this.updateProfile = this.updateProfile.bind(this)
     this.submitUpdatedProfile = this.submitUpdatedProfile.bind(this)
-    this.showResetPasswordModal = this.showResetPasswordModal.bind(this)
+    this.showChangePasswordModal = this.showChangePasswordModal.bind(this)
 
   }
 
@@ -46,7 +46,7 @@ class UserProfile extends Component {
   }
 
 
-  showResetPasswordModal(user) {
+  showChangePasswordModal(user) {
     if (!this.state.userId) {
       this.setState({
         userId: user
@@ -66,7 +66,6 @@ class UserProfile extends Component {
     let id = this.props.user.id
     this.props.updateUserThunk(id, firstName, lastName, email)
     window.location.reload()
-
   }
 
   render() {
@@ -138,13 +137,13 @@ class UserProfile extends Component {
             }
           </div>
           <div>
-            <button className='' onClick={() => this.showResetPasswordModal(this.props.user.id)}>Reset Password</button>
+            <button className='' onClick={() => this.showChangePasswordModal(this.props.user.id)}>Change your password</button>
           </div>
           {
             this.state.userId
               ?
               <div id='modal-component'>
-                <ResetPasswordModal showResetPasswordModal={this.showResetPasswordModal} />
+                <ChangePasswordModal showChangePasswordModal={this.showChangePasswordModal} />
               </div>
               :
               null

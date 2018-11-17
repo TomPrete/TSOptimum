@@ -60,7 +60,20 @@ const User = db.define('user', {
   resetPassword: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
-  }
+  },
+
+  resetPasswordToken: {
+    type: Sequelize.STRING,
+    unique: true,
+    defaultValue: undefined
+  },
+
+  resetPasswordExpires: {
+    type: Sequelize.DATE,
+    defaultValue: undefined
+  },
+
+
 }, {
   getterMethods: {
     name() {

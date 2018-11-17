@@ -5,6 +5,7 @@ const { User, Company, Project } = require('../db/models')
 module.exports = router
 
 router.post('/', (req, res, next) => {
+  console.log("HERE")
   return Project.create(req.body)
     .then(project => res.json(project))
     .catch(next);
