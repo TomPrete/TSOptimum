@@ -31,7 +31,16 @@ var transporter = nodemailer.createTransport({
 
 router.get('/all', (req, res, next) => {
   User.findAll()
-    .then(users => res.json(users))
+    .then(users =>{
+      let userData = [];
+        users.filter(user => {
+          let { id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword  } = user
+          return userData.push({ id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword })
+        })
+        res.json(userData)
+    }
+
+    )
     .catch(next);
 });
 

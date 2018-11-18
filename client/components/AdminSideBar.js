@@ -8,7 +8,7 @@ const AdminSideBar = (props) => {
   return (
     <div id="sidebar-container">
     <p className="sidebar-header">Users</p>
-    <Link to={`${pathName}/users`}><div className='sidebar-links'>Users</div></Link>
+    <Link to={`/my-admin/users`}><div className='sidebar-links'>Users</div></Link>
     <p className="sidebar-header">Reports</p>
 
       <Link to={`/my-completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>

@@ -3,6 +3,7 @@ import history from '../history'
 import { fetchInProcessUserProjects, fetchAllUserProjects } from './projects.js'
 import { fetchUserTeamMates } from './team_mates.js'
 import { fetchUserTeam } from './team.js'
+import { fetchAllUsers } from './users.js'
 
 /***** ACTION TYPES*****/
 const GET_USER = 'GET_USER'
@@ -29,6 +30,9 @@ export const me = () =>
           dispatch(fetchAllUserProjects(res.data.id))
           dispatch(fetchUserTeamMates(res.data.teamId))
           dispatch(fetchUserTeam(res.data.teamId))
+        }
+        if (res.data.isAdmin) {
+          dispatch(fetchAllUsers())
         }
       })
       .catch(err => console.log(err))

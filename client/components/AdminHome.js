@@ -3,14 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AdminSideBar from './AdminSideBar'
 import AdminUsers from './AdminUsers'
-import store, { fetchAllUsers } from '../store'
 
 
 class AdminHome extends Component {
-
-  async componentDidMount() {
-    store.dispatch(fetchAllUsers())
-  }
 
   render() {
     return (
@@ -39,7 +34,7 @@ const mapState = state => {
 }
 
 
-const mapDispatch = { fetchAllUsers }
+const mapDispatch = { }
 
 
 const AdminHomeContainer = connect(mapState, mapDispatch)(AdminHome)

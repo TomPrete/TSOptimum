@@ -19,7 +19,7 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn, user } = this.props
-    console.log("loadIniital Data")
+    console.log("ADMIN: ", this.props.isAdmin)
     return (
       <Router history={history}>
         <Main>
@@ -66,7 +66,8 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     user: state.user,
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
@@ -74,6 +75,7 @@ const mapDispatch = (dispatch) => {
   return {
     loadInitialData() {
       dispatch(me())
+      console.log("loadIniital Data")
     }
   }
 }
