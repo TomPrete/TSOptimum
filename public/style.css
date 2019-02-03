@@ -1177,3 +1177,27 @@ input:checked + .slider:before {
   color: white;
   background-color: rgb(0, 151, 131);
 }
+
+
+/************* ADMIN ***********/
+
+.admin-users{
+  z-index: -1;
+}
+
+
+/************ ADMIN - USERS **********/
+
+.MuiPaper-rounded-2 {
+  margin: 20px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.MuiTableCell-root-35 {
+  display: table-cell;
+  /* padding: 4px 56px 4px 24px; */
+  text-align: center;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  vertical-align: inherit;
+}

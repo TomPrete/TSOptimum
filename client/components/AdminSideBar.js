@@ -7,14 +7,14 @@ const AdminSideBar = (props) => {
   let pathName = window.location.pathname
   return (
     <div id="sidebar-container">
-    <p className="sidebar-header">Users</p>
+    <p className="sidebar-header">ADMIN</p>
     <Link to={`/my-admin/users`}><div className='sidebar-links'>Users</div></Link>
-    <p className="sidebar-header">Reports</p>
+    {/*<p className="sidebar-header">Reports</p>*/}
 
-      <Link to={`/my-completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
+      <Link to={`/my-admin/teams`}><div className='sidebar-links'>Teams</div></Link>
 
 
-      <Link to={`/my-created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
+      <Link to={`/my-admin/companies`}><div className='sidebar-links'>Companies</div></Link>
 
       <Link to={`/my-board`}><div className="myboard-title">My Board</div></Link>
   </div>

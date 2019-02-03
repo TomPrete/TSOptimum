@@ -3,11 +3,15 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AdminSideBar from './AdminSideBar'
 import AdminUsers from './AdminUsers'
+import companies from '../store/companies';
+import team_mates from '../store/team_mates';
 
 
 class AdminHome extends Component {
 
   render() {
+    console.log("PROPS: ", this.props)
+    const {users, teams, companies } = this.props
     return (
       <div id="completed-projects-container">
 
@@ -16,7 +20,9 @@ class AdminHome extends Component {
         </div>
         <div className="container-width">
           <div>
-            <p>USERS, Teams, Companies, Task Type, etc.</p>
+            <p>USERS:</p>
+            <p>TEAMS: </p>
+            <p>COMPANIES: </p>
           </div>
         </div>
 
@@ -29,7 +35,10 @@ class AdminHome extends Component {
 
 const mapState = state => {
   return {
-    user: state.user
+    user: state.user,
+    user: state.users,
+    companies: state.companies,
+    teams: state.teams
   }
 }
 
