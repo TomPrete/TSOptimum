@@ -11,6 +11,7 @@ const ADD_USER = 'ADD_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const UPDATE_USER = 'UPDATE_USER'
 
+
 /***** INITIAL STATE*****/
 const defaultUser = {}
 
@@ -19,6 +20,8 @@ const getUser = user => ({ type: GET_USER, user })
 const addUser = user => ({ type: ADD_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
 const updateUser = user => ({ type: UPDATE_USER, user })
+
+
 
 /*****THUNK CREATORS*****/
 export const me = () =>

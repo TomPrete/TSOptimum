@@ -10,9 +10,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import AdminUserModal from './AdminUserModal'
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
-import Modal from '@material-ui/core/Modal'
+import EditIcon from '@material-ui/icons/Edit';
+// import Modal from '@material-ui/core/Modal'
 
 
 const rows = [
@@ -28,31 +30,44 @@ const rows = [
 ];
 
 
+
 class AdminUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false
+      userId: null
     }
 
-    this.openModal = this.openModal.bind(this)
-    this.closeModal = this.closeModal.bind(this)
+    this.showUserModal = this.showUserModal.bind(this)
+    this.clickOutside = this.clickOutside.bind(this)
+  }
+
+  componentDidMount() {
+    window.addEventListener('click', this.clickOutside)
+  }
+
+  showUserModal(user) {
+    if (!this.state.userId) {
+      this.setState({
+        userId: user
+      })
+    } else {
+      this.setState({
+        userId: null
+      })
+    }
   }
 
 
-  openModal() {
-    this.setState({
-      open: true
-    })
-    console.log("STATE: ", this.state.open)
+  clickOutside(e) {
+    const modal = document.getElementById('modal-component')
+    if (e.target === modal) {
+      this.setState({
+        userId: null
+      })
+    }
   }
 
-  closeModal() {
-    this.setState({
-      open: false
-    })
-    console.log("STATE: ", this.state.open)
-  }
 
   render() {
 
@@ -85,7 +100,6 @@ class AdminUsers extends Component {
                 users.length > 0
                   ?
                   users.map(user => {
-
                     return (
 
                       <TableRow key={user.personId} className="row-user">
@@ -99,7 +113,7 @@ class AdminUsers extends Component {
                         <TableCell className="MuiTableCell-root-35">{user.resetPassword ? "Yes" : "No"}</TableCell>
                         <TableCell className="MuiTableCell-root-35">
                           <div>
-                            <button key='edit' onClick={() => this.openModal()}>Edit</button>
+                            <EditIcon key='edit' onClick={() => this.showUserModal(user.id)}></EditIcon>
                           </div>
 
                         </TableCell>
@@ -114,21 +128,18 @@ class AdminUsers extends Component {
               }
             </tbody>
           </Table>
-
         </Paper>
 
+        {
+          this.state.userId
+            ?
+            <div id='modal-component'>
+              <AdminUserModal userId={this.state.userId} showUserModal={this.showUserModal} />
+            </div>
+            :
+            null
+        }
 
-        <Modal
-          open={this.state.open}
-          onClose={this.closeModal}
-        >
-        <div>
-        HERE
-        </div>
-
-
-
-        </Modal>
       </div>
     )
   }
