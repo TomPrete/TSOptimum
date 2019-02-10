@@ -9,8 +9,10 @@ import companies from './companies'
 import projects from './projects'
 import project from './project'
 import team from './team'
+import teams from './teams'
 
-const reducer = combineReducers({user, users, teamMates, team, companies, projects, project})
+
+const reducer = combineReducers({user, users, teamMates, team, companies, projects, project, teams})
 
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
@@ -26,3 +28,4 @@ export * from './companies'
 export * from './projects'
 export * from './project'
 export * from './team'
+export * from './teams'

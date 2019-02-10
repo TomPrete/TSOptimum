@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Modal from '@material-ui/core/Modal'
-import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject } from '../store'
+import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, fetchAllTeams } from '../store'
+import Select from 'react-select';
 
 
 
@@ -20,8 +21,8 @@ class AdminUserModal extends Component {
   }
 
   componentDidMount() {
-    console.log("Props: ", this.props.userId)
-    // store.dispatch(getUserUser(this.props.userId))
+    console.log("Props: ", this.props.selectedUser)
+    store.dispatch(fetchAllTeams())
   }
 
 
@@ -42,29 +43,50 @@ class AdminUserModal extends Component {
 
 
   // async handleProjectSubmit(e) {
-    // e.preventDefault()
-    // let projectId = this.props.project.projectId
-    // let name = !this.state.name ? this.props.project.name : this.state.name;
-    // let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
-    // let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
-    // let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
-    // let status = !this.state.status ? this.props.project.status : this.state.status;
-    // let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
-    // let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
+  // e.preventDefault()
+  // let projectId = this.props.project.projectId
+  // let name = !this.state.name ? this.props.project.name : this.state.name;
+  // let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
+  // let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
+  // let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
+  // let status = !this.state.status ? this.props.project.status : this.state.status;
+  // let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
+  // let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
 
-    // await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
-    // await store.dispatch(removeUserProject())
-    // await this.props.showProjectModal()
-    // this.setState({
-    //   redirect: true
-    // })
+  // await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
+  // await store.dispatch(removeUserProject())
+  // await this.props.showProjectModal()
+  // this.setState({
+  //   redirect: true
+  // })
   // }
 
   render() {
+    console.log("TEAMS: ", this.props.teams)
     return (
       <div id="admin-modal-container" >
         <div>
-        Here
+          <div>
+            Persons ID: {this.props.selectedUser.personId}
+          </div>
+          <div>
+            Name: {this.props.selectedUser.name}
+          </div>
+          <div>
+            ID: {this.props.selectedUser.id}
+          </div>
+          <div>
+            Team ID: <Select options={this.state.teams}>{!this.props.selectedUser.teamID ? "Not Assigned" : this.props.selectedUser.teamId}</Select>
+          </div>
+          <div>
+            Title: {this.props.selectedUser.title}
+          </div>
+          <div>
+            Email: {this.props.selectedUser.email}
+          </div>
+          <div>
+            Is Admin User: {this.props.selectedUser.isAdmin == false ? "False" : "True"}
+          </div>
         </div>
       </div>
     )
@@ -74,10 +96,11 @@ class AdminUserModal extends Component {
 const mapState = state => {
   return {
     user: state.user,
+    // teams: state.teams
   }
 }
 
-const mapDispatch = null
+const mapDispatch = {fetchAllTeams}
 
 const AdminUserModalContainer = connect(mapState, mapDispatch)(AdminUserModal)
 

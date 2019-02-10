@@ -1217,6 +1217,8 @@ input:checked + .slider:before {
 }
 
 
+
 .edit-icon:hover {
   cursor: pointer;
+  color: red
 }

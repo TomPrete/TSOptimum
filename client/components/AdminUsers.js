@@ -35,7 +35,7 @@ class AdminUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: null
+      user: null
     }
 
     this.showUserModal = this.showUserModal.bind(this)
@@ -47,13 +47,14 @@ class AdminUsers extends Component {
   }
 
   showUserModal(user) {
-    if (!this.state.userId) {
+    if (!this.state.user) {
       this.setState({
-        userId: user
+        user: [user]
       })
+
     } else {
       this.setState({
-        userId: null
+        user: null
       })
     }
   }
@@ -63,7 +64,7 @@ class AdminUsers extends Component {
     const modal = document.getElementById('modal-component')
     if (e.target === modal) {
       this.setState({
-        userId: null
+        user: null
       })
     }
   }
@@ -74,7 +75,6 @@ class AdminUsers extends Component {
 
     const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
     const users = this.props.users
-
     return (
       <div id="completed-projects-container">
         <div className='sidebar-container'>
@@ -113,7 +113,7 @@ class AdminUsers extends Component {
                         <TableCell className="MuiTableCell-root-35">{user.resetPassword ? "Yes" : "No"}</TableCell>
                         <TableCell className="MuiTableCell-root-35">
                           <div>
-                            <EditIcon key='edit' onClick={() => this.showUserModal(user.id)}></EditIcon>
+                            <EditIcon key='edit' onClick={() => this.showUserModal(user)} className="edit-icon"></EditIcon>
                           </div>
 
                         </TableCell>
@@ -131,10 +131,10 @@ class AdminUsers extends Component {
         </Paper>
 
         {
-          this.state.userId
+          this.state.user
             ?
             <div id='modal-component'>
-              <AdminUserModal userId={this.state.userId} showUserModal={this.showUserModal} />
+              <AdminUserModal selectedUser={this.state.user[0]} showUserModal={this.showUserModal} />
             </div>
             :
             null
