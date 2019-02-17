@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Modal from '@material-ui/core/Modal'
-import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, fetchAllTeams } from '../store'
+// import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, fetchAllTeams } from '../store'
 import Select from 'react-select';
 
 
@@ -21,8 +21,9 @@ class AdminUserModal extends Component {
   }
 
   componentDidMount() {
-    console.log("Props: ", this.props.selectedUser)
-    store.dispatch(fetchAllTeams())
+    console.log("TEAMS: ", this.props.teams)
+    // console.log("Props: ", this.props.selectedUser)
+    // store.dispatch(fetchAllTeams())
   }
 
 
@@ -62,7 +63,7 @@ class AdminUserModal extends Component {
   // }
 
   render() {
-    console.log("TEAMS: ", this.props.teams)
+
     return (
       <div id="admin-modal-container" >
         <div>
@@ -76,7 +77,14 @@ class AdminUserModal extends Component {
             ID: {this.props.selectedUser.id}
           </div>
           <div>
-            Team ID: <Select options={this.state.teams}>{!this.props.selectedUser.teamID ? "Not Assigned" : this.props.selectedUser.teamId}</Select>
+            Team ID:
+            <Select
+              options={this.props.teams}
+              closeMenuOnSelect={true}
+              isMulti={false}
+              isClearable
+              isSearchable
+            >{!this.props.selectedUser.teamID ? "Not Assigned" : this.props.selectedUser.teamId}</Select>
           </div>
           <div>
             Title: {this.props.selectedUser.title}
@@ -96,11 +104,11 @@ class AdminUserModal extends Component {
 const mapState = state => {
   return {
     user: state.user,
-    // teams: state.teams
+    teams: state.teams
   }
 }
 
-const mapDispatch = {fetchAllTeams}
+const mapDispatch = null
 
 const AdminUserModalContainer = connect(mapState, mapDispatch)(AdminUserModal)
 

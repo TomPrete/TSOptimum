@@ -28,7 +28,7 @@ router.post('/', (req, res, next) => {
   //GET all Teams
 	router.get('/', (req, res, next) => {
 		Team.findAll()
-		.then(teams => res.json(teams))
+    .then(teams => res.json(teams))
 		.catch(next);
 	});
 

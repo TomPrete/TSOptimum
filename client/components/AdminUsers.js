@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AdminSideBar from './AdminSideBar'
-import store, { fetchAllUsers } from '../store'
+import store, { fetchAllUsers, fetchAllTeams } from '../store'
 import users from '../store/users';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -43,6 +43,8 @@ class AdminUsers extends Component {
   }
 
   componentDidMount() {
+    console.log("Props: ", this.props.selectedUser)
+    store.dispatch(fetchAllTeams())
     window.addEventListener('click', this.clickOutside)
   }
 
@@ -154,7 +156,7 @@ const mapState = state => {
 }
 
 
-const mapDispatch = { fetchAllUsers }
+const mapDispatch = { fetchAllUsers, fetchAllTeams }
 
 
 const AdminUsersContainer = connect(mapState, mapDispatch)(AdminUsers)
