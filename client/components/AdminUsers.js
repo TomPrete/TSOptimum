@@ -43,7 +43,7 @@ class AdminUsers extends Component {
   }
 
   componentDidMount() {
-    console.log("Props: ", this.props.selectedUser)
+    // console.log("Props: ", this.props.selectedUser)
     store.dispatch(fetchAllTeams())
     window.addEventListener('click', this.clickOutside)
   }

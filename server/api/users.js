@@ -71,7 +71,7 @@ router.put('/update-password/:id', async (req, res, next) => {
         if (!user) {
           res.status(401).send('User not found')
         } else if (!user.correctPassword(req.body.oldPassword)) {
-          res.status(401).send('Incorrect current password')
+          res.status(401).send('Incorrect password or email')
         }
         else {
           const text = `<p>Hi ${user.dataValues.firstName},</p><h1>You succesfully changed your password!</h1><p>If you did not request to change your password please contact tso.optimum@gmail.com and we'll sort everything out for you.</p><p>Onward,</p><p>TSO Optimum Security Team</p><p>Helping you manage your tasks</p>`

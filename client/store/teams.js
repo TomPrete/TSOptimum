@@ -40,6 +40,7 @@ export const fetchAllTeams = () =>
         let option = {}
         option.label = capitalizeFirstLetter(sortedTeams[i].name)
         option.value = sortedTeams[i].name
+        option.id = sortedTeams[i].id
         teamsArr.push(option)
       }
       return teamsArr})

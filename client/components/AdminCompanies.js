@@ -9,7 +9,6 @@ import users from '../store/users';
 
 
 const AdminCompanies = (props) => {
-  console.log("PROPS: ", props)
   const companies = props.companies
 
   return (

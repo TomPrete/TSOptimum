@@ -20,11 +20,6 @@ class AdminUserModal extends Component {
     // this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
   }
 
-  componentDidMount() {
-    console.log("TEAMS: ", this.props.teams)
-    // console.log("Props: ", this.props.selectedUser)
-    // store.dispatch(fetchAllTeams())
-  }
 
 
 
