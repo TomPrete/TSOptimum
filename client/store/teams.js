@@ -39,8 +39,7 @@ export const fetchAllTeams = () =>
       for (let i = 0; i < sortedTeams.length; i++) {
         let option = {}
         option.label = capitalizeFirstLetter(sortedTeams[i].name)
-        option.value = sortedTeams[i].name
-        option.id = sortedTeams[i].id
+        option.value = sortedTeams[i].id
         teamsArr.push(option)
       }
       return teamsArr})

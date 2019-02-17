@@ -2,11 +2,36 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import Modal from '@material-ui/core/Modal'
-// import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, fetchAllTeams } from '../store'
+import store, { updateUserAdminThunk } from '../store'
 import Select from 'react-select';
 
 
 
+const title = [
+  {
+    label: 'Treasury Solutions Analyst',
+    value: 'Treasury Solutions Analyst'
+  },
+  {
+    label: 'Treasury Solutions Officer',
+    value: 'Treasury Solutions Officer'
+  },
+  {
+    label: 'Relationship Manager',
+    value: 'Relationship Manager'
+  }
+]
+
+const boolean = [
+  {
+    label: 'True',
+    value: 'True'
+  },
+  {
+    label: 'False',
+    value: 'False'
+  }
+]
 
 class AdminUserModal extends Component {
 
@@ -17,7 +42,7 @@ class AdminUserModal extends Component {
       redirect: false
     }
     this.followUp = this.followUp.bind(this)
-    // this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
+    this.handleUserAdminUpdate = this.handleUserAdminUpdate.bind(this)
   }
 
 
@@ -37,31 +62,29 @@ class AdminUserModal extends Component {
 
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
 
+  handleUserAdminUpdate(e) {
+    let teamId = +e.target.team_id.value || this.props.selectedUser.teamId
+    let userTitle = e.target.user_title.value || this.props.selectedUser.title
+    let isAdmin = e.target.is_admin.value || this.props.selectedUser.isAdmin
+    let userId = this.props.selectedUser.id
+    this.props.updateUserAdmin
+    console.log("teamId: ", teamId)
+    console.log("userTitle: ", userTitle)
+    console.log("isAdmin: ", isAdmin)
+    console.log("userId: ", userId)
+    // debugger
+    this.props.updateUserAdminThunk(userId, teamId, userTitle, isAdmin)
+    // window.location.reload()
+  }
 
-  // async handleProjectSubmit(e) {
-  // e.preventDefault()
-  // let projectId = this.props.project.projectId
-  // let name = !this.state.name ? this.props.project.name : this.state.name;
-  // let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
-  // let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
-  // let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
-  // let status = !this.state.status ? this.props.project.status : this.state.status;
-  // let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
-  // let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
-
-  // await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
-  // await store.dispatch(removeUserProject())
-  // await this.props.showProjectModal()
-  // this.setState({
-  //   redirect: true
-  // })
-  // }
 
   render() {
-
+    console.log("selected-user: ", this.props.selectedUser)
     return (
+
       <div id="admin-modal-container" >
         <div>
+        <form onSubmit={this.handleUserAdminUpdate} id="update-user">
           <div>
             Persons ID: {this.props.selectedUser.personId}
           </div>
@@ -74,22 +97,46 @@ class AdminUserModal extends Component {
           <div>
             Team ID:
             <Select
+              name="team_id"
               options={this.props.teams}
               closeMenuOnSelect={true}
               isMulti={false}
               isClearable
               isSearchable
-            >{!this.props.selectedUser.teamID ? "Not Assigned" : this.props.selectedUser.teamId}</Select>
+
+            />
           </div>
           <div>
-            Title: {this.props.selectedUser.title}
+            Title:
+            <Select
+              name="user_title"
+              options={title}
+              closeMenuOnSelect={true}
+              isMulti={false}
+              isClearable
+              isSearchable
+
+            />
           </div>
           <div>
             Email: {this.props.selectedUser.email}
           </div>
           <div>
-            Is Admin User: {this.props.selectedUser.isAdmin == false ? "False" : "True"}
+            Is Admin User:
+            <Select
+            name="is_admin"
+            options={boolean}
+            closeMenuOnSelect={true}
+            isMulti={false}
+            isClearable
+            // isSearchable
+          />
           </div>
+          </form>
+        </div>
+
+        <div className="edit-div-submit">
+          <button className="edit-project-submit" type="submit" form="update-user">Update and Close</button>
         </div>
       </div>
     )
@@ -103,7 +150,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = null
+const mapDispatch = {updateUserAdminThunk}
 
 const AdminUserModalContainer = connect(mapState, mapDispatch)(AdminUserModal)
 
