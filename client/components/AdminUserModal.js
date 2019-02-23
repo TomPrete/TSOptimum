@@ -68,13 +68,7 @@ class AdminUserModal extends Component {
     let isAdmin = e.target.is_admin.value || this.props.selectedUser.isAdmin
     let userId = this.props.selectedUser.id
     this.props.updateUserAdmin
-    console.log("teamId: ", teamId)
-    console.log("userTitle: ", userTitle)
-    console.log("isAdmin: ", isAdmin)
-    console.log("userId: ", userId)
-    // debugger
     this.props.updateUserAdminThunk(userId, teamId, userTitle, isAdmin)
-    // window.location.reload()
   }
 
 
@@ -101,6 +95,7 @@ class AdminUserModal extends Component {
               options={this.props.teams}
               closeMenuOnSelect={true}
               isMulti={false}
+              placeholder={this.props.selectedUser.teamId}
               isClearable
               isSearchable
 
@@ -112,6 +107,7 @@ class AdminUserModal extends Component {
               name="user_title"
               options={title}
               closeMenuOnSelect={true}
+              placeholder={this.props.selectedUser.title}
               isMulti={false}
               isClearable
               isSearchable
@@ -126,6 +122,7 @@ class AdminUserModal extends Component {
             <Select
             name="is_admin"
             options={boolean}
+            placeholder={this.props.selectedUser.isAdmin == true ? "True" : "False"}
             closeMenuOnSelect={true}
             isMulti={false}
             isClearable

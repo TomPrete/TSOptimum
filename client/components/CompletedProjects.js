@@ -31,6 +31,8 @@ class CompletedProjects extends Component {
     window.addEventListener('click', this.clickOutside)
   }
 
+  // componentWillUnmount()
+
   componentWillReceiveProps(nextProps) {
     const completedProjects = nextProps.projects
     if (completedProjects.length > 0 ) {

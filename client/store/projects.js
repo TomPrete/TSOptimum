@@ -81,8 +81,10 @@ export const submitCompletedProject = (projectId) => dispatch => {
   axios.put(`/api/project/${projectId}`, {
     status: 'Complete'
   })
-    .then(project => dispatch(updateCompletedProject(project)))
-    .then(project => window.location.reload())
+    .then(project => {
+      dispatch(updateCompletedProject(project))
+      window.location.reload()
+    })
     .catch(err => console.log("error submitting completed project: ", error))
 }
 
@@ -137,7 +139,7 @@ export const fetchAllUserProjects = id =>
       case CREATE_PROJECT:
         return [...state, action.project]
       case COMPLETED_PROJECT:
-        return [...state, action.project];
+        return [...state];
       // case UPDATE_PROJECT:
       default:
         return state
