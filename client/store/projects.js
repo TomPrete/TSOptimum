@@ -23,10 +23,10 @@ const createProject = project => (
   }
 )
 
-const getInProcessUserProjects = projects => (
+const getInProcessUserProjects = inProcessProjects => (
   {
     type: GET_IN_PROCESS_USER_PROJECTS,
-    projects
+    inProcessProjects
   }
 )
 
@@ -127,7 +127,7 @@ export const fetchAllUserProjects = id =>
       // case GET_ALL_COMPANIES:
       //   return action.companies
       case GET_IN_PROCESS_USER_PROJECTS:
-        return action.projects
+        return action.inProcessProjects
       case GET_COMPLETED_USER_PROJECTS:
         return action.projects
       case GET_ALL_USER_PROJECTS:

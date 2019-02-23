@@ -26,7 +26,6 @@ class AllUserProjects extends Component {
       const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
     }
-
     window.addEventListener('click', this.clickOutside)
   }
 

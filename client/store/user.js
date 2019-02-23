@@ -30,7 +30,6 @@ export const me = () =>
       .then(res => {
         dispatch(getUser(res.data))
         if (res.data.teamId && res.data.id) {
-          dispatch(fetchAllUserProjects(res.data.id))
           dispatch(fetchUserTeamMates(res.data.teamId))
           dispatch(fetchUserTeam(res.data.teamId))
         }

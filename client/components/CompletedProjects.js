@@ -25,38 +25,15 @@ class CompletedProjects extends Component {
 
 
   async componentDidMount() {
-    const userProjects = this.props.projects
-    if (userProjects.length > 0) {
-      const completedProjects = userProjects.filter(project => {
-        return project.status === "Complete"
-      })
-      completedProjects.sort((a,b) => {
-        a = new Date(a.updatedAt)
-        b = new Date(b.updatedAt)
-        return a<b ? -1 : a>b ? 1 : 0
-      })
-      this.setState({
-        completedProjects: completedProjects
-      })
-    }
-    else {
       const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
       store.dispatch(fetchAllCompletedUserProjects)
-    }
+
     window.addEventListener('click', this.clickOutside)
   }
 
   componentWillReceiveProps(nextProps) {
-    const userProjects = nextProps.projects
-    if (userProjects.length > 0) {
-      const completedProjects = userProjects.filter(project => {
-        return project.status === "Complete"
-      })
-      completedProjects.sort((a,b) => {
-        a = new Date(a.updatedAt)
-        b = new Date(b.updatedAt)
-        return a<b ? -1 : a>b ? 1 : 0
-      })
+    const completedProjects = nextProps.projects
+    if (completedProjects.length > 0 ) {
       this.setState({
         completedProjects: completedProjects
       })

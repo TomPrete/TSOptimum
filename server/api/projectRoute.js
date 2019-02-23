@@ -4,6 +4,9 @@ const router = require('express').Router()
 const { User, Company, Project } = require('../db/models')
 module.exports = router
 
+
+
+
 router.post('/', (req, res, next) => {
   console.log("HERE")
   return Project.create(req.body)
@@ -14,7 +17,14 @@ router.post('/', (req, res, next) => {
 
 router.get('/all', (req, res, next) => {
   Project.findAll()
-    .then(projects => res.json(projects))
+    .then(projects => {
+      projects.sort((a, b) => {
+        a = new Date(a.dueDate)
+        b = new Date(b.dueDate)
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      res.json(projects)
+    })
     .catch(next);
 });
 
@@ -27,11 +37,18 @@ router.get('/in-process/:id', (req, res, next) => {
       status: 'In Process'
     }
   })
-    .then(projects => res.json(projects))
+    .then(projects => {
+      projects.sort((a, b) => {
+        a = new Date(a.dueDate)
+        b = new Date(b.dueDate)
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      res.json(projects)
+    })
     .catch(next);
 })
 
-router.get('/complete/:id', (req,res,next) => {
+router.get('/complete/:id', (req, res, next) => {
   let id = +req.params.id;
   Project.findAll({
     where: {
@@ -39,8 +56,16 @@ router.get('/complete/:id', (req,res,next) => {
       status: 'Complete'
     }
   })
-  .then(projects => res.json(projects))
-  // .catch(next => {console.log("HERE")})
+    .then(projects => {
+      console.log("completed")
+      projects.sort((a, b) => {
+        a = new Date(a.updatedAt)
+        b = new Date(b.updatedAt)
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      res.json(projects)
+    })
+    .catch(next => { console.log("HERE") })
 })
 
 router.get('/user_:id', (req, res, next) => {
@@ -50,7 +75,14 @@ router.get('/user_:id', (req, res, next) => {
       userId: id
     }
   })
-  .then(projects => res.json(projects))
+    .then(projects => {
+      projects.sort((a, b) => {
+        a = new Date(a.dueDate)
+        b = new Date(b.dueDate)
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      res.json(projects)
+    })
   // .catch(next)
 })
 
@@ -61,8 +93,8 @@ router.get('/:projectId', (req, res, next) => {
       projectId: id
     }
   })
-  .then(project => res.json(project.dataValues))
-  .catch(next)
+    .then(project => res.json(project.dataValues))
+    .catch(next)
 })
 
 router.put('/:projectId', (req, res, next) => {
@@ -72,7 +104,7 @@ router.put('/:projectId', (req, res, next) => {
       projectId: req.params.projectId
     }
   })
-  .then(project => res.json(project.data))
+    .then(project => res.json(project.data))
   // .then(([numRows, updatedRows]) => {
   //   res.json(updatedRows[0]);
   // })
@@ -104,7 +136,7 @@ router.put('/:projectId', (req, res, next) => {
 //   const project = await Project.findOne({where: {projectId: +req.params.id}})
 //   const user = await project.addUser(+req.params.id)
 //   .then(user => res.json(user))
-  // .catch(next);
+// .catch(next);
 // });
 
 

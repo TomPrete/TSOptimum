@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { submitCompletedProject, removeUserProject } from '../store'
+import store, { submitCompletedProject, removeUserProject, fetchInProcessUserProjects } from '../store'
 import ProjectModal from './ProjectModal.js'
 
 
@@ -17,48 +17,28 @@ class Projects extends Component {
     }
     this.showProjectModal = this.showProjectModal.bind(this)
     this.clickOutside = this.clickOutside.bind(this)
+    // this.sortFunction = this.sortFunction.bind(this)
   }
 
 
 
-  componentDidMount() {
+  async componentDidMount() {
     setTimeout(() => this.setState({ loading: false }), 1500)
-    const userProjects = this.props.projects
-    if (userProjects.length > 0) {
-      const inProcessProjects = userProjects.filter(project => {
-        return project.status === "In Process"
-      })
-      inProcessProjects.sort((a,b) => {
-        a = new Date(a.dueDate)
-        b = new Date(b.dueDate)
-        return a<b ? -1 : a>b ? 1 : 0
-      })
-
-      if (inProcessProjects.length > 0) {
-        this.setState({
-          inProcessProjects: inProcessProjects
-        })
-      }
-    }
+    const getAllUserProjects = await fetchInProcessUserProjects(this.props.user.id)
+    store.dispatch(getAllUserProjects)
     window.addEventListener('click', this.clickOutside)
   }
+
+
+
+
 
   componentWillReceiveProps(nextProps) {
     const userProjects = nextProps.projects
     if (userProjects.length > 0) {
-      const inProcessProjects = userProjects.filter(project => {
-        return project.status === "In Process"
+      this.setState({
+        inProcessProjects: userProjects
       })
-      inProcessProjects.sort((a,b) => {
-        a = new Date(a.dueDate)
-        b = new Date(b.dueDate)
-        return a<b ? -1 : a>b ? 1 : 0
-      })
-      if (inProcessProjects.length > 0) {
-        this.setState({
-          inProcessProjects: inProcessProjects
-        })
-      }
     }
   }
 
@@ -88,7 +68,6 @@ class Projects extends Component {
   render() {
     const project = this.state.projectId
 
-
     return (
       <div id="projects-container" >
         <div id='column-list'>
@@ -112,7 +91,7 @@ class Projects extends Component {
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.officer}</li>
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.status}</li>
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.dueDate}</li>
-                    <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showProjectModal(project.projectId)} readOnly/>
+                    <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showProjectModal(project.projectId)} readOnly />
                     <div className="queue-complete">
                       <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
                       <button className='edit-btn' onClick={() => this.showProjectModal(project.projectId)} >Edit</button>
@@ -150,7 +129,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { submitCompletedProject, removeUserProject }
+const mapDispatch = { submitCompletedProject, removeUserProject, fetchInProcessUserProjects }
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 
