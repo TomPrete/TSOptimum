@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject } from '../store'
+import AsyncSelect from 'react-select/lib/Async';
 
 
 
@@ -11,7 +12,7 @@ class ProjectModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      companyName: "",
       projectType: "",
       officer: "",
       analyst: "",
@@ -32,6 +33,20 @@ class ProjectModal extends Component {
     this.inputDueDate = this.inputDueDate.bind(this)
     // this.removeProject = this.removeProject.bind(this)
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
+    this.loadOptions = this.loadOptions.bind(this)
+    this.filterCompanies = this.filterCompanies.bind(this)
+  }
+
+  filterCompanies(companyName) {
+    return this.props.companies.filter(i =>
+      i.label.toLowerCase().includes(companyName.toLowerCase())
+    );
+  };
+
+  loadOptions(companyName, callback) {
+    setTimeout(() => {
+      callback(this.filterCompanies(companyName));
+    }, 500);
   }
 
   componentDidMount() {
@@ -60,10 +75,9 @@ class ProjectModal extends Component {
   //**** FUNCTIONS THAT HANDLE CHANGES TO THE INPUT FORM ****/
 
   inputProjectName(e) {
-    this.setState({
-      name: e.target.value
-    })
-  }
+    const companyName = e.replace(/\W/g, '');
+    this.setState({ companyName });
+}
 
   inputProjectType(e) {
     this.setState({
@@ -107,20 +121,16 @@ class ProjectModal extends Component {
   async handleProjectSubmit(e) {
     e.preventDefault()
     let projectId = this.props.project.projectId
-    let name = !this.state.name ? this.props.project.name : this.state.name;
+    let name = !e.target.companyName.value ? this.props.project.name : e.target.companyName.value;
     let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
     let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
     let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
     let status = !this.state.status ? this.props.project.status : this.state.status;
     let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
-
     await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
     await store.dispatch(removeUserProject())
     await this.props.showProjectModal()
-    // this.setState({
-    //   redirect: true
-    // })
   }
 
   render() {
@@ -135,13 +145,22 @@ class ProjectModal extends Component {
           <div id="edit-form-container">
             <form onSubmit={this.handleProjectSubmit} className="edit-project-form" id="edit-project-form">
               <div>
-                <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} />
+                {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} />
                 <datalist id="companyList">
                   {
                     this.props.companies.map(company =>
                       <option key={company.id} value={company.name}>{company.name}</option>)
                   }
-                </datalist>
+                </datalist> */}
+                <AsyncSelect
+                name="companyName"
+                loadOptions={this.loadOptions}
+                className="select-company"
+                placeholder={this.props.project.name}
+                cacheOptions
+                onInputChange={this.inputProjectName}
+                // required
+              />
                 <select onChange={this.inputProjectType} className="edit-select-type" >
                   <option value={this.props.project.projectType
                   }>{this.props.project.projectType

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AdminSideBar from './AdminSideBar'
+// import AddPerson from '..../public/img/add-person.svg'
 import store, { fetchAllUsers, fetchAllTeams } from '../store'
 import users from '../store/users';
 import Table from '@material-ui/core/Table';
@@ -14,7 +15,11 @@ import AdminUserModal from './AdminUserModal'
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
-// import Modal from '@material-ui/core/Modal'
+import Button from '@material-ui/core/Button';
+import Fab from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
+import Signup from './SignUp'
+
 
 
 const rows = [
@@ -35,9 +40,11 @@ class AdminUsers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null
+      user: null,
+      addUser: false
     }
 
+    this.showAddUserModal = this.showAddUserModal.bind(this)
     this.showUserModal = this.showUserModal.bind(this)
     this.clickOutside = this.clickOutside.bind(this)
   }
@@ -61,6 +68,19 @@ class AdminUsers extends Component {
     }
   }
 
+  showAddUserModal() {
+    if (!this.state.addUser) {
+      this.setState({
+        addUser: true
+      })
+
+    } else {
+      this.setState({
+        addUser: false
+      })
+    }
+  }
+
 
   clickOutside(e) {
     const modal = document.getElementById('modal-component')
@@ -73,8 +93,6 @@ class AdminUsers extends Component {
 
 
   render() {
-
-
     const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
     const users = this.props.users
     return (
@@ -82,6 +100,16 @@ class AdminUsers extends Component {
         <div className='sidebar-container'>
           <AdminSideBar />
         </div>
+        <div>
+          <Button color='primary' variant='contained' className='material-primary-button' style={{backgroundColor:'green'}}>+Add User</Button>
+          <Fab color="primary" aria-label="Add" className='' style={{backgroundColor:'green'}} onClick={this.showAddUserModal}>
+        <AddIcon />
+      </Fab>
+
+
+
+        </div>
+
         <Paper >
           <Table className='admin-users' >
             <TableHead>
@@ -140,6 +168,15 @@ class AdminUsers extends Component {
             </div>
             :
             null
+        }
+        {
+          this.state.addUser
+          ?
+          <div id='modal-component'>
+            <Signup />
+          </div>
+          :
+          null
         }
 
       </div>

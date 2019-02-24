@@ -102,7 +102,10 @@ class AdminUserModal extends Component {
             />
           </div>
           <div>
+            <div>
             Title:
+            </div>
+
             <Select
               name="user_title"
               options={title}
@@ -134,6 +137,7 @@ class AdminUserModal extends Component {
 
         <div className="edit-div-submit">
           <button className="edit-project-submit" type="submit" form="update-user">Update and Close</button>
+          <button className="edit-project-submit" type="submit" >DELETE USER</button>
         </div>
       </div>
     )

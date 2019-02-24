@@ -65,22 +65,18 @@ router.put('/update/:id', async (req, res, next) => {
 })
 
 router.put('/admin/users/update/:id', async (req, res, next) => {
-  console.log("---------------------------")
-  console.log("BODY: ", req.params)
-  console.log("---------------------------")
   try {
     let user = await User.findOne({
       where: {
         id: +req.params.id
       }
     })
-    console.log("HERE")
     await user.update({
       teamId: req.body.teamId,
       title: req.body.title,
       isAdmin: req.body.isAdmin
     })
-    await user.reload()
+    // await user.reload()
     res.json(user)
   }
   catch (error) {

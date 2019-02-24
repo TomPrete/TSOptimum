@@ -26,7 +26,15 @@ export const fetchAllCompanies = () =>
           return 1
         return 0;
       }); return sortedCompanies})
-      .then(sortedCompanies => dispatch(getAllCompanies(sortedCompanies)))
+      .then(sortedCompanies => {
+        const companies = []
+        for (let i = 0; i < sortedCompanies.length; i++) {
+          companies.push({
+            value: sortedCompanies[i].name,
+            label: sortedCompanies[i].name
+          })
+        }
+        dispatch(getAllCompanies(companies))})
       .catch(err => console.error(err));
   }
 

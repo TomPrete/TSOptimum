@@ -95,10 +95,6 @@ export const updateUserThunk = (id, firstName, lastName, email) =>
 export const updateUserAdminThunk = (id, teamId, title, isAdmin) =>
   dispatch => {
     axios.put(`/api/users/admin/users/update/${id}`, { teamId, title, isAdmin })
-      .then(user => {
-        console.log("REDUX: ", user)
-        history.push(`/my-admin/users`)
-      })
       .catch(err => console.error(err))
   }
 
@@ -116,7 +112,6 @@ export const forgotUserPasswordThunk = email =>
     axios.post('/api/users/forgot-password', {email})
     .then(user => {
       dispatch(getUser(user.data))
-      // history.push('/home')
     })
     .catch(err => console.error(err))
   }

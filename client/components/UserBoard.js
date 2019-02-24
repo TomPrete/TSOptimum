@@ -3,14 +3,61 @@ import { Router, Route, Switch, Link, } from 'react-router-dom';
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
+import AsyncSelect from 'react-select/lib/Async';
+import Select from 'react-select'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
+
+const taskType = [
+  {
+    label: 'Client Call',
+    value: 'Client Call'
+  },
+  {
+    label: 'Client Inquiry',
+    value: 'Client Inquiry'
+  },
+  {
+    label: 'Client Issue',
+    value: 'Client Issue'
+  },
+  {
+    label: 'Exception Pricing',
+    value: 'Exception Pricing'
+  },
+  {
+    label: 'Implementation Request',
+    value: 'Implementation Request'
+  },
+  {
+    label: 'Pricing Proforma',
+    value: 'Pricing Proforma'
+  },
+  {
+    label: 'Refund Request',
+    value: 'Refund Request'
+  },
+  {
+    label: 'RFP',
+    value: 'RFP'
+  },
+  {
+    label: 'TMR',
+    value: 'TMR'
+  },
+  {
+    label: 'Special Project',
+    value: 'Special Project'
+  }
+]
+
+
 
 
 class UserBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      companyName: "",
       projectType: "",
       officer: "",
       analyst: "",
@@ -37,6 +84,20 @@ class UserBoard extends Component {
     this.handleOnClick = this.handleOnClick.bind(this)
     this.followUp = this.followUp.bind(this)
     this.handleGetProjects = this.handleGetProjects.bind(this)
+    this.loadOptions = this.loadOptions.bind(this)
+    this.filterCompanies = this.filterCompanies.bind(this)
+  }
+
+  filterCompanies(companyName) {
+    return this.props.companies.filter(i =>
+      i.label.toLowerCase().includes(companyName.toLowerCase())
+    );
+  };
+
+  loadOptions(companyName, callback) {
+    setTimeout(() => {
+      callback(this.filterCompanies(companyName));
+    }, 500);
   }
 
   enableNewProjectFunction() {
@@ -79,9 +140,8 @@ class UserBoard extends Component {
 
 
   inputProjectName(e) {
-    this.setState({
-      name: e.target.value
-    })
+      const companyName = e.replace(/\W/g, '');
+      this.setState({ companyName });
   }
 
   inputProjectType(e) {
@@ -124,7 +184,8 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    this.props.createNewProject(this.state.name, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.id, this.props.user.teamId)
+    console.log("SUBMIT: ", e.target.companyName.value)
+    this.props.createNewProject(e.target.companyName.value, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.id, this.props.user.teamId)
     this.setState({
       redirect: true
     })
@@ -142,7 +203,7 @@ class UserBoard extends Component {
   }
 
   render() {
-    // console.log("PROPS: ", this.props.team)
+
 
     return (
       <div id="user-board-container">
@@ -169,13 +230,22 @@ class UserBoard extends Component {
                   </div>
                   <div id="form-container">
                     <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
-                      <input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
+                      {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
                       <datalist id="companyList">
                         {
                           this.props.companies.map(company =>
                             <option key={company.id} value={company.name} required>{company.name}</option>)
                         }
-                      </datalist>
+                      </datalist>*/}
+                      <AsyncSelect
+                        name="companyName"
+                        loadOptions={this.loadOptions}
+                        className="select-company"
+                        placeholder="Company Name"
+                        cacheOptions
+                        onInputChange={this.inputProjectName}
+                        // required
+                      />
                       <select onChange={this.inputProjectType} className="select-type" required >
                         <option>Select type</option>
                         <option value="Client Call">Client Call</option>

@@ -30,8 +30,6 @@ class Projects extends Component {
   }
 
 
-  // componentWillUnmount()
-
 
   componentWillReceiveProps(nextProps) {
     const userProjects = nextProps.projects
