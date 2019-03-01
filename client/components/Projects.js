@@ -29,7 +29,9 @@ class Projects extends Component {
     window.addEventListener('click', this.clickOutside)
   }
 
-
+  componentWillUnmount() {
+    window.removeEventListener('click', this.clickOutside)
+  }
 
   componentWillReceiveProps(nextProps) {
     const userProjects = nextProps.projects

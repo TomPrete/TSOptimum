@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import AdminSideBar from './AdminSideBar'
+import AddUserModal from './AddUserModal';
+import AdminUserModal from './AdminUserModal'
 // import AddPerson from '..../public/img/add-person.svg'
 import store, { fetchAllUsers, fetchAllTeams } from '../store'
 import users from '../store/users';
@@ -11,14 +13,15 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import AdminUserModal from './AdminUserModal'
+
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import Signup from './SignUp'
+// import Fab from '@material-ui/core/Fab';
+// import AddIcon from '@material-ui/icons/Add';
+// import Signup from './SignUp'
+
 
 
 
@@ -55,6 +58,10 @@ class AdminUsers extends Component {
     window.addEventListener('click', this.clickOutside)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('click', this.clickOutside)
+  }
+
   showUserModal(user) {
     if (!this.state.user) {
       this.setState({
@@ -73,7 +80,6 @@ class AdminUsers extends Component {
       this.setState({
         addUser: true
       })
-
     } else {
       this.setState({
         addUser: false
@@ -86,7 +92,8 @@ class AdminUsers extends Component {
     const modal = document.getElementById('modal-component')
     if (e.target === modal) {
       this.setState({
-        user: null
+        user: null,
+        addUser: false
       })
     }
   }
@@ -103,7 +110,7 @@ class AdminUsers extends Component {
         <div className="admin-users">
 
         <div className="add-user">
-          <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }}>Add User</Button>
+          <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={() => this.showAddUserModal()}>Add User</Button>
           {/*<Fab color="primary" aria-label="Add" className='' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showAddUserModal}>
             <AddIcon />
     </Fab>*/}
@@ -160,6 +167,7 @@ class AdminUsers extends Component {
         </Paper>
         </div>
 
+
         {
           this.state.user
             ?
@@ -173,7 +181,7 @@ class AdminUsers extends Component {
           this.state.addUser
             ?
             <div id='modal-component'>
-              <Signup />
+              <AddUserModal showAddUserModal={this.showAddUserModal} />
             </div>
             :
             null

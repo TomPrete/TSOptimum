@@ -29,6 +29,10 @@ class AllUserProjects extends Component {
     window.addEventListener('click', this.clickOutside)
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('click', this.clickOutside)
+  }
+
   showProjectModal(project) {
     if (!this.state.projectId) {
       this.setState({
