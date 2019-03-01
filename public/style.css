@@ -1185,9 +1185,9 @@ input:checked + .slider:before {
 /************* ADMIN ***********/
 
 .admin-users{
-  z-index: -1;
-}
+  /* z-index: -1; */
 
+}
 
 /************ ADMIN - USERS **********/
 
@@ -1224,6 +1224,11 @@ input:checked + .slider:before {
 .edit-icon:hover {
   cursor: pointer;
   color: red
+}
+
+.add-user {
+ text-align: right;
+ margin: 5px 0;
 }
 
 

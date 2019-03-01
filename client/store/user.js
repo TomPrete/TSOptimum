@@ -95,6 +95,9 @@ export const updateUserThunk = (id, firstName, lastName, email) =>
 export const updateUserAdminThunk = (id, teamId, title, isAdmin) =>
   dispatch => {
     axios.put(`/api/users/admin/users/update/${id}`, { teamId, title, isAdmin })
+    .then(user =>
+      window.location.reload()
+      )
       .catch(err => console.error(err))
   }
 

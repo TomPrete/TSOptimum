@@ -100,18 +100,17 @@ class AdminUsers extends Component {
         <div className='sidebar-container'>
           <AdminSideBar />
         </div>
-        <div>
-          <Button color='primary' variant='contained' className='material-primary-button' style={{backgroundColor:'green'}}>+Add User</Button>
-          <Fab color="primary" aria-label="Add" className='' style={{backgroundColor:'green'}} onClick={this.showAddUserModal}>
-        <AddIcon />
-      </Fab>
+        <div className="admin-users">
 
-
-
+        <div className="add-user">
+          <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }}>Add User</Button>
+          {/*<Fab color="primary" aria-label="Add" className='' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showAddUserModal}>
+            <AddIcon />
+    </Fab>*/}
         </div>
 
         <Paper >
-          <Table className='admin-users' >
+          <Table>
             <TableHead>
               <TableRow>
                 <TableCell id="row">ID</TableCell>
@@ -159,6 +158,7 @@ class AdminUsers extends Component {
             </tbody>
           </Table>
         </Paper>
+        </div>
 
         {
           this.state.user
@@ -171,12 +171,12 @@ class AdminUsers extends Component {
         }
         {
           this.state.addUser
-          ?
-          <div id='modal-component'>
-            <Signup />
-          </div>
-          :
-          null
+            ?
+            <div id='modal-component'>
+              <Signup />
+            </div>
+            :
+            null
         }
 
       </div>

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import Modal from '@material-ui/core/Modal'
 import store, { updateUserAdminThunk } from '../store'
 import Select from 'react-select';
+// import history from '../history'
 
 
 
@@ -63,6 +64,7 @@ class AdminUserModal extends Component {
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
 
   handleUserAdminUpdate(e) {
+    e.preventDefault()
     let teamId = +e.target.team_id.value || this.props.selectedUser.teamId
     let userTitle = e.target.user_title.value || this.props.selectedUser.title
     let isAdmin = e.target.is_admin.value || this.props.selectedUser.isAdmin
@@ -90,6 +92,8 @@ class AdminUserModal extends Component {
           </div>
           <div>
             Team ID:
+
+
             <Select
               name="team_id"
               options={this.props.teams}
@@ -130,14 +134,14 @@ class AdminUserModal extends Component {
             isMulti={false}
             isClearable
             // isSearchable
-          />
+            />
           </div>
           </form>
         </div>
 
         <div className="edit-div-submit">
           <button className="edit-project-submit" type="submit" form="update-user">Update and Close</button>
-          <button className="edit-project-submit" type="submit" >DELETE USER</button>
+          {/* <button className="edit-project-submit" type="submit" >DELETE USER</button> */}
         </div>
       </div>
     )
