@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { addNewUser }  from '../store'
+import store, { AddNewUserInAdmin }  from '../store'
 import Select from 'react-select'
 
 
@@ -29,13 +29,19 @@ class AddUserModal extends Component {
     this.state = {
 
     }
-
     this.submitNewUser = this.submitNewUser.bind(this)
   }
 
 
-  submitNewUser(...args) {
+  submitNewUser(e) {
     console.log('SUBMIT NEW USER')
+    let firstName = e.target.first_name.value
+    let lastName = e.target.last_name.value
+    let email = e.target.email.value
+    let title = e.target.user_title.value
+
+    console.log(firstName, lastName, email, title)
+    this.props.AddNewUserInAdmin(firstName,lastName,email,title)
   }
 
 
@@ -46,9 +52,9 @@ class AddUserModal extends Component {
 
 
 
-        <input placeholder="First Name"></input>
-        <input placeholder="Last Name"></input>
-        <input placeholder="Email"></input>
+        <input name="first_name" placeholder="First Name"></input>
+        <input  name="last_name" placeholder="Last Name"></input>
+        <input name='email' placeholder="Email"></input>
         <Select
           name='user_title'
           options={title}
@@ -59,7 +65,7 @@ class AddUserModal extends Component {
           isSearchable
 
         />
-        <Select
+        {/*<Select
           name='user_title'
           options={this.props.teams}
           closeMenuOnSelect={true}
@@ -68,7 +74,7 @@ class AddUserModal extends Component {
           isClearable
           isSearchable
 
-        />
+        /> */}
 
         </form>
     <button type="submit" form='submit-new-user-form'>Create New User</button>
@@ -86,7 +92,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {addNewUser}
+const mapDispatch = {AddNewUserInAdmin}
 
 const AddUserModalContainer = connect(mapState, mapDispatch)(AddUserModal)
 

@@ -39,6 +39,15 @@ export const me = () =>
       })
       .catch(err => console.log(err))
 
+export const AddNewUserInAdmin = (firstName, lastName, email, title) =>
+  dispatch =>
+      axios.post('/api/users/admin/add-new-user', {firstName, lastName, email, title})
+      .then(user => {
+        console.log("REDUX: ", user)
+      })
+      .catch(err => console.log(err))
+
+
 export const addNewUser = (firstName, lastName, email, title, password) =>
   dispatch =>
     axios.post('/auth/signup', { firstName, lastName, email, title, password })

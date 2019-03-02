@@ -224,8 +224,6 @@ router.post('/reset-password/:token', async (req, res, next) => {
 })
 
 
-
-
 router.get('/team/:teamId', (req, res, next) => {
   try {
     User.findAll({
@@ -247,3 +245,14 @@ router.get('/team/:teamId', (req, res, next) => {
   }
 });
 
+router.post('/admin/add-new-user', (req, res, next) => {
+  try {
+    User.create(req.body)
+    .then(user => {
+      res.status(201).send("User successfully created.")
+    })
+  }
+  catch(error) {
+    next(error)
+  }
+})
