@@ -34,14 +34,14 @@ class AddUserModal extends Component {
 
 
   submitNewUser(e) {
-    console.log('SUBMIT NEW USER')
+    e.preventDefault()
     let firstName = e.target.first_name.value
     let lastName = e.target.last_name.value
     let email = e.target.email.value
     let title = e.target.user_title.value
-
+    let resetPassword = true
     console.log(firstName, lastName, email, title)
-    this.props.AddNewUserInAdmin(firstName,lastName,email,title)
+    this.props.AddNewUserInAdmin(firstName,lastName,email,title, resetPassword)
   }
 
 

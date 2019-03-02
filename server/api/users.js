@@ -31,13 +31,13 @@ var transporter = nodemailer.createTransport({
 
 router.get('/all', (req, res, next) => {
   User.findAll()
-    .then(users =>{
+    .then(users => {
       let userData = [];
-        users.filter(user => {
-          let { id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword  } = user
-          return userData.push({ id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword })
-        })
-        res.json(userData)
+      users.filter(user => {
+        let { id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword } = user
+        return userData.push({ id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword })
+      })
+      res.json(userData)
     }
 
     )
@@ -185,11 +185,12 @@ router.post('/reset-password/:token', async (req, res, next) => {
           user.update({
             password: req.body.newPassword,
             resetPasswordToken: null,
-            resetPasswordExpires: null
+            resetPasswordExpires: null,
+            resetPassword: false
           })
 
           let { id, name, firstName, lastName, title, email, personId, teamId } = user.dataValues
-          res.json({id, name, firstName, lastName, title, email, personId, teamId})
+          res.json({ id, name, firstName, lastName, title, email, personId, teamId })
 
           const text = `<p>Hi ${user.dataValues.firstName},</p><h1>You succesfully reset your password!</h1><p>If you did not request to change your password please contact tso.optimum@gmail.com and we'll sort everything out for you.</p><p>Onward,</p><p>TSO Optimum Security Team</p><p>Helping you manage your tasks</p>`
 
@@ -245,14 +246,23 @@ router.get('/team/:teamId', (req, res, next) => {
   }
 });
 
-router.post('/admin/add-new-user', (req, res, next) => {
+router.post('/admin/add-new-user', async (req, res, next) => {
   try {
-    User.create(req.body)
-    .then(user => {
-      res.status(201).send("User successfully created.")
+    let user = await User.find({
+      where: {
+        email: req.body.email
+      }
     })
+    if (!user) {
+      User.create(req.body)
+        .then(data => {
+          res.status(201).send("User successfully created: ")
+        })
+    } else {
+      res.status(401).send("User already exists.")
+    }
   }
-  catch(error) {
+  catch (error) {
     next(error)
   }
 })

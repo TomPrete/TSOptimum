@@ -140,8 +140,8 @@ class UserBoard extends Component {
 
 
   inputProjectName(e) {
-      const companyName = e.replace(/\W/g, '');
-      this.setState({ companyName });
+    const companyName = e.replace(/\W/g, '');
+    this.setState({ companyName });
   }
 
   inputProjectType(e) {
@@ -206,6 +206,8 @@ class UserBoard extends Component {
 
 
     return (
+
+
       <div id="user-board-container">
         <div className='sidebar-container'>
           <SideBar />
@@ -244,7 +246,7 @@ class UserBoard extends Component {
                         placeholder="Company Name"
                         cacheOptions
                         onInputChange={this.inputProjectName}
-                        // required
+                      // required
                       />
                       <select onChange={this.inputProjectType} className="select-type" required >
                         <option>Select type</option>
@@ -346,6 +348,7 @@ class UserBoard extends Component {
             <Projects />
           </div>
         </div>
+
 
       </div>
     )

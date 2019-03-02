@@ -46,9 +46,6 @@ class AdminUserModal extends Component {
     this.handleUserAdminUpdate = this.handleUserAdminUpdate.bind(this)
   }
 
-
-
-
   followUp() {
     if (this.state.followUp === false) {
       this.setState({
@@ -69,15 +66,12 @@ class AdminUserModal extends Component {
     let userTitle = e.target.user_title.value || this.props.selectedUser.title
     let isAdmin = e.target.is_admin.value || this.props.selectedUser.isAdmin
     let userId = this.props.selectedUser.id
-    this.props.updateUserAdmin
     this.props.updateUserAdminThunk(userId, teamId, userTitle, isAdmin)
   }
 
-
   render() {
-    console.log("selected-user: ", this.props.selectedUser)
-    return (
 
+    return (
       <div id="admin-modal-container" >
         <div>
         <form onSubmit={this.handleUserAdminUpdate} id="update-user">

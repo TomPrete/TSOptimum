@@ -39,9 +39,9 @@ export const me = () =>
       })
       .catch(err => console.log(err))
 
-export const AddNewUserInAdmin = (firstName, lastName, email, title) =>
+export const AddNewUserInAdmin = (firstName, lastName, email, title, resetPassword) =>
   dispatch =>
-      axios.post('/api/users/admin/add-new-user', {firstName, lastName, email, title})
+    axios.post('/api/users/admin/add-new-user', { firstName, lastName, email, title, resetPassword })
       .then(user => {
         console.log("REDUX: ", user)
       })
@@ -77,7 +77,6 @@ export const loginUser = (email, password) =>
         const action = getUser(user)
         dispatch(getUser(action))
         history.push(`/my-board`)
-
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({ error: authError }))
       })
@@ -104,8 +103,8 @@ export const updateUserThunk = (id, firstName, lastName, email) =>
 export const updateUserAdminThunk = (id, teamId, title, isAdmin) =>
   dispatch => {
     axios.put(`/api/users/admin/users/update/${id}`, { teamId, title, isAdmin })
-    .then(user =>
-      window.location.reload()
+      .then(user =>
+        window.location.reload()
       )
       .catch(err => console.error(err))
   }
@@ -121,22 +120,22 @@ export const updateUserPasswordThunk = (id, email, oldPassword, newPassword) =>
 
 export const forgotUserPasswordThunk = email =>
   dispatch => {
-    axios.post('/api/users/forgot-password', {email})
-    .then(user => {
-      dispatch(getUser(user.data))
-    })
-    .catch(err => console.error(err))
+    axios.post('/api/users/forgot-password', { email })
+      .then(user => {
+        dispatch(getUser(user.data))
+      })
+      .catch(err => console.error(err))
   }
 
 export const resetPassowordThunk = (token, newPassword, confirmedPassword) =>
   dispatch => {
-    axios.post(`/api/users/reset-password/${token}`, {newPassword, confirmedPassword})
-    .then(user => {
+    axios.post(`/api/users/reset-password/${token}`, { newPassword, confirmedPassword })
+      .then(user => {
 
-      history.push(`/login`)
+        history.push(`/login`)
 
-    })
-    .catch(err => console.error(err))
+      })
+      .catch(err => console.error(err))
   }
 
 

@@ -9,6 +9,8 @@ router.post('/login', (req, res, next) => {
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')
+      } else if (user.resetPassword == true) {
+        res.status(401).send("You must reset password. Click 'Forgot My Password.'")
       } else if (!user.correctPassword(req.body.password)) {
         res.status(401).send('Incorrect password or email')
       } else {
