@@ -10,7 +10,6 @@ import team_mates from '../store/team_mates';
 class AdminHome extends Component {
 
   render() {
-    console.log("PROPS: ", this.props)
     const {users, teams, companies } = this.props
     return (
       <div id="completed-projects-container">

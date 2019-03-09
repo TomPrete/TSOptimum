@@ -99,7 +99,13 @@ class AdminUserModal extends Component {
   }
 
   handleDeleteUser() {
-    this.props.deleteUserThunk(this.props.selectedUser.id)
+
+    if (this.props.selectedUser.id != this.props.user.id) {
+      return this.props.deleteUserThunk(this.props.selectedUser.id)
+    } else {
+      return "The limit (user) does not exist"
+    }
+
   }
 
   render() {
@@ -195,9 +201,15 @@ class AdminUserModal extends Component {
                       <Button color='primary' className='primary-button' onClick={this.deleteModal}>Cancel</Button>
                     </div>
                     :
+                    this.props.selectedUser.id != this.props.user.id
+                    ?
                     <div className='delete-user-buttons'>
                       <Button color='primary' className='secondary-button' onClick={this.deleteModal}>No</Button>
                       <Button color='primary' variant='outlined' className='material-primary-button' onClick={this.confirmDelete}>Yes</Button>
+                    </div>
+                    :
+                    <div className='delete-user-buttons'>
+                      <Button disabled >UNABLE TO SELF TERMINATE!</Button>
                     </div>
                 }
               </div>

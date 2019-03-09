@@ -1231,6 +1231,9 @@ input:checked + .slider:before {
  margin: 5px 0;
 }
 
+
+/*************** DELETE USER MODAL ******************/
+
 .delete-modal {
   position: absolute;
   top: 35%;
@@ -1238,8 +1241,9 @@ input:checked + .slider:before {
   width: 400px;
   height: 200px;
   background-color: white;
-  /* z-index: 1; */
-  outline: none
+  outline: none;
+  box-shadow: 0 3px 10px #16161d
+
 
 }
 
@@ -1250,7 +1254,8 @@ input:checked + .slider:before {
 .delete-user-message {
   font-size: 18px;
   text-align: left;
-  margin-left: 10px
+  margin: 10px 0 0 10px;
+
 }
 
 .alert-message {
@@ -1263,7 +1268,7 @@ input:checked + .slider:before {
 
 .delete-user-buttons {
   text-align: right;
-  margin: 60PX 10px 0px 0;
+  margin: 50px 10px 0px 0;
 
 }
 
