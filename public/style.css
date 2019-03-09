@@ -1231,6 +1231,45 @@ input:checked + .slider:before {
  margin: 5px 0;
 }
 
+.delete-modal {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+  width: 400px;
+  height: 200px;
+  background-color: white;
+  /* z-index: 1; */
+  outline: none
+
+}
+
+.primary-button {
+  width: 50px;
+}
+
+.delete-user-message {
+  font-size: 18px;
+  text-align: left;
+  margin-left: 10px
+}
+
+.alert-message {
+  padding: 10px 0;
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  background-color: red;
+}
+
+.delete-user-buttons {
+  text-align: right;
+  margin: 60PX 10px 0px 0;
+
+}
+
+
+/* style={{ backgroundColor: 'rgb(0, 151, 131)' }} */
+
 
 /* .material-primary-button {
   background-color: white;

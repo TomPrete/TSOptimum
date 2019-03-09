@@ -10,6 +10,7 @@ const GET_USER = 'GET_USER'
 const ADD_USER = 'ADD_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const UPDATE_USER = 'UPDATE_USER'
+const DELETE_USER = 'DELETE_USER'
 
 
 /***** INITIAL STATE*****/
@@ -20,6 +21,7 @@ const getUser = user => ({ type: GET_USER, user })
 const addUser = user => ({ type: ADD_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
 const updateUser = user => ({ type: UPDATE_USER, user })
+const deleteUser = user => ({ type: DELETE_USER, user })
 
 
 
@@ -134,6 +136,16 @@ export const resetPassowordThunk = (token, newPassword, confirmedPassword) =>
 
         history.push(`/login`)
 
+      })
+      .catch(err => console.error(err))
+  }
+
+export const deleteUserThunk = id =>
+  dispatch => {
+    axios.put(`/api/users/admin/delete-user/${id}`, { id })
+      .then(user => {
+        console.log("User was successfully deleted!")
+        window.location.reload()
       })
       .catch(err => console.error(err))
   }

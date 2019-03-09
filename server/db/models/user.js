@@ -73,6 +73,10 @@ const User = db.define('user', {
     defaultValue: undefined
   },
 
+  userStatus: {
+    type: Sequelize.STRING,
+    defaultValue: 'Active'
+  }
 
 }, {
   getterMethods: {

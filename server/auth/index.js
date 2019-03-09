@@ -5,7 +5,7 @@ module.exports = router
 
 router.post('/login', (req, res, next) => {
   try {
-    User.findOne({where: {email: req.body.email}})
+    User.findOne({where: {email: req.body.email, userStatus: 'Active'}})
     .then(user => {
       if (!user) {
         res.status(401).send('User not found')

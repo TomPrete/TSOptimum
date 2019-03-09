@@ -6,6 +6,7 @@ import Projects from './Projects'
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
+import firebase from '../firebase'
 
 const taskType = [
   {
@@ -64,6 +65,7 @@ class UserBoard extends Component {
       dueDate: "",
       status: "In Process",
       notes: "",
+      selectedFile: null,
       newProject: false,
       followUp: false,
       redirect: false,
@@ -86,6 +88,7 @@ class UserBoard extends Component {
     this.handleGetProjects = this.handleGetProjects.bind(this)
     this.loadOptions = this.loadOptions.bind(this)
     this.filterCompanies = this.filterCompanies.bind(this)
+    this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
   }
 
   filterCompanies(companyName) {
@@ -181,6 +184,26 @@ class UserBoard extends Component {
   }
 
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
+
+  fileSelectedHandler = e => {
+
+
+    // this.setState({
+    //   selectedFile: e.target.files[0]
+    // })
+
+    // const fd = new FormData()
+    // fd.append('image', e.target.files[0], e.target.files[0].name);
+    // let storageRef = firebase.storage().ref(`hone/${e.target.files[0].name}`)
+    // let file = new File([''], e.target.files[0].name, {
+    //   type: e.target.files[0].type
+    // })
+    // storageRef.put(file)
+    //   .then(snapshot => {
+    //     console.log("Uploaded a file?")
+    //   })
+
+  }
 
   handleProjectSubmit(e) {
     e.preventDefault()
@@ -312,6 +335,7 @@ class UserBoard extends Component {
                               <span className="slider round"></span>
                             </label>
                           </div>
+
                           <div className="follow-up-date">
                             <input
                               disabled={!this.state.followUp} name="departure"
@@ -319,6 +343,7 @@ class UserBoard extends Component {
                               onChange={this.handleDueDateChange}
                               className="select-date"
                             />
+
                             {/*
                               this.state.followUp === true ?
                                 <input
@@ -329,6 +354,9 @@ class UserBoard extends Component {
                                   className="select-date"
                                 /> : ''
                             */}
+                          </div>
+                          <div>
+                            <input type="file" name='file' onChange={this.fileSelectedHandler} />
                           </div>
                         </div>
                       </div>

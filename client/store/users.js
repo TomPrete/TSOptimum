@@ -12,6 +12,7 @@ const defaultUser = {}
 const getAllUsers = users => ({ type: GET_ALL_USERS, users })
 
 
+
 /*****THUNK CREATORS*****/
 
 export const fetchAllUsers = () => dispatch => {
@@ -20,6 +21,8 @@ export const fetchAllUsers = () => dispatch => {
     .then(users => dispatch(getAllUsers(users)))
     .catch(err => console.error(err));
 }
+
+
 
 /***** REDUCER *****/
 export default function (state = defaultUser, action) {

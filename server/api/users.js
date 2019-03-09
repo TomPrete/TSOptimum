@@ -30,7 +30,7 @@ var transporter = nodemailer.createTransport({
 // })
 
 router.get('/all', (req, res, next) => {
-  User.findAll()
+  User.findAll({where: {userStatus: 'Active'}})
     .then(users => {
       let userData = [];
       users.filter(user => {
@@ -254,15 +254,42 @@ router.post('/admin/add-new-user', async (req, res, next) => {
       }
     })
     if (!user) {
+      console.log("HERE")
       User.create(req.body)
         .then(data => {
-          res.status(201).send("User successfully created: ")
+          res.status(201).send("User successfully created")
         })
     } else {
-      res.status(401).send("User already exists.")
+      console.log("ELSE")
+      // res.json("403 ERROR: User with email already exists")
+      res.status(403).send("User with email already exists")
     }
   }
   catch (error) {
     next(error)
   }
+})
+
+router.put('/admin/delete-user/:id', async (req, res, next) => {
+  try {
+    let user = await User.find({
+      where: {
+        id: req.params.id
+      }
+    })
+    if (user) {
+      user.update({
+        userStatus: 'Deleted'
+      })
+      .then(res.status(201).send("User successfully deleted"))
+    }
+    else {
+      res.status(401).send("That user does not exist.")
+    }
+  }
+  catch (error) {
+    next(error)
+  }
+
+
 })
