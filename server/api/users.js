@@ -256,12 +256,13 @@ router.post('/admin/add-new-user', async (req, res, next) => {
     if (!user) {
       console.log("HERE")
       User.create(req.body)
-        .then(data => {
-          res.status(201).send("User successfully created")
+        .then(user => {
+          let userData = [];
+          let { id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword } = user
+          userData.push({id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword })
+          res.json(userData)
         })
     } else {
-      console.log("ELSE")
-      // res.json("403 ERROR: User with email already exists")
       res.status(403).send("User with email already exists")
     }
   }

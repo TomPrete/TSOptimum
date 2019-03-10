@@ -1272,7 +1272,27 @@ input:checked + .slider:before {
 
 }
 
+/****** ADD USER MODAL */
 
+.standard-textarea-parent {
+  text-align: left;
+  padding: 5px 0 5px 10px;
+}
+
+.standard-textarea {
+  width: 300px
+}
+
+.standard-select-parent {
+  text-align: left;
+  padding: 15px 0 0px 10px;
+  width: 300px;
+}
+
+.create-new-user-parent {
+  text-align: right;
+  margin: 130px 0 0 10px;
+}
 /* style={{ backgroundColor: 'rgb(0, 151, 131)' }} */
 
 
