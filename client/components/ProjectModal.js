@@ -3,9 +3,67 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject } from '../store'
 import AsyncSelect from 'react-select/lib/Async';
+import Select from 'react-select';
+import styled from 'styled-components'
+
+// <select onChange={this.inputProjectType} className="edit-select-type" >
 
 
 
+
+const project_type = [
+  {
+    label: 'Client Call',
+    value: 'Client Call'
+  },
+  {
+    label: 'Client Inquire',
+    value: 'Client Inquire'
+  },
+  {
+    label: 'Client Issue',
+    value: 'Client Issue'
+  },
+  {
+    label: 'Exception Pricing',
+    value: 'Exception Pricing'
+  },
+  {
+    label: 'Implementation Request',
+    value: 'Implementation Request'
+  },
+  {
+    label: 'Pricing Proforma',
+    value: 'Pricing Proforma'
+  },
+  {
+    label: 'Refund Request',
+    value: 'Refund Request'
+  },
+  {
+    label: 'RFP',
+    value: 'RFP'
+  },
+  {
+    label: 'TMR',
+    value: 'TMR'
+  },
+  {
+    label: 'Special Project',
+    value: 'Special Project'
+  }
+]
+
+const project_status = [
+  {
+    label: 'In Process',
+    value: 'In Process'
+  },
+  {
+    label: 'Completed',
+    value: 'Completed'
+  }
+]
 
 class ProjectModal extends Component {
 
@@ -25,16 +83,18 @@ class ProjectModal extends Component {
     }
     this.followUp = this.followUp.bind(this)
     this.inputProjectName = this.inputProjectName.bind(this);
-    this.inputProjectType = this.inputProjectType.bind(this);
+    // this.inputProjectType = this.inputProjectType.bind(this);
     this.inputTsoName = this.inputTsoName.bind(this);
     this.inputTsaName = this.inputTsaName.bind(this);
-    this.inputStatus = this.inputStatus.bind(this);
+    // this.inputStatus = this.inputStatus.bind(this);
     this.inputNotes = this.inputNotes.bind(this);
     this.inputDueDate = this.inputDueDate.bind(this)
     // this.removeProject = this.removeProject.bind(this)
     this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
     this.loadOptions = this.loadOptions.bind(this)
     this.filterCompanies = this.filterCompanies.bind(this)
+    this.getTreasuryOfficers = this.getTreasuryOfficers.bind(this)
+    this.getTreasuryAnalysts = this.getTreasuryAnalysts.bind(this)
   }
 
   filterCompanies(companyName) {
@@ -68,7 +128,7 @@ class ProjectModal extends Component {
   }
 
   componentWillUnmount() {
-      store.dispatch(removeUserProject())
+    store.dispatch(removeUserProject())
 
   }
 
@@ -77,13 +137,13 @@ class ProjectModal extends Component {
   inputProjectName(e) {
     const companyName = e.replace(/\W/g, '');
     this.setState({ companyName });
-}
-
-  inputProjectType(e) {
-    this.setState({
-      projectType: e.target.value,
-    })
   }
+
+  // inputProjectType(e) {
+  //   this.setState({
+  //     projectType: e.target.value,
+  //   })
+  // }
 
   inputTsoName(e) {
     this.setState({
@@ -97,10 +157,49 @@ class ProjectModal extends Component {
     })
   }
 
-  inputStatus(e) {
-    this.setState({
-      status: e.target.value
-    })
+  // inputStatus(e) {
+  //   this.setState({
+  //     status: e.target.value
+  //   })
+  // }
+
+  getTreasuryOfficers(teamMates) {
+    let officers = []
+    for (let i = 0; i < teamMates.length; i++) {
+      if (teamMates[i].title === "Treasury Solutions Officer") {
+        let obj = {};
+        obj.label = teamMates[i].name;
+        obj.value = teamMates[i].name;
+        officers.push(obj)
+      }
+    }
+    return officers
+  }
+
+  getTreasuryOfficers(teamMates) {
+    let officers = []
+    for (let i = 0; i < teamMates.length; i++) {
+      if (teamMates[i].title === "Treasury Solutions Officer") {
+        let obj = {};
+        obj.label = teamMates[i].name;
+        obj.value = teamMates[i].name;
+        officers.push(obj)
+      }
+    }
+    return officers
+  }
+
+  getTreasuryAnalysts(teamMates) {
+    let analysts = []
+    for (let i = 0; i < teamMates.length; i++) {
+      if (teamMates[i].title === "Treasury Solutions Analyst") {
+        let obj = {};
+        obj.label = teamMates[i].name;
+        obj.value = teamMates[i].name;
+        analysts.push(obj)
+      }
+    }
+    return analysts
   }
 
   inputNotes(e) {
@@ -120,12 +219,12 @@ class ProjectModal extends Component {
 
   async handleProjectSubmit(e) {
     e.preventDefault()
-    let projectId = this.props.project.projectId
+    let projectId = this.props.project.projectId;
     let name = !e.target.companyName.value ? this.props.project.name : e.target.companyName.value;
-    let projectType = !this.state.projectType ? this.props.project.projectType : this.state.projectType;
-    let officer = !this.state.officer ? this.props.project.officer : this.state.officer;
-    let analyst = !this.state.analyst ? this.props.project.analyst : this.state.analyst;
-    let status = !this.state.status ? this.props.project.status : this.state.status;
+    let projectType = e.target.projectType.value || this.props.project.projectType;
+    let officer = e.target.officer.value || this.props.project.officer;
+    let analyst = e.target.analyst.valu || this.props.project.analyst;
+    let status = e.target.projectStatus.value || this.props.project.status;
     let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
     await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
@@ -134,6 +233,9 @@ class ProjectModal extends Component {
   }
 
   render() {
+    let officers = this.getTreasuryOfficers(this.props.teamMates)
+    let analysts = this.getTreasuryAnalysts(this.props.teamMates)
+
     return (
       <div id="projects-modal-container">
         <div className='project-modal-header'>
@@ -153,70 +255,55 @@ class ProjectModal extends Component {
                   }
                 </datalist> */}
                 <AsyncSelect
-                name="companyName"
-                loadOptions={this.loadOptions}
-                className="select-company"
-                placeholder={this.props.project.name}
-                cacheOptions
-                onInputChange={this.inputProjectName}
+                  name="companyName"
+                  loadOptions={this.loadOptions}
+                  className="edit-select-company"
+                  placeholder={this.props.project.name}
+                  cacheOptions
+                  onInputChange={this.inputProjectName}
                 // required
-              />
-                <select onChange={this.inputProjectType} className="edit-select-type" >
-                  <option value={this.props.project.projectType
-                  }>{this.props.project.projectType
-                    }</option>
-                  <option value="Client Call">Client Call</option>
-                  <option value="Client Inquire">Client Inquiry</option>
-                  <option value="Client Issue">Client Issue</option>
-                  <option value="Exception Pricing">Exception Pricing</option>
-                  <option value="Implementation Request">Implementation Request</option>
-                  <option value="Pricing Proforma">Pricing Proforma</option>
-                  <option value="Refund Request">Refund Request</option>
-                  <option value="RFP">RFP</option>
-                  <option value="TMR">TMR</option>
-                  <option value="Special Project">Special Project</option>
-                </select>
-                {
-                  this.props.project.status === "In Process"
-                    ?
-                    <select onChange={this.inputStatus} defaultValue={this.props.project.status} className="edit-select-status" >
-                      <option value="In Process">In Process</option>
-                      <option value="Complete">Complete</option>
-                    </select>
-                    :
-                    <select onChange={this.inputStatus} defaultValue={this.props.project.status} className="edit-select-status" >
-                      <option value="Complete">Complete</option>
-                      <option value="In Process">In Process</option>
-                    </select>
-                }
+                />
+                <Select
+                  name="projectType"
+                  options={project_type}
+                  className="edit-select-type"
+                  placeholder={this.props.project.projectType}
+                  closeMenuOnSelect={true}
+                  isMulti={false}
+                  isClearable
+                // isSearchable
+                />
+                <Select
+                  name="projectStatus"
+                  options={project_status}
+                  className="edit-select-status"
+                  placeholder={this.props.project.status}
+                  closeMenuOnSelect={true}
+                  isMulti={false}
+                  isClearable
+
+                />
               </div>
               <div>
-                <select onChange={this.inputTsoName} className="edit-select-tso" >
-                  <option value={this.props.project.officer}>{this.props.project.officer}</option>
-                  {
-                    this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
-                      if (users.title === "Treasury Solutions Officer") {
-                        return <option key={users.id} value={users.name}>{users.name}</option>
-                      }
-                    })
-                      :
-                      null
-                  }
-                </select>
-                <select onChange={this.inputTsaName} className="edit-select-tsa" >
-                  <option value={this.props.project.analyst}>{this.props.project.analyst}</option>
-                  {
-                    this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
-                      if (users.title === "Treasury Solutions Analyst") {
-                        return <option key={users.id} value={users.name}>{users.name}</option>
-                      }
-                    })
-                      :
-                      null
-                  }
-                </select>
+                <Select
+                  name="officer"
+                  options={officers}
+                  className="edit-select-tso"
+                  placeholder={this.props.project.officer}
+                  closeMenuOnSelect={true}
+                  isMulti={false}
+                  isClearable
+                />
+                <Select
+                  name="analyst"
+                  options={analysts}
+                  className="edit-select-tsa"
+                  placeholder={this.props.project.analyst}
+                  closeMenuOnSelect={true}
+                  isMulti={false}
+                  isClearable
+                />
                 <input
-
                   placeholder={this.props.project.dueDate}
                   id='date'
                   type="date"
@@ -274,6 +361,12 @@ class ProjectModal extends Component {
     )
   }
 }
+
+// const StyledProjectModal = styled(ProjectModal)`
+//   .project-label {
+//     color: green
+//   }
+// `
 
 const mapState = state => {
   return {

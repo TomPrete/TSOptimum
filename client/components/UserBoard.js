@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Router, Route, Switch, Link, } from 'react-router-dom';
+import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
@@ -7,6 +8,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
 import firebase from '../firebase'
+import Quill from 'quill'
 
 const taskType = [
   {
@@ -64,7 +66,7 @@ class UserBoard extends Component {
       analyst: "",
       dueDate: "",
       status: "In Process",
-      notes: "",
+      notes: '',
       selectedFile: null,
       newProject: false,
       followUp: false,
@@ -89,6 +91,17 @@ class UserBoard extends Component {
     this.loadOptions = this.loadOptions.bind(this)
     this.filterCompanies = this.filterCompanies.bind(this)
     this.fileSelectedHandler = this.fileSelectedHandler.bind(this)
+    this.handleKeyCommand = this.handleKeyCommand.bind(this);
+  }
+
+
+  handleKeyCommand(command, editorState) {
+    const newState = RichUtils.handleKeyCommand(editorState, command);
+    if (newState) {
+      this.onChange(newState);
+      return 'handled';
+    }
+    return 'not-handled';
   }
 
   filterCompanies(companyName) {
@@ -323,7 +336,13 @@ class UserBoard extends Component {
                       {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
                       {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
                       <div className="notes-container">
-                        <textarea value={this.state.notes} onChange={this.inputNotes} className="notes" placeholder="Notes:" />
+                        <textarea
+                          value={this.state.notes}
+                          onChange={this.inputNotes}
+                          className="notes"
+                          placeholder="Notes:"
+                          // inCompositionMode
+                            />
                         <div className="follow-up">
 
                           <div>

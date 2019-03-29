@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store, { submitCompletedProject, removeUserProject, fetchInProcessUserProjects } from '../store'
 import ProjectModal from './ProjectModal.js'
+import Button from '@material-ui/core/Button';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 
@@ -84,7 +86,7 @@ class Projects extends Component {
           this.state.inProcessProjects !== null ? this.state.inProcessProjects.map(project => {
             return (
               <div key={project.projectId} >
-                <div>
+                <div id="queue">
                   <div id="queue-list" >
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.name}</li>
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.projectType}</li>
@@ -92,11 +94,12 @@ class Projects extends Component {
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.status}</li>
                     <li className="user-queue" onClick={() => this.showProjectModal(project.projectId)}>{project.dueDate}</li>
                     <textarea className="user-notes" placeholder={project.notes} onClick={() => this.showProjectModal(project.projectId)} readOnly />
-                    <div className="queue-complete">
-                      <button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} className='complete-btn'>Complete</button>
-                      <button className='edit-btn' onClick={() => this.showProjectModal(project.projectId)} >Edit</button>
-                    </div>
+
                   </div>
+                  <div className="queue-complete">
+                  <Button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} variant='contained' className='complete-btn'>Complete</Button>
+                  <Button className='edit-btn' onClick={() => this.showProjectModal(project.projectId)} >Edit</Button>
+                </div>
                 </div>
               </div>
             )

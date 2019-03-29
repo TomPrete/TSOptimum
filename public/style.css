@@ -823,15 +823,28 @@ input:checked + .slider:before {
   text-align: center;
 }
 
+#queue {
+  display: flex;
+}
+
 #queue-list {
   text-align: left;
   display: flex;
-  justify-content: left
+  justify-content: left;
+  width: 100%
+
 }
 
-#queue-list:hover, .complete-btn:hover, .edit-btn:hover {
+#queue-list:hover {
   background-color: rgba(1, 110, 96, 0.05);
   transition: 0.1s ease-in-out;
+  box-shadow: inset 0px 0px 10px rgb(1, 110, 96)
+}
+
+.complete-btn:hover, .edit-btn:hover {
+  color: rgb(1, 110, 96);
+  transition: 0.1s ease-in-out;
+  background-color: black;
   box-shadow: inset 0px 0px 10px rgb(1, 110, 96)
 }
 
@@ -855,10 +868,11 @@ input:checked + .slider:before {
 }
 
 .complete-btn, .edit-btn {
-  width: 100%;
+  color: red;
+  /* width: 100%;
   height: 100%;
   font-family: 'Quicksand';
-  border-color: rgb(0, 151, 131);
+  border-color: rgb(0, 151, 131); */
   align-self: center;
   font-size: 16px;
   outline: 0;
@@ -909,7 +923,7 @@ input:checked + .slider:before {
   margin: 10% auto 10% 22%;
   padding: 0 20px 20px 20px;
   width: 70%;
-  height: 50%;
+  /* height: 50%; */
   box-shadow: 0 5px 8px 0 rgba(0,0,0, 0.2), 0 7px 20px 0 rgba(0,0,0, 0.17);
   border-style: solid;
   border-radius: 10px;
@@ -925,24 +939,24 @@ input:checked + .slider:before {
 
 .edit-select-company {
   padding: 10px 0 10px 10px;
-  border: 1px solid #e9e9e9;
+  /* border: 1px solid #e9e9e9; */
   margin: 1px;
   font-size: 14px;
   color: rgb(93, 93, 94);
   outline: none;
   width: 31%;
-  border-bottom: 2px solid rgb(0, 151, 131);
+  /* border-bottom: 2px solid rgb(0, 151, 131); */
   transition: border 0.15s ease-in-out;
 }
 
-.edit-select-company:hover {
-  border: 1px solid rgb(0, 151, 131);
-  border-bottom: 2px solid rgb(0, 151, 131);
-  transition: border 0.15s ease-in-out;
-  box-shadow: inset 0px 0px 10px rgb(1, 110, 96)
-}
+/* .edit-select-company:hover { */
+  /* border: 1px solid rgb(0, 151, 131); */
+  /* border-bottom: 2px solid rgb(0, 151, 131); */
+  /* transition: border 0.15s ease-in-out; */
+  /* box-shadow: inset 0px 0px 10px rgb(1, 110, 96) */
+/* } */
 
-.edit-select-company:focus {
+/* .edit-select-company:focus {
   border: 1px solid rgb(0, 151, 131);
   border-bottom: 2px solid rgb(0, 151, 131);
 }
@@ -950,7 +964,7 @@ input:checked + .slider:before {
 .edit-select-company:target {
   border: 1px solid rgb(0, 151, 131);
   border-bottom: 2px solid rgb(0, 151, 131);
-}
+} */
 
 .edit-select-type,
 .edit-select-tso,
@@ -960,10 +974,10 @@ input:checked + .slider:before {
   width: 32%;
   margin: 1px;
   font-size: 14px;
-  border: 1px solid #e9e9e9;
-  background-color: white;
+  /* border: 1px solid #e9e9e9; */
+  /* background-color: white; */
   color: rgb(93, 93, 94);
-  border-bottom: 2px solid rgb(0, 151, 131);
+  /* border-bottom: 2px solid rgb(0, 151, 131); */
   transition: border 0.15s ease-in-out;
   outline: none;
   -webkit-appearance: none;
@@ -971,7 +985,7 @@ input:checked + .slider:before {
   border-radius: 0px;
 }
 
-.edit-select-type:hover,
+/* .edit-select-type:hover,
 .edit-select-tso:hover,
 .edit-select-tsa:hover,
 .edit-select-status:hover {
@@ -995,7 +1009,7 @@ input:checked + .slider:before {
 .edit-select-status:target {
   border: 1px solid rgb(0, 151, 131);
   border-bottom: 2px solid rgb(0, 151, 131);
-}
+} */
 
 .edit-select-date {
   width: 31%;
@@ -1211,7 +1225,7 @@ input:checked + .slider:before {
   margin: 10% auto 10% 22%;
   padding: 0 20px 20px 20px;
   width: 70%;
-  height: 50%;
+  /* height: 50%; */
   box-shadow: 0 5px 8px 0 rgba(0,0,0, 0.2), 0 7px 20px 0 rgba(0,0,0, 0.17);
   border-style: solid;
   border-radius: 10px;

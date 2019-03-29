@@ -84,6 +84,7 @@ router.put('/admin/users/update/:id', async (req, res, next) => {
   }
 })
 
+
 router.put('/update-password/:id', async (req, res, next) => {
   try {
     await User.findOne({ where: { id: +req.params.id } })
@@ -229,7 +230,8 @@ router.get('/team/:teamId', (req, res, next) => {
   try {
     User.findAll({
       where: {
-        teamId: req.params.teamId
+        teamId: req.params.teamId,
+        userStatus: 'Active'
       }
     })
       .then(users => {
