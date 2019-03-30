@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject } from '../store'
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
+import TextField from '@material-ui/core/TextField';
+
+// import { Calendar } from 'react-calendar'
 import styled from 'styled-components'
 
 // <select onChange={this.inputProjectType} className="edit-select-type" >
@@ -95,6 +98,7 @@ class ProjectModal extends Component {
     this.filterCompanies = this.filterCompanies.bind(this)
     this.getTreasuryOfficers = this.getTreasuryOfficers.bind(this)
     this.getTreasuryAnalysts = this.getTreasuryAnalysts.bind(this)
+    this.getCurrentDate = this.getCurrentDate.bind(this)
   }
 
   filterCompanies(companyName) {
@@ -202,6 +206,10 @@ class ProjectModal extends Component {
     return analysts
   }
 
+  getCurrentDate() {
+    return new Date().toISOString().slice(0,10);
+  }
+
   inputNotes(e) {
     this.setState({
       notes: e.target.value
@@ -254,66 +262,102 @@ class ProjectModal extends Component {
                       <option key={company.id} value={company.name}>{company.name}</option>)
                   }
                 </datalist> */}
-                <AsyncSelect
-                  name="companyName"
-                  loadOptions={this.loadOptions}
-                  className="edit-select-company"
-                  placeholder={this.props.project.name}
-                  cacheOptions
-                  onInputChange={this.inputProjectName}
-                // required
-                />
-                <Select
-                  name="projectType"
-                  options={project_type}
-                  className="edit-select-type"
-                  placeholder={this.props.project.projectType}
-                  closeMenuOnSelect={true}
-                  isMulti={false}
-                  isClearable
-                // isSearchable
-                />
-                <Select
-                  name="projectStatus"
-                  options={project_status}
-                  className="edit-select-status"
-                  placeholder={this.props.project.status}
-                  closeMenuOnSelect={true}
-                  isMulti={false}
-                  isClearable
+                <div className='edit-select'>
+                  <p>Company Name:</p>
+                  <AsyncSelect
+                    name="companyName"
+                    loadOptions={this.loadOptions}
+                    className="edit-select-company"
+                    placeholder={this.props.project.name}
+                    cacheOptions
+                    onInputChange={this.inputProjectName}
+                  // required
+                  />
+                </div>
+                <div className='edit-select' >
+                  <p>Project Type: </p>
+                  <Select
+                    name="projectType"
+                    options={project_type}
+                    className="edit-select-type"
+                    placeholder={this.props.project.projectType}
+                    closeMenuOnSelect={true}
+                    isMulti={false}
+                    isClearable
+                  // isSearchable
+                  />
+                </div>
+                <div className='edit-select'>
+                  <p>Project Status: </p>
+                  <Select
+                    name="projectStatus"
+                    options={project_status}
+                    className="edit-select-status"
+                    placeholder={this.props.project.status}
+                    closeMenuOnSelect={true}
+                    isMulti={false}
+                    isClearable
 
-                />
-              </div>
-              <div>
-                <Select
-                  name="officer"
-                  options={officers}
-                  className="edit-select-tso"
-                  placeholder={this.props.project.officer}
-                  closeMenuOnSelect={true}
-                  isMulti={false}
-                  isClearable
-                />
-                <Select
-                  name="analyst"
-                  options={analysts}
-                  className="edit-select-tsa"
-                  placeholder={this.props.project.analyst}
-                  closeMenuOnSelect={true}
-                  isMulti={false}
-                  isClearable
-                />
-                <input
-                  placeholder={this.props.project.dueDate}
-                  id='date'
-                  type="date"
-                  // defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
+                  />
+                </div>
+                <div className='edit-select'>
+                  <p>Treasury Officer: </p>
+                  <Select
+                    name="officer"
+                    options={officers}
+                    className="edit-select-tso"
+                    placeholder={this.props.project.officer}
+                    closeMenuOnSelect={true}
+                    isMulti={false}
+                    isClearable
+                  />
+                </div>
+                <div className='edit-select'>
+                  <p>Treasury Analyst: </p>
+                  <Select
+                    name="analyst"
+                    options={analysts}
+                    className="edit-select-tsa"
+                    placeholder={this.props.project.analyst}
+                    closeMenuOnSelect={true}
+                    isMulti={false}
+                    isClearable
+                  />
+                </div>
+                <div className='edit-select'>
+                  <p>Due Date:</p>
+                  {/*<Calendar
                   onChange={this.inputDueDate}
+                  value={this.state.dueDate}
+                />*/}
+                <div>
+                </div>
+                  {/*<input
+                    placeholder={this.props.project.dueDate}
+                    id='date'
+                    type="date"
+                    // defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
+                    onChange={this.inputDueDate}
+                    className="edit-select-date"
+                  />*/}
+                  <TextField
+                  id="date"
+                  label="Due Date:"
+                  type="date"
+                  defaultValue={this.getCurrentDate()}
                   className="edit-select-date"
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
                 />
 
 
               </div>
+
+              </div>
+
+
+
 
 
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
