@@ -11,7 +11,14 @@ import styled from 'styled-components'
 
 // <select onChange={this.inputProjectType} className="edit-select-type" >
 
-
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: rgb(0, 151, 131);
+  padding: 0 0 20px 20px;
+  font-size: 18px;
+  color: white;
+`
 
 
 const project_type = [
@@ -207,7 +214,7 @@ class ProjectModal extends Component {
   }
 
   getCurrentDate() {
-    return new Date().toISOString().slice(0,10);
+    return new Date().toISOString().slice(0, 10);
   }
 
   inputNotes(e) {
@@ -233,7 +240,7 @@ class ProjectModal extends Component {
     let officer = e.target.officer.value || this.props.project.officer;
     let analyst = e.target.analyst.valu || this.props.project.analyst;
     let status = e.target.projectStatus.value || this.props.project.status;
-    let dueDate = !this.state.dueDate ? this.props.project.dueDate : this.state.dueDate;
+    let dueDate = e.target.due_date.value || this.props.project.dueDate
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
     await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
     await store.dispatch(removeUserProject())
@@ -246,10 +253,13 @@ class ProjectModal extends Component {
 
     return (
       <div id="projects-modal-container">
-        <div className='project-modal-header'>
+        {/*<div className='project-modal-header'>*/}
+        <Header >
           <label className='project-label'>EDIT PROJECT</label>
           <span className='closeBtn' onClick={() => { this.props.showProjectModal(); this.componentWillUnmount() }}>&times;</span>
-        </div>
+        </Header>
+
+        {/*</div>*/}
 
         <div className='edit-project-form'>
           <div id="edit-form-container">
@@ -330,8 +340,8 @@ class ProjectModal extends Component {
                   onChange={this.inputDueDate}
                   value={this.state.dueDate}
                 />*/}
-                <div>
-                </div>
+                  <div>
+                  </div>
                   {/*<input
                     placeholder={this.props.project.dueDate}
                     id='date'
@@ -341,18 +351,19 @@ class ProjectModal extends Component {
                     className="edit-select-date"
                   />*/}
                   <TextField
-                  id="date"
-                  label="Due Date:"
-                  type="date"
-                  defaultValue={this.getCurrentDate()}
-                  className="edit-select-date"
+                    name="due_date"
+                    id="date"
+                    label="Due Date:"
+                    type="date"
+                    defaultValue={this.getCurrentDate()}
+                    className="edit-select-date"
                   // InputLabelProps={{
                   //   shrink: true,
                   // }}
-                />
+                  />
 
 
-              </div>
+                </div>
 
               </div>
 

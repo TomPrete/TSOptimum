@@ -116,8 +116,8 @@ class AdminUsers extends Component {
     </Fab>*/}
         </div>
 
-        <Paper >
-          <Table>
+        <Paper className="user-table">
+          <Table className="user-table">
             <TableHead>
               <TableRow>
                 <TableCell id="row">ID</TableCell>
@@ -131,7 +131,7 @@ class AdminUsers extends Component {
                 <TableCell id="row">Edit</TableCell>
               </TableRow>
             </TableHead>
-            <tbody >
+            <TableBody >
               {
                 users.length > 0
                   ?
@@ -162,7 +162,7 @@ class AdminUsers extends Component {
                   :
                   null
               }
-            </tbody>
+            </TableBody>
           </Table>
         </Paper>
         </div>

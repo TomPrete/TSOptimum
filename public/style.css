@@ -1208,12 +1208,15 @@ input:checked + .slider:before {
 
 .admin-users{
   /* z-index: -1; */
-
+  overflow: scroll
 }
 
 /************ ADMIN - USERS **********/
+.user-table {
+  width: 100%
+}
 
-.MuiPaper-rounded-2 {
+/* .MuiPaper-rounded-2 {
   margin: 20px;
   border-radius: 4px;
   width: 100%;
@@ -1221,11 +1224,11 @@ input:checked + .slider:before {
 
 .MuiTableCell-root-35 {
   display: table-cell;
-  /* padding: 4px 56px 4px 24px; */
+  padding: 4px 56px 4px 24px;
   text-align: center;
   border-bottom: 1px solid rgba(224, 224, 224, 1);
   vertical-align: inherit;
-}
+} */
 
 
 #admin-modal-container {
