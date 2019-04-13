@@ -4,11 +4,15 @@ const router = require('express').Router()
 const { User, Company, Project } = require('../db/models')
 module.exports = router
 
+let convertDate = (dateString) => {
+  var p = dateString.split(/\D/g)
+  return [p[1],p[2],p[0] ].join("/")
+  }
 
 
 
 router.post('/', (req, res, next) => {
-  console.log("HERE")
+  console.log("HERE: ", req.body.dueDate)
   return Project.create(req.body)
     .then(project => res.json(project))
     .catch(next);
@@ -93,7 +97,10 @@ router.get('/:projectId', (req, res, next) => {
       projectId: id
     }
   })
-    .then(project => res.json(project.dataValues))
+    .then(project => {
+      project.dataValues.dueDate = convertDate(project.dataValues.dueDate);
+      console.log("DUE DATE: ", project.dataValues.dueDate)
+      return res.json(project.dataValues)})
     .catch(next)
 })
 

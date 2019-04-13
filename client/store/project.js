@@ -1,6 +1,11 @@
 import axios from 'axios'
 import history from '../history'
 
+let convertDate = (dateString) => {
+  var p = dateString.split(/\D/g)
+  return [p[1],p[2],p[0] ].join("/")
+  }
+
 /***** ACTION TYPES*****/
 const EDIT_PROJECT = 'EDIT_PROJECT'
 const GET_PROJECT = 'GET_PROJECT'
@@ -49,7 +54,8 @@ export const editUserProject = (projectId, name, projectType, officer, analyst, 
 export const getUserProject = projectId => dispatch => {
   axios.get(`/api/project/${projectId}`)
     .then(res => res.data)
-    .then(project => dispatch(getProject(project)))
+    .then(project =>
+      dispatch(getProject(project)))
     .catch(error => console.log("error getting project: ", error))
 }
 

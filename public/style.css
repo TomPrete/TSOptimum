@@ -653,7 +653,7 @@ input:checked + .slider:before {
 
 .follow-up-toggle-switch {
   margin: 2px 0 0 2px;
-  text-align: left;
+  text-align: right;
 }
 
 .follow-up-date {
@@ -942,6 +942,13 @@ input:checked + .slider:before {
   text-align: left;
   justify-content: space-between;
 }
+
+#follow-up-date {
+  display: flex;
+  text-align: left;
+  justify-content: space-between
+}
+
 
 .edit-select-company {
   padding: 10px 0 10px 10px;

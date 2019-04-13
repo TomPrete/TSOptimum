@@ -9,6 +9,7 @@ import Select from 'react-select'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
 import firebase from '../firebase'
 import Quill from 'quill'
+import TextField from '@material-ui/core/TextField';
 
 const taskType = [
   {
@@ -196,6 +197,10 @@ class UserBoard extends Component {
     })
   }
 
+  getCurrentDate() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
 
   fileSelectedHandler = e => {
@@ -220,11 +225,10 @@ class UserBoard extends Component {
 
   handleProjectSubmit(e) {
     e.preventDefault()
-    console.log("SUBMIT: ", e.target.companyName.value)
-    this.props.createNewProject(e.target.companyName.value, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, this.state.dueDate, this.state.notes, this.props.user.id, this.props.user.teamId)
-    this.setState({
-      redirect: true
-    })
+    this.props.createNewProject(e.target.companyName.value, this.state.projectType, this.state.officer, this.state.analyst, this.state.status, e.target.due_date.value, this.state.notes, this.props.user.id, this.props.user.teamId)
+    // this.setState({
+    //   redirect: true
+    // })
   }
 
 
@@ -325,14 +329,25 @@ class UserBoard extends Component {
                         <option value="In Process">In Process</option>
                         <option value="Complete">Complete</option>
                       </select>
-                      <input
+                      <TextField
+                      name="due_date"
+                      id="date"
+                      label="Due Date:"
+                      type="date"
+                      defaultValue={this.getCurrentDate()}
+                      className="edit-select-date"
+                    // InputLabelProps={{
+                    //   shrink: true,
+                    // }}
+                    />
+                      {/*<input
                         required
                         placeholder="Due Date:"
                         id='date'
                         type="date"
                         onChange={this.inputDueDate}
                         className="select-date"
-                      />
+                      />*/}
                       {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
                       {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
                       <div className="notes-container">

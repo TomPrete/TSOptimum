@@ -94,7 +94,8 @@ class ProjectModal extends Component {
       notes: null,
       dueDate: false,
       followUp: false,
-      redirect: false
+      redirect: false,
+      followUpButton: true
     }
     this.followUp = this.followUp.bind(this)
     this.inputProjectName = this.inputProjectName.bind(this);
@@ -134,11 +135,13 @@ class ProjectModal extends Component {
   followUp() {
     if (this.state.followUp === false) {
       this.setState({
-        followUp: true
+        followUp: true,
+        followUpButton: false
       })
     } else {
       this.setState({
         followUp: false,
+        followUpButton: true
       })
     }
   }
@@ -245,7 +248,8 @@ class ProjectModal extends Component {
     let officer = e.target.officer.value || this.props.project.officer;
     let analyst = e.target.analyst.valu || this.props.project.analyst;
     let status = e.target.projectStatus.value || this.props.project.status;
-    let dueDate = e.target.due_date.value || this.props.project.dueDate
+    let dueDate = e.target.due_date.value || this.props.project.dueDate;
+    let followUpDate = e.target.follow_up_date.value || this.props.project.followUpDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
     await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
     await store.dispatch(removeUserProject())
@@ -341,14 +345,13 @@ class ProjectModal extends Component {
                 </div>
                 <div className='edit-select'>
                   <p>Due Date:</p>
-                  <div>
-                  </div>
                   <TextField
                     name="due_date"
                     id="date"
                     label="Due Date:"
                     type="date"
-                    defaultValue={this.getCurrentDate()}
+                    // defaultValue={this.props.project.dueDate}
+                    placeholder={this.props.project.dueDate}
                     className="edit-select-date"
                   // InputLabelProps={{
                   //   shrink: true,
@@ -357,35 +360,26 @@ class ProjectModal extends Component {
 
                 </div>
                 <div className='edit-select'>
-                  <p>Follow up date?</p>
-                  <div className="follow-up-toggle-switch">
+                  <div id='follow-up-date'>
+                    <p>Follow up date?</p>
                     <Switch
                       checked={this.state.followUp}
                       onChange={this.followUp}
-                      value="checkedB"
-                      color="primary"
+                      // value="checkedB"
+                      color="secondary"
+                      className="follow-up-toggle-switch"
                     />
                   </div>
-                </div>
-
-                <div className="follow-up-date">
                   <TextField
                     name="follow_up_date"
                     id="follow_up_date"
                     label="Follow-up Date:"
                     type="date"
+                    disabled={this.state.followUpButton}
                     defaultValue={this.getCurrentDate()}
                     className="edit-select-date"
-                  // InputLabelProps={{
-                  //   shrink: true,
-                  // }}
                   />
-                  {/*<input
-                disabled={!this.state.followUp} name="departure"
-                type="date"
-                onChange={this.handleDueDateChange}
-                className="select-date"
-              />*/}
+
                 </div>
               </SelectBody>
 
@@ -398,36 +392,6 @@ class ProjectModal extends Component {
               <SelectBody >
 
                 <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes" />
-                <div className="follow-up">
-
-                  <div>
-                    <h4 className="edit-follow-up-text">Follow up date?</h4>
-                  </div>
-                  <div className="follow-up-toggle-switch">
-                    <label className="switch">
-                      <input type="checkbox" onClick={this.followUp} />
-                      <span className="slider round"></span>
-                    </label>
-                  </div>
-                  <div className="follow-up-date">
-                    <input
-                      disabled={!this.state.followUp} name="departure"
-                      type="date"
-                      onChange={this.handleDueDateChange}
-                      className="select-date"
-                    />
-                    {/*
-                              this.state.followUp === true ?
-                                <input
-
-                                  name="departure"
-                                  type="date"
-                                  onChange={this.handleDueDateChange}
-                                  className="select-date"
-                                /> : ''
-                            */}
-                  </div>
-                </div>
 
               </SelectBody>
             </form>
