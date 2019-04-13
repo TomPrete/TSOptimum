@@ -5,6 +5,8 @@ import store, { submitCompletedProject, getUserProject, editUserProject, removeU
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
+import Switch from '@material-ui/core/Switch';
+
 
 // import { Calendar } from 'react-calendar'
 import styled from 'styled-components'
@@ -15,9 +17,12 @@ const Header = styled.div`
   display: flex;
   justify-content: space-between;
   background: rgb(0, 151, 131);
-  padding: 0 0 20px 20px;
-  font-size: 18px;
+  padding: 10px 20px 10px 20px;
+  font-size: 22px;
   color: white;
+`
+const SelectBody = styled.div`
+  padding: 0 20px;
 `
 
 
@@ -264,7 +269,7 @@ class ProjectModal extends Component {
         <div className='edit-project-form'>
           <div id="edit-form-container">
             <form onSubmit={this.handleProjectSubmit} className="edit-project-form" id="edit-project-form">
-              <div>
+              <SelectBody>
                 {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} />
                 <datalist id="companyList">
                   {
@@ -336,20 +341,8 @@ class ProjectModal extends Component {
                 </div>
                 <div className='edit-select'>
                   <p>Due Date:</p>
-                  {/*<Calendar
-                  onChange={this.inputDueDate}
-                  value={this.state.dueDate}
-                />*/}
                   <div>
                   </div>
-                  {/*<input
-                    placeholder={this.props.project.dueDate}
-                    id='date'
-                    type="date"
-                    // defaultValue={!this.state.dueDate ? this.props.project.dueDate : this.state.dueDate}
-                    onChange={this.inputDueDate}
-                    className="edit-select-date"
-                  />*/}
                   <TextField
                     name="due_date"
                     id="date"
@@ -362,10 +355,39 @@ class ProjectModal extends Component {
                   // }}
                   />
 
-
+                </div>
+                <div className='edit-select'>
+                  <p>Follow up date?</p>
+                  <div className="follow-up-toggle-switch">
+                    <Switch
+                      checked={this.state.followUp}
+                      onChange={this.followUp}
+                      value="checkedB"
+                      color="primary"
+                    />
+                  </div>
                 </div>
 
-              </div>
+                <div className="follow-up-date">
+                  <TextField
+                    name="follow_up_date"
+                    id="follow_up_date"
+                    label="Follow-up Date:"
+                    type="date"
+                    defaultValue={this.getCurrentDate()}
+                    className="edit-select-date"
+                  // InputLabelProps={{
+                  //   shrink: true,
+                  // }}
+                  />
+                  {/*<input
+                disabled={!this.state.followUp} name="departure"
+                type="date"
+                onChange={this.handleDueDateChange}
+                className="select-date"
+              />*/}
+                </div>
+              </SelectBody>
 
 
 
@@ -373,7 +395,8 @@ class ProjectModal extends Component {
 
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
-              <div className="edit-notes-container">
+              <SelectBody >
+
                 <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes" />
                 <div className="follow-up">
 
@@ -405,7 +428,8 @@ class ProjectModal extends Component {
                             */}
                   </div>
                 </div>
-              </div>
+
+              </SelectBody>
             </form>
             <div className="edit-div-submit">
               <button className="edit-project-submit" form="edit-project-form" type='submit'>Save and Close</button>
