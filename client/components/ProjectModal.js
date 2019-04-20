@@ -6,6 +6,7 @@ import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
+import Button from '@material-ui/core/Button';
 
 
 // import { Calendar } from 'react-calendar'
@@ -396,7 +397,7 @@ class ProjectModal extends Component {
               </SelectBody>
             </form>
             <div className="edit-div-submit">
-              <button className="edit-project-submit" form="edit-project-form" type='submit'>Save and Close</button>
+              <Button color='primary' variant='contained' className="edit-project-submit" form="edit-project-form" type="submit">Save and Close</Button>
             </div>
           </div>
         </div>

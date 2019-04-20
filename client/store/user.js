@@ -63,13 +63,13 @@ export const loginUser = (email, password) =>
       .then(user => {
         let { id, firstName, lastName, email, title, personId, teamId } = user.data
         let userData = { id, firstName, lastName, email, title, personId, teamId }
-        window.location.reload()
         return userData
       })
       .then(user => {
         const action = getUser(user)
         dispatch(getUser(action))
         history.push(`/my-board`)
+        window.location.reload()
       }, authError => { // rare example: a good use case for parallel (non-catch) error handler
         dispatch(getUser({ error: authError }))
       })
