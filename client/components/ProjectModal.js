@@ -159,12 +159,6 @@ class ProjectModal extends Component {
     this.setState({ companyName });
   }
 
-  // inputProjectType(e) {
-  //   this.setState({
-  //     projectType: e.target.value,
-  //   })
-  // }
-
   inputTsoName(e) {
     this.setState({
       officer: e.target.value
@@ -176,12 +170,6 @@ class ProjectModal extends Component {
       analyst: e.target.value
     })
   }
-
-  // inputStatus(e) {
-  //   this.setState({
-  //     status: e.target.value
-  //   })
-  // }
 
   getTreasuryOfficers(teamMates) {
     let officers = []
@@ -397,7 +385,7 @@ class ProjectModal extends Component {
               </SelectBody>
             </form>
             <div className="edit-div-submit">
-              <Button color='primary' variant='contained' className="edit-project-submit" form="edit-project-form" type="submit">Save and Close</Button>
+              <Button color='primary' variant='contained' className="edit-project-submit" form="edit-project-form" type="submit" disabled={false} >Save and Close</Button>
             </div>
           </div>
         </div>

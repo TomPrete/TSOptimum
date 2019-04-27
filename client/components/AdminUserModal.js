@@ -172,8 +172,8 @@ class AdminUserModal extends Component {
         </div>
 
         <div className="edit-div-submit">
-          <button className="edit-project-submit" type="submit" form="update-user">Update and Close</button>
-          <button className="edit-project-submit" type="submit" onClick={(e) => this.deleteModal()}>DELETE USER</button>
+          <Button color='primary' variant='contained' className="edit-project-submit" type="submit" form="update-user">Update and Close</Button>
+          <Button className="" type="submit" onClick={(e) => this.deleteModal()}>DELETE USER</Button>
         </div>
         {
           this.state.deleteModalOpen
