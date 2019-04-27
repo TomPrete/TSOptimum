@@ -7,17 +7,19 @@ import AdminUserModal from './AdminUserModal'
 // import AddPerson from '..../public/img/add-person.svg'
 import store, { fetchAllUsers, fetchAllTeams } from '../store'
 import users from '../store/users';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+// import Table from '@material-ui/core/Table';
+// import TableBody from '@material-ui/core/TableBody';
+// import TableCell from '@material-ui/core/TableCell';
+// import TableHead from '@material-ui/core/TableHead';
+// import TableRow from '@material-ui/core/TableRow';
+// import Paper from '@material-ui/core/Paper';
 
-import TableSortLabel from '@material-ui/core/TableSortLabel';
-import Tooltip from '@material-ui/core/Tooltip';
+// import TableSortLabel from '@material-ui/core/TableSortLabel';
+// import Tooltip from '@material-ui/core/Tooltip';
 import EditIcon from '@material-ui/icons/Edit';
 import Button from '@material-ui/core/Button';
+
+import { Table } from 'semantic-ui-react'
 // import Fab from '@material-ui/core/Fab';
 // import AddIcon from '@material-ui/icons/Add';
 // import Signup from './SignUp'
@@ -109,14 +111,63 @@ class AdminUsers extends Component {
         </div>
         <div className="admin-users">
 
-        <div className="add-user">
-          <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={() => this.showAddUserModal()}>Add User</Button>
+          <div className="add-user">
+            <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={() => this.showAddUserModal()}>Add User</Button>
           {/*<Fab color="primary" aria-label="Add" className='' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showAddUserModal}>
             <AddIcon />
     </Fab>*/}
-        </div>
+          </div>
+          <Table className="user-table" compact celled definition>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>ID</Table.HeaderCell>
+                <Table.HeaderCell>Person ID</Table.HeaderCell>
+                <Table.HeaderCell>Name</Table.HeaderCell>
+                <Table.HeaderCell>Title</Table.HeaderCell>
+                <Table.HeaderCell>Email</Table.HeaderCell>
+                <Table.HeaderCell>Team ID</Table.HeaderCell>
+                <Table.HeaderCell>Role</Table.HeaderCell>
+                <Table.HeaderCell>Reset</Table.HeaderCell>
+                <Table.HeaderCell>Edit</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
 
-        <Paper className="user-table">
+          <Table.Body>
+            {
+              users.length > 0
+                ?
+                users.map(user => {
+                  return (
+
+                    <Table.Row key={user.personId} className="row-user">
+                      <Table.Cell className="MuiTableCell-root-35">{user.id}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.personId}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.name}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.title}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.email}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.teamId ? user.teamId : "Not Assigned"}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.isAdmin ? "Admin" : "User"}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">{user.resetPassword ? "Yes" : "No"}</Table.Cell>
+                      <Table.Cell className="MuiTableCell-root-35">
+                        <div>
+                          <EditIcon key='edit' onClick={() => this.showUserModal(user)} className="edit-icon"></EditIcon>
+                        </div>
+
+                      </Table.Cell>
+
+
+
+                    </Table.Row>
+                  )
+                })
+                :
+                null
+            }
+
+
+          </Table.Body>
+          </Table>
+          {/*<Paper className="user-table">
           <Table className="user-table">
             <TableHead>
               <TableRow>
@@ -164,7 +215,7 @@ class AdminUsers extends Component {
               }
             </TableBody>
           </Table>
-        </Paper>
+            </Paper>*/}
         </div>
 
 

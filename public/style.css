@@ -745,6 +745,12 @@ input:checked + .slider:before {
   text-decoration: none;
 }
 
+/*****PROJECTS*****/
+
+.project-list {
+  hover:
+}
+
 /*****IN PROCESS PROJECTS CONTAINER*****/
 
 #projects-container {
@@ -827,18 +833,19 @@ input:checked + .slider:before {
   display: flex;
 }
 
-#queue-list {
+/* #queue-list {
   text-align: left;
   display: flex;
   justify-content: left;
   width: 100%
 
-}
+} */
 
 #queue-list:hover {
   background-color: rgba(1, 110, 96, 0.05);
   transition: 0.1s ease-in-out;
-  box-shadow: inset 0px 0px 10px rgb(1, 110, 96)
+  box-shadow: inset 0px 0px 10px rgb(1, 110, 96);
+  cursor: pointer;
 }
 
 .complete-btn:hover, .edit-btn:hover {
@@ -1219,8 +1226,9 @@ input:checked + .slider:before {
 /************* ADMIN ***********/
 
 .admin-users{
+  width: 100%
   /* z-index: -1; */
-  overflow: scroll
+  /* overflow: scroll */
 }
 
 /************ ADMIN - USERS **********/
