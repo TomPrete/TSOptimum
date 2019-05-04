@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { submitCompletedProject, removeUserProject, fetchInProcessUserProjects } from '../store'
+import store, { submitCompletedProject, removeUserProject, fetchInProcessUserProjects, fetchCompletedUserProjects, fetchAllUserProjects } from '../store'
 import ProjectModal from './ProjectModal.js'
 import SideBar from './SideBar'
 import Button from '@material-ui/core/Button';
@@ -23,7 +23,7 @@ class Projects extends Component {
       redirect: false,
       projectId: false,
       loading: true,
-      showSidebar: false
+      title: 'Projects'
     }
     this.showProjectModal = this.showProjectModal.bind(this)
     this.clickOutside = this.clickOutside.bind(this)
@@ -34,17 +34,26 @@ class Projects extends Component {
 
   async componentDidMount() {
     setTimeout(() => this.setState({ loading: false }), 1500)
-    if (window.location.pathname.includes('created')) {
+    if (window.location.pathname.includes('completed')) {
+      // IF VIEWS ALL COMPLETED PROJECTS
+      const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
+      store.dispatch(fetchAllCompletedUserProjects)
       this.setState({
-        showSidebar: true
+        title: "My Complete Projects"
       })
-    } else if (window.location.pathname.includes('process')) {
+    } else if (window.location.pathname.includes('created')) {
+      // IF VIEWS ALL CREATED PROJECTS
+      const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
+      store.dispatch(getAllUserProjects)
       this.setState({
-        showSidebar: true
+        title: "All Projects"
       })
     } else {
       const getAllUserProjects = await fetchInProcessUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
+      this.setState({
+        title: "My Open Projects"
+      })
     }
 
     window.addEventListener('click', this.clickOutside)
@@ -96,15 +105,10 @@ class Projects extends Component {
 
     return (
       <div>
-      {
-        // showSidebar &&
-        // <div className='sidebar-container'>
-        //   <SideBar />
-        // </div>
-      }
-
-
         <div id="projects-container" >
+        <div className="project_title">
+        {this.state.title}
+        </div>
 
           <div id='column-list'>
             <p className="column-titles">Company</p>
@@ -170,7 +174,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { submitCompletedProject, removeUserProject, fetchInProcessUserProjects }
+const mapDispatch = { submitCompletedProject, removeUserProject, fetchInProcessUserProjects, fetchCompletedUserProjects, fetchAllUserProjects }
 
 const ProjectsContainter = connect(mapState, mapDispatch)(Projects)
 

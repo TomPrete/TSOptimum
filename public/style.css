@@ -1338,6 +1338,12 @@ input:checked + .slider:before {
   text-align: right;
   margin: 130px 0 0 10px;
 }
+
+.project_title {
+  font-size: 22px;
+  width: 100%;
+  text-align: center;
+}
 /* style={{ backgroundColor: 'rgb(0, 151, 131)' }} */
 
 
