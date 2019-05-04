@@ -33,8 +33,6 @@ class Routes extends Component {
             <Route exact path='/forgot_password' component={ForgotPassword} />
             <Route exact path='/reset/:resetToken' component={PasswordReset} />
           </Switch>
-
-
           {
             isLoggedIn
             ?
@@ -42,8 +40,8 @@ class Routes extends Component {
             <Route exact path='/my-board' component={UserBoard} userid={this.props.user.id}/>
             <Route exact path='/my-projects' component={Projects} />
             <Route exact path='/my-profile' component={UserProfile} />
-            <Route exact path='/my-completed_projects' component={CompletedProjects} />
-            <Route exact path='/my-created_projects' component={AllUserProjects} />
+            <Route exact path='/my-completed_projects' component={Projects} />
+            <Route exact path='/my-created_projects' component={Projects} />
             <Route exact path='/team-analytics' component={TeamAnalytics} />
             <Route exact path='/my-admin' component={AdminHome} />
             <Route exact path='/my-admin/users' component={AdminUsers} />
@@ -53,7 +51,6 @@ class Routes extends Component {
             :
             null
           }
-
         </Main>
       </Router>
     )

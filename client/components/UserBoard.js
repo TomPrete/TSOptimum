@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import { connect } from 'react-redux';
 import SideBar from './SideBar';
 import Projects from './Projects'
+import Button from '@material-ui/core/Button';
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
@@ -256,7 +257,7 @@ class UserBoard extends Component {
           {
             this.state.newProject === false ?
               <div className='new-project-button-container'>
-                <button onClick={this.handleOnClick} className='new-project-button'>+ New Project</button>
+                <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.handleOnClick} className='new-project-button'>Add Project</Button>
               </div>
               :
               <div className='new-project-button-container'>
@@ -265,142 +266,142 @@ class UserBoard extends Component {
           }
           <div className='show-project-form'>
             {
-              this.state.newProject === true ?
-                <div className='project-form'>
-                  <div id="label-project">
-                    <label >CREATE NEW PROJECT BELOW</label>
-                  </div>
-                  <div id="form-container">
-                    <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
-                      {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
-                      <datalist id="companyList">
-                        {
-                          this.props.companies.map(company =>
-                            <option key={company.id} value={company.name} required>{company.name}</option>)
-                        }
-                      </datalist>*/}
-                      <AsyncSelect
-                        name="companyName"
-                        loadOptions={this.loadOptions}
-                        className="select-company"
-                        placeholder="Company Name"
-                        cacheOptions
-                        onInputChange={this.inputProjectName}
-                      // required
-                      />
-                      <select onChange={this.inputProjectType} className="select-type" required >
-                        <option>Select type</option>
-                        <option value="Client Call">Client Call</option>
-                        <option value="Client Inquire">Client Inquiry</option>
-                        <option value="Client Issue">Client Issue</option>
-                        <option value="Exception Pricing">Exception Pricing</option>
-                        <option value="Implementation Request">Implementation Request</option>
-                        <option value="Pricing Proforma">Pricing Proforma</option>
-                        <option value="Refund Request">Refund Request</option>
-                        <option value="RFP">RFP</option>
-                        <option value="TMR">TMR</option>
-                        <option value="Special Project">Special Project</option>
-                      </select>
-                      <select onChange={this.inputTsoName} className="select-tso" >
-                        <option>Select TSO</option>
-                        {
-                          this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
-                            if (users.title === "Treasury Solutions Officer") {
-                              return <option key={users.id} value={users.name} required>{users.name}</option>
-                            }
-                          })
-                            :
-                            null
-                        }
-                      </select>
-                      <select onChange={this.inputTsaName} className="select-tsa" >
-                        <option>Select TSA</option>
-                        {
-                          this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
-                            if (users.title === "Treasury Solutions Analyst") {
-                              return <option key={users.id} value={users.name} required>{users.name}</option>
-                            }
-                          })
-                            :
-                            null
-                        }
-                      </select>
-                      <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" required >
-                        <option value="In Process">In Process</option>
-                        <option value="Complete">Complete</option>
-                      </select>
-                      <TextField
-                      name="due_date"
-                      id="date"
-                      label="Due Date:"
-                      type="date"
-                      defaultValue={this.getCurrentDate()}
-                      className="edit-select-date"
-                    // InputLabelProps={{
-                    //   shrink: true,
-                    // }}
-                    />
-                      {/*<input
-                        required
-                        placeholder="Due Date:"
-                        id='date'
-                        type="date"
-                        onChange={this.inputDueDate}
-                        className="select-date"
-                      />*/}
-                      {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
-                      {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
-                      <div className="notes-container">
-                        <textarea
-                          value={this.state.notes}
-                          onChange={this.inputNotes}
-                          className="notes"
-                          placeholder="Notes:"
-                          // inCompositionMode
-                            />
-                        <div className="follow-up">
+              // this.state.newProject === true ?
+              //   <div className='project-form'>
+              //     <div id="label-project">
+              //       <label >CREATE NEW PROJECT BELOW</label>
+              //     </div>
+              //     <div id="form-container">
+              //       <form onSubmit={this.handleProjectSubmit} className="new-project-form" id="project-form">
+              //         {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="select-company" placeholder="Company Name" required />
+              //         <datalist id="companyList">
+              //           {
+              //             this.props.companies.map(company =>
+              //               <option key={company.id} value={company.name} required>{company.name}</option>)
+              //           }
+              //         </datalist>*/}
+              //         <AsyncSelect
+              //           name="companyName"
+              //           loadOptions={this.loadOptions}
+              //           className="select-company"
+              //           placeholder="Company Name"
+              //           cacheOptions
+              //           onInputChange={this.inputProjectName}
+              //         // required
+              //         />
+              //         <select onChange={this.inputProjectType} className="select-type" required >
+              //           <option>Select type</option>
+              //           <option value="Client Call">Client Call</option>
+              //           <option value="Client Inquire">Client Inquiry</option>
+              //           <option value="Client Issue">Client Issue</option>
+              //           <option value="Exception Pricing">Exception Pricing</option>
+              //           <option value="Implementation Request">Implementation Request</option>
+              //           <option value="Pricing Proforma">Pricing Proforma</option>
+              //           <option value="Refund Request">Refund Request</option>
+              //           <option value="RFP">RFP</option>
+              //           <option value="TMR">TMR</option>
+              //           <option value="Special Project">Special Project</option>
+              //         </select>
+              //         <select onChange={this.inputTsoName} className="select-tso" >
+              //           <option>Select TSO</option>
+              //           {
+              //             this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
+              //               if (users.title === "Treasury Solutions Officer") {
+              //                 return <option key={users.id} value={users.name} required>{users.name}</option>
+              //               }
+              //             })
+              //               :
+              //               null
+              //           }
+              //         </select>
+              //         <select onChange={this.inputTsaName} className="select-tsa" >
+              //           <option>Select TSA</option>
+              //           {
+              //             this.props.teamMates.length > 0 ? this.props.teamMates.map(users => {
+              //               if (users.title === "Treasury Solutions Analyst") {
+              //                 return <option key={users.id} value={users.name} required>{users.name}</option>
+              //               }
+              //             })
+              //               :
+              //               null
+              //           }
+              //         </select>
+              //         <select onChange={this.inputStatus} defaultValue="In Process" className="select-status" required >
+              //           <option value="In Process">In Process</option>
+              //           <option value="Complete">Complete</option>
+              //         </select>
+              //         <TextField
+              //         name="due_date"
+              //         id="date"
+              //         label="Due Date:"
+              //         type="date"
+              //         defaultValue={this.getCurrentDate()}
+              //         className="edit-select-date"
+              //       // InputLabelProps={{
+              //       //   shrink: true,
+              //       // }}
+              //       />
+              //         {/*<input
+              //           required
+              //           placeholder="Due Date:"
+              //           id='date'
+              //           type="date"
+              //           onChange={this.inputDueDate}
+              //           className="select-date"
+              //         />*/}
+              //         {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
+              //         {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
+              //         <div className="notes-container">
+              //           <textarea
+              //             value={this.state.notes}
+              //             onChange={this.inputNotes}
+              //             className="notes"
+              //             placeholder="Notes:"
+              //             // inCompositionMode
+              //               />
+              //           <div className="follow-up">
 
-                          <div>
-                            <h4 className="follow-up-text">Follow up date?</h4>
-                          </div>
-                          <div className="follow-up-toggle-switch">
-                            <label className="switch">
-                              <input type="checkbox" onClick={this.followUp} />
-                              <span className="slider round"></span>
-                            </label>
-                          </div>
+              //             <div>
+              //               <h4 className="follow-up-text">Follow up date?</h4>
+              //             </div>
+              //             <div className="follow-up-toggle-switch">
+              //               <label className="switch">
+              //                 <input type="checkbox" onClick={this.followUp} />
+              //                 <span className="slider round"></span>
+              //               </label>
+              //             </div>
 
-                          <div className="follow-up-date">
-                            <input
-                              disabled={!this.state.followUp} name="departure"
-                              type="date"
-                              onChange={this.handleDueDateChange}
-                              className="select-date"
-                            />
+              //             <div className="follow-up-date">
+              //               <input
+              //                 disabled={!this.state.followUp} name="departure"
+              //                 type="date"
+              //                 onChange={this.handleDueDateChange}
+              //                 className="select-date"
+              //               />
 
-                            {/*
-                              this.state.followUp === true ?
-                                <input
-                                  required
-                                  name="departure"
-                                  type="date"
-                                  onChange={this.handleDueDateChange}
-                                  className="select-date"
-                                /> : ''
-                            */}
-                          </div>
-                          <div>
-                            <input type="file" name='file' onChange={this.fileSelectedHandler} />
-                          </div>
-                        </div>
-                      </div>
-                    </form>
-                    <div className="div-submit">
-                      <button className="project-submit" form="project-form" type='submit'>Create New Project</button>
-                    </div>
-                  </div>
-                </div>
-                : null
+              //               {/*
+              //                 this.state.followUp === true ?
+              //                   <input
+              //                     required
+              //                     name="departure"
+              //                     type="date"
+              //                     onChange={this.handleDueDateChange}
+              //                     className="select-date"
+              //                   /> : ''
+              //               */}
+              //             </div>
+              //             <div>
+              //               <input type="file" name='file' onChange={this.fileSelectedHandler} />
+              //             </div>
+              //           </div>
+              //         </div>
+              //       </form>
+              //       <div className="div-submit">
+              //         <button className="project-submit" form="project-form" type='submit'>Create New Project</button>
+              //       </div>
+              //     </div>
+              //   </div>
+              //   : null
             }
           </div>
           <div>
