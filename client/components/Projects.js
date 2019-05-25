@@ -19,11 +19,12 @@ class Projects extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      inProcessProjects: null,
+      projects: null,
       redirect: false,
       projectId: false,
       loading: true,
-      title: 'Projects'
+      title: 'Projects',
+      page: this.props.page
     }
     this.showProjectModal = this.showProjectModal.bind(this)
     this.clickOutside = this.clickOutside.bind(this)
@@ -33,26 +34,30 @@ class Projects extends Component {
 
 
   async componentDidMount() {
+
     setTimeout(() => this.setState({ loading: false }), 1500)
     if (window.location.pathname.includes('completed')) {
       // IF VIEWS ALL COMPLETED PROJECTS
       const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
       store.dispatch(fetchAllCompletedUserProjects)
       this.setState({
-        title: "My Complete Projects"
+        title: "My Complete Projects",
+        page: 'completed'
       })
     } else if (window.location.pathname.includes('created')) {
       // IF VIEWS ALL CREATED PROJECTS
       const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
       this.setState({
-        title: "All Projects"
+        title: "All Projects",
+        page: 'created'
       })
     } else {
       const getAllUserProjects = await fetchInProcessUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
       this.setState({
-        title: "My Open Projects"
+        title: "My Open Projects",
+        page: 'process'
       })
     }
 
@@ -67,10 +72,16 @@ class Projects extends Component {
     const userProjects = nextProps.projects
     if (userProjects.length > 0) {
       this.setState({
-        inProcessProjects: userProjects
+        projects: userProjects
       })
     }
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("nextProps: ", nextProps)
+
+  //   return true
+  // }
 
   showProjectModal(project) {
     if (!this.state.projectId) {
@@ -90,7 +101,6 @@ class Projects extends Component {
       this.setState({
         projectId: null
       })
-
     }
   }
 
@@ -101,7 +111,6 @@ class Projects extends Component {
   }
 
   render() {
-    const project = this.state.projectId
 
     return (
       <div>
@@ -122,7 +131,7 @@ class Projects extends Component {
           {/*<label>THESE ARE THE USER PROJECTS</label>*/}
           <TableBody >
             {
-              this.state.inProcessProjects !== null ? this.state.inProcessProjects.map(project => {
+              this.state.projects !== null ? this.state.projects.map(project => {
                 return (
                   <TableRow key={project.projectId} id='queue-list'>
                     {/*<div id="queue">*/}
@@ -137,7 +146,15 @@ class Projects extends Component {
 
                     {/*</div>*/}
                     <TableCell className="queue-complete">
-                      <Button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} variant='contained' className='complete-btn'>Complete</Button>
+                      {
+                        project.status == 'In Process'
+                        ?
+                        <Button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} variant='contained' className='complete-btn'>Complete</Button>
+                        :
+                        <div>
+                         <h2>COMPLETED</h2>
+                        </div>
+                    }
                       {/*<Button className='edit-btn' onClick={() => this.showProjectModal(project.projectId)} >Edit</Button>*/}
                     </TableCell>
                     {/*</div>*/}
@@ -151,12 +168,11 @@ class Projects extends Component {
 
           {
             this.state.projectId
-              ?
+              &&
               <div id='modal-component'>
-                <ProjectModal projectId={this.state.projectId} showProjectModal={this.showProjectModal} />
+                <ProjectModal projectId={this.state.projectId} showProjectModal={this.showProjectModal} type="EDIT PROJECT"/>
               </div>
-              :
-              null
+
           }
         </div>
       </div>

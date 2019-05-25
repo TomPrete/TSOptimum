@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject } from '../store'
+import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
 import TextField from '@material-ui/core/TextField';
@@ -98,21 +98,21 @@ class ProjectModal extends Component {
       redirect: false,
       followUpButton: true
     }
-    this.followUp = this.followUp.bind(this)
+    this.followUp = this.followUp.bind(this);
     this.inputProjectName = this.inputProjectName.bind(this);
     // this.inputProjectType = this.inputProjectType.bind(this);
     this.inputTsoName = this.inputTsoName.bind(this);
     this.inputTsaName = this.inputTsaName.bind(this);
     // this.inputStatus = this.inputStatus.bind(this);
     this.inputNotes = this.inputNotes.bind(this);
-    this.inputDueDate = this.inputDueDate.bind(this)
+    this.inputDueDate = this.inputDueDate.bind(this);
     // this.removeProject = this.removeProject.bind(this)
-    this.handleProjectSubmit = this.handleProjectSubmit.bind(this)
-    this.loadOptions = this.loadOptions.bind(this)
-    this.filterCompanies = this.filterCompanies.bind(this)
-    this.getTreasuryOfficers = this.getTreasuryOfficers.bind(this)
-    this.getTreasuryAnalysts = this.getTreasuryAnalysts.bind(this)
-    this.getCurrentDate = this.getCurrentDate.bind(this)
+    this.handleProjectSubmit = this.handleProjectSubmit.bind(this);
+    this.loadOptions = this.loadOptions.bind(this);
+    this.filterCompanies = this.filterCompanies.bind(this);
+    this.getTreasuryOfficers = this.getTreasuryOfficers.bind(this);
+    this.getTreasuryAnalysts = this.getTreasuryAnalysts.bind(this);
+    this.getCurrentDate = this.getCurrentDate.bind(this);
   }
 
   filterCompanies(companyName) {
@@ -125,11 +125,13 @@ class ProjectModal extends Component {
     setTimeout(() => {
       callback(this.filterCompanies(companyName));
     }, 500);
-  }
+  };
 
   componentDidMount() {
-    store.dispatch(getUserProject(this.props.projectId))
-  }
+    if (this.props.projectId) {
+      store.dispatch(getUserProject(this.props.projectId));
+    };
+  };
 
 
 
@@ -138,18 +140,19 @@ class ProjectModal extends Component {
       this.setState({
         followUp: true,
         followUpButton: false
-      })
+      });
     } else {
       this.setState({
         followUp: false,
         followUpButton: true
-      })
+      });
     }
   }
 
   componentWillUnmount() {
-    store.dispatch(removeUserProject())
-
+    if (this.props.projectId) {
+      store.dispatch(removeUserProject());
+    }
   }
 
   //**** FUNCTIONS THAT HANDLE CHANGES TO THE INPUT FORM ****/
@@ -162,71 +165,71 @@ class ProjectModal extends Component {
   inputTsoName(e) {
     this.setState({
       officer: e.target.value
-    })
+    });
   }
 
   inputTsaName(e) {
     this.setState({
       analyst: e.target.value
-    })
+    });
   }
 
   getTreasuryOfficers(teamMates) {
-    let officers = []
+    let officers = [];
     for (let i = 0; i < teamMates.length; i++) {
       if (teamMates[i].title === "Treasury Solutions Officer") {
         let obj = {};
         obj.label = teamMates[i].name;
         obj.value = teamMates[i].name;
-        officers.push(obj)
+        officers.push(obj);
       }
     }
-    return officers
+    return officers;
   }
 
   getTreasuryOfficers(teamMates) {
-    let officers = []
+    let officers = [];
     for (let i = 0; i < teamMates.length; i++) {
       if (teamMates[i].title === "Treasury Solutions Officer") {
         let obj = {};
         obj.label = teamMates[i].name;
         obj.value = teamMates[i].name;
-        officers.push(obj)
+        officers.push(obj);
       }
     }
-    return officers
+    return officers;
   }
 
   getTreasuryAnalysts(teamMates) {
-    let analysts = []
+    let analysts = [];
     for (let i = 0; i < teamMates.length; i++) {
       if (teamMates[i].title === "Treasury Solutions Analyst") {
         let obj = {};
         obj.label = teamMates[i].name;
         obj.value = teamMates[i].name;
-        analysts.push(obj)
+        analysts.push(obj);
       }
     }
-    return analysts
-  }
+    return analysts;
+  };
 
   getCurrentDate() {
     return new Date().toISOString().slice(0, 10);
-  }
+  };
 
   inputNotes(e) {
     this.setState({
       notes: e.target.value
-    })
-  }
+    });
+  };
 
   inputDueDate(e) {
     this.setState({
       dueDate: e.target.value
-    })
-  }
+    });
+  };
 
-  handleDueDateChange = (evt) => this.setState({ departure: evt.target.value })
+  handleDueDateChange = (evt) => this.setState({ departure: evt.target.value });
 
 
   async handleProjectSubmit(e) {
@@ -235,14 +238,24 @@ class ProjectModal extends Component {
     let name = !e.target.companyName.value ? this.props.project.name : e.target.companyName.value;
     let projectType = e.target.projectType.value || this.props.project.projectType;
     let officer = e.target.officer.value || this.props.project.officer;
-    let analyst = e.target.analyst.valu || this.props.project.analyst;
+    let analyst = e.target.analyst.value || this.props.project.analyst;
     let status = e.target.projectStatus.value || this.props.project.status;
     let dueDate = e.target.due_date.value || this.props.project.dueDate;
     let followUpDate = e.target.follow_up_date.value || this.props.project.followUpDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
-    await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
-    await store.dispatch(removeUserProject())
-    await this.props.showProjectModal()
+    if (this.props.type === "EDIT PROJECT") {
+      console.log("EDIT")
+      debugger
+      await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
+      await store.dispatch(removeUserProject());
+      await this.props.showProjectModal();
+    } else if (this.props.type === "CREATE NEW PROJECT") {
+      console.log("NEW")
+      debugger
+      await this.props.createNewProject(name, projectType,officer,analyst,status, dueDate, notes, this.props.user.id, this.props.user.teamId);
+      await this.props.showProjectModal();
+    }
+    else alert("ERROR! Try again.")
   }
 
   render() {
@@ -253,7 +266,7 @@ class ProjectModal extends Component {
       <div id="projects-modal-container">
         {/*<div className='project-modal-header'>*/}
         <Header >
-          <label className='project-label'>EDIT PROJECT</label>
+          <label className='project-label'>{this.props.type.toUpperCase()}</label>
           <span className='closeBtn' onClick={() => { this.props.showProjectModal(); this.componentWillUnmount() }}>&times;</span>
         </Header>
 
@@ -340,7 +353,7 @@ class ProjectModal extends Component {
                     label="Due Date:"
                     type="date"
                     // defaultValue={this.props.project.dueDate}
-                    placeholder={this.props.project.dueDate}
+                    placeholder={this.props.project ? this.props.project.dueDate : null}
                     className="edit-select-date"
                   // InputLabelProps={{
                   //   shrink: true,
@@ -409,7 +422,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { submitCompletedProject, getUserProject, editUserProject }
+const mapDispatch = { submitCompletedProject, getUserProject, editUserProject, createNewProject }
 
 const ProjectModalContainer = connect(mapState, mapDispatch)(ProjectModal)
 
