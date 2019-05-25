@@ -37,11 +37,14 @@ class Routes extends Component {
             isLoggedIn
             ?
             <Switch>
-            <Route exact path='/my-board' component={UserBoard} userid={this.props.user.id}/>
+            <Route exact path='/my-board' render={(props) => <UserBoard {...props} page='process' /> } />
+            {/*<Route exact path='/my-board' component={UserBoard} />*/}
             <Route exact path='/my-projects' component={Projects} />
             <Route exact path='/my-profile' component={UserProfile} />
-            <Route exact path='/my-completed_projects' component={Projects} />
-            <Route exact path='/my-created_projects' component={Projects} />
+            <Route exact path='/my-completed_projects' render={(props) => <UserBoard {...props} page='completed' />} />
+            {/*<Route exact path='/my-created_projects' component={AllUserProjects} />*/}
+            <Route exact path='/my-created_projects' render={(props) => <UserBoard {...props} page='created' />} />
+            {/*<Route exact path='/my-created_projects' component={UserBoard} />*/}
             <Route exact path='/team-analytics' component={TeamAnalytics} />
             <Route exact path='/my-admin' component={AdminHome} />
             <Route exact path='/my-admin/users' component={AdminUsers} />
