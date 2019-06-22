@@ -197,8 +197,8 @@ class AdminUserModal extends Component {
                   this.state.delete
                     ?
                     <div className='delete-user-buttons'>
-                      <Button color='secondary' className='delete-button' onClick={() => this.handleDeleteUser()}>DELETE</Button>
-                      <Button color='primary' className='primary-button' onClick={this.deleteModal}>Cancel</Button>
+                      <Button color='secondary' className='delete-button' onClick={() => this.handleDeleteUser()}>YES</Button>
+                      <Button color='primary' className='primary-button' onClick={this.deleteModal}>NO</Button>
                     </div>
                     :
                     this.props.selectedUser.id != this.props.user.id

@@ -9,10 +9,11 @@ const GET_COMPLETED_USER_PROJECTS = 'GET_COMPLETED_USER_PROJECTS'
 const GET_ALL_PROJECTS = 'GET_ALL_PROJECTS'
 const GET_ALL_USER_PROJECTS = 'GET_ALL_USER_PROJECTS'
 const COMPLETED_PROJECT = 'COMPLETED_PROJECT';
+const GET_USER_PROJECT_ANALYTICS = 'GET_USER_PROJECT_ANALYTICS';
 
 
 /***** INITIAL STATE*****/
-const defaultUser = {}
+const defaultUser = []
 
 /***** ACTION CREATORS*****/
 // const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
@@ -58,7 +59,12 @@ const updateCompletedProject = (project) => {
   }
 }
 
-
+const getUserProjectAnalytics = (user_project_analytics) => {
+  return {
+    type: GET_USER_PROJECT_ANALYTICS,
+    user_project_analytics
+  }
+}
 
 
 /*****THUNK CREATORS*****/
@@ -110,9 +116,21 @@ export const fetchAllUserProjects = id =>
     axios.get(`/api/project/user_${id}`)
       .then(res => res.data)
       .then(projects =>
-        dispatch(getAllUserProjects(projects)))
+      dispatch(getAllUserProjects(projects))
+    )
   }
 
+export const fetchAllUserProjectsAnalytics = id =>
+  dispatch => {
+    axios.get(`/api/project/user_${id}`)
+      .then(res => res.data)
+      .then(projects => {
+        let sortedProjects = projectsStatus(projects)
+        let numOfProjects = projectTypes(projects)
+        return dispatch(getUserProjectAnalytics({sortedProjects, numOfProjects}))
+      }
+    )
+  }
 
   export const fetchAllProjects = () =>
     dispatch => {
@@ -141,7 +159,84 @@ export const fetchAllUserProjects = id =>
       case COMPLETED_PROJECT:
         return [...state];
       // case UPDATE_PROJECT:
+      case GET_USER_PROJECT_ANALYTICS:
+        return [action.user_project_analytics]
       default:
         return state
     }
   }
+
+
+
+  // HELPER FUNCTIONS
+
+
+  const projectsStatus = (projectsArr) => {
+    let inProcess = 0;
+    let complete = 0;
+    for (let i = 0; i < projectsArr.length; i++) {
+      if (projectsArr[i].status === "Complete") {
+        complete += 1;
+      } else if (projectsArr[i].status === "In Process") {
+        inProcess += 1;
+      }
+    }
+    return [inProcess,complete]
+  }
+
+  const projectTypes = (projectsArr) => {
+    let numOfProjectTypes = {};
+    for (let i=0; i < projectsArr.length; i++) {
+      let val = projectsArr[i].projectType;
+      if (numOfProjectTypes[val]) {
+        numOfProjectTypes[val] += 1;
+      } else {
+        numOfProjectTypes[val] = 1;
+      }
+    }
+    return numOfProjectTypes
+  }
+
+
+  const project_type = [
+    {
+      label: 'Client Call',
+      value: 'Client Call'
+    },
+    {
+      label: 'Client Inquire',
+      value: 'Client Inquire'
+    },
+    {
+      label: 'Client Issue',
+      value: 'Client Issue'
+    },
+    {
+      label: 'Exception Pricing',
+      value: 'Exception Pricing'
+    },
+    {
+      label: 'Implementation Request',
+      value: 'Implementation Request'
+    },
+    {
+      label: 'Pricing Proforma',
+      value: 'Pricing Proforma'
+    },
+    {
+      label: 'Refund Request',
+      value: 'Refund Request'
+    },
+    {
+      label: 'RFP',
+      value: 'RFP'
+    },
+    {
+      label: 'TMR',
+      value: 'TMR'
+    },
+    {
+      label: 'Special Project',
+      value: 'Special Project'
+    }
+  ]

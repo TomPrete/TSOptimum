@@ -104,11 +104,11 @@ class Projects extends Component {
     }
   }
 
-  projectNotesLength(notes) {
-    if (notes.length > 105) {
-      return notes.substring(0, 100) + '...';
-    } else return notes;
-  }
+  // projectNotesLength(notes) {
+  //   if (notes.length > 105) {
+  //     return notes.substring(0, 100) + '...';
+  //   } else return notes;
+  // }
 
   render() {
 
