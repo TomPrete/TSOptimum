@@ -4,7 +4,7 @@ import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
 import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers, AdminTeams, AdminCompanies} from './components'
-import store, { me, fetchAllCompanies } from './store'
+import store, { me, fetchAllCompanies, fetchAllUserProjects } from './store'
 
 
 /*** COMPONENT ***/
@@ -13,13 +13,13 @@ class Routes extends Component {
     await this.props.loadInitialData()
     const fetchCompanies = await fetchAllCompanies()
     store.dispatch(fetchCompanies)
+    console.log("Mounted routes...")
   }
 
 
 
   render() {
     const { isLoggedIn, user } = this.props
-    console.log("ADMIN: ", this.props.isAdmin)
     return (
       <Router history={history}>
         <Main>

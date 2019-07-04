@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
+import {project_type, project_status} from './config.js'
+
 
 // import { Calendar } from 'react-calendar'
 import styled from 'styled-components'
@@ -25,61 +27,6 @@ const Header = styled.div`
 const SelectBody = styled.div`
   padding: 0 20px;
 `
-
-
-const project_type = [
-  {
-    label: 'Client Call',
-    value: 'Client Call'
-  },
-  {
-    label: 'Client Inquire',
-    value: 'Client Inquire'
-  },
-  {
-    label: 'Client Issue',
-    value: 'Client Issue'
-  },
-  {
-    label: 'Exception Pricing',
-    value: 'Exception Pricing'
-  },
-  {
-    label: 'Implementation Request',
-    value: 'Implementation Request'
-  },
-  {
-    label: 'Pricing Proforma',
-    value: 'Pricing Proforma'
-  },
-  {
-    label: 'Refund Request',
-    value: 'Refund Request'
-  },
-  {
-    label: 'RFP',
-    value: 'RFP'
-  },
-  {
-    label: 'TMR',
-    value: 'TMR'
-  },
-  {
-    label: 'Special Project',
-    value: 'Special Project'
-  }
-]
-
-const project_status = [
-  {
-    label: 'In Process',
-    value: 'In Process'
-  },
-  {
-    label: 'Completed',
-    value: 'Completed'
-  }
-]
 
 class ProjectModal extends Component {
 
@@ -244,14 +191,10 @@ class ProjectModal extends Component {
     let followUpDate = e.target.follow_up_date.value || this.props.project.followUpDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
     if (this.props.type === "EDIT PROJECT") {
-      console.log("EDIT")
-      debugger
       await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
       await store.dispatch(removeUserProject());
       await this.props.showProjectModal();
     } else if (this.props.type === "CREATE NEW PROJECT") {
-      console.log("NEW")
-      debugger
       await this.props.createNewProject(name, projectType,officer,analyst,status, dueDate, notes, this.props.user.id, this.props.user.teamId);
       await this.props.showProjectModal();
     }
@@ -264,25 +207,14 @@ class ProjectModal extends Component {
 
     return (
       <div id="projects-modal-container">
-        {/*<div className='project-modal-header'>*/}
         <Header >
           <label className='project-label'>{this.props.type.toUpperCase()}</label>
           <span className='closeBtn' onClick={() => { this.props.showProjectModal(); this.componentWillUnmount() }}>&times;</span>
         </Header>
-
-        {/*</div>*/}
-
         <div className='edit-project-form'>
           <div id="edit-form-container">
             <form onSubmit={this.handleProjectSubmit} className="edit-project-form" id="edit-project-form">
               <SelectBody>
-                {/*<input value={this.state.name} onChange={this.inputProjectName} type="text" name="search" list="companyList" className="edit-select-company" placeholder={this.props.project.name} />
-                <datalist id="companyList">
-                  {
-                    this.props.companies.map(company =>
-                      <option key={company.id} value={company.name}>{company.name}</option>)
-                  }
-                </datalist> */}
                 <div className='edit-select'>
                   <p>Company Name:</p>
                   <AsyncSelect
@@ -384,17 +316,10 @@ class ProjectModal extends Component {
 
                 </div>
               </SelectBody>
-
-
-
-
-
               {/*<input className="input-startDate" placeholder={ currentDate() } />*/}
               {/*<input onChange={this.inputDueDate} className="input-dueDate" placeholder="Due Date" type="date"/>*/}
               <SelectBody >
-
                 <textarea value={this.state.notes === null ? this.props.project.notes : this.state.notes} onChange={this.inputNotes} className="edit-notes" />
-
               </SelectBody>
             </form>
             <div className="edit-div-submit">
