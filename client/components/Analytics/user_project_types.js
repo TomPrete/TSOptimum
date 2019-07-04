@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import SideBar from './SideBar'
 // import store, { fetchAllUserProjects } from '../store'
-import main from '../colors'
+import colors from '../colors'
 // import '../../node_modules/react-vis/dist/example.scss';
 import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalRectSeries } from 'react-vis';
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
@@ -57,10 +57,10 @@ const UserProjectTypes = ({projectAnalytics}) => {
         ],
         label: 'Project Types',
         backgroundColor: 'lightblue',
-        borderColor: main.mainTeal,
+        borderColor: colors.mainTeal,
         borderWidth: 1,
-        hoverBackgroundColor: main.mainTeal,
-        hoverBorderColor: main.mainTeal
+        hoverBackgroundColor: colors.mainTeal,
+        hoverBorderColor: colors.mainTeal
       }
     ],
     // options: {
@@ -94,7 +94,7 @@ const UserProjectTypes = ({projectAnalytics}) => {
           }
         }}
       />
-      {/*<XYPlot height={300} width={200} color={main.mainTeal}>
+      {/*<XYPlot height={300} width={200} color={colors.mainTeal}>
         <VerticalBarSeries
           // data={props.projects !== undefined ? props.projects : data}
           data={props.props}

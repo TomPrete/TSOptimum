@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 // import SideBar from './SideBar'
 // import store, { fetchAllUserProjects } from '../store'
-import main from '../colors'
+import colors from '../colors'
 // import '../../node_modules/react-vis/dist/example.scss';
 import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalRectSeries } from 'react-vis';
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
@@ -23,10 +23,10 @@ const UserCreatedProjects = ({projectAnalytics}) => {
           `${sortedProjects ? sortedProjects[1] : sortedProjects}`],
         label: 'In Process/Complete Projects',
         backgroundColor: 'lightblue',
-        borderColor: main.mainTeal,
+        borderColor: colors.mainTeal,
         borderWidth: 1,
-        hoverBackgroundColor: main.mainTeal,
-        hoverBorderColor: main.mainTeal
+        hoverBackgroundColor: colors.mainTeal,
+        hoverBorderColor: colors.mainTeal
       }
     ],
     // options: {
@@ -100,7 +100,7 @@ const TotalOpenProjects = styled.div`
   width: 50%;
   color: white;
   font-size: 40px;
-  background-color: teal;
+  background-color: ${colors.mainTeal};
   border-radius: 40px;
 `
 const BarWrapper = styled.div`

@@ -8,6 +8,8 @@ import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
+import {project_type, project_status} from './config.js'
+
 
 // import { Calendar } from 'react-calendar'
 import styled from 'styled-components'
@@ -25,61 +27,6 @@ const Header = styled.div`
 const SelectBody = styled.div`
   padding: 0 20px;
 `
-
-
-const project_type = [
-  {
-    label: 'Client Call',
-    value: 'Client Call'
-  },
-  {
-    label: 'Client Inquire',
-    value: 'Client Inquire'
-  },
-  {
-    label: 'Client Issue',
-    value: 'Client Issue'
-  },
-  {
-    label: 'Exception Pricing',
-    value: 'Exception Pricing'
-  },
-  {
-    label: 'Implementation Request',
-    value: 'Implementation Request'
-  },
-  {
-    label: 'Pricing Proforma',
-    value: 'Pricing Proforma'
-  },
-  {
-    label: 'Refund Request',
-    value: 'Refund Request'
-  },
-  {
-    label: 'RFP',
-    value: 'RFP'
-  },
-  {
-    label: 'TMR',
-    value: 'TMR'
-  },
-  {
-    label: 'Special Project',
-    value: 'Special Project'
-  }
-]
-
-const project_status = [
-  {
-    label: 'In Process',
-    value: 'In Process'
-  },
-  {
-    label: 'Completed',
-    value: 'Completed'
-  }
-]
 
 class ProjectModal extends Component {
 

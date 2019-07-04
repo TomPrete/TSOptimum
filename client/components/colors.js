@@ -1,8 +1,9 @@
-export default {
-  main: {
-    mainTeal: '#009783'
-  }
+const colors = {
+  mainTeal: '#009783',
 
 
 
 }
+
+
+export default colors
