@@ -9,13 +9,8 @@ import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legen
 import { Divider } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 // import Chart from 'chart.js';
+import styled from 'styled-components'
 
-
-const data = [
-  { x: 1, y: 1 },
-  { x: 2, y: 2 },
-  { x: 3, y: 3 }
-]
 
 const UserCreatedProjects = ({projectAnalytics}) => {
   let sortedProjects = projectAnalytics ? projectAnalytics.sortedProjects ? projectAnalytics.sortedProjects : null : null;
@@ -48,31 +43,71 @@ const UserCreatedProjects = ({projectAnalytics}) => {
     // }
   }
   return (
-    <div>
-      <Bar
-        data={chartJS}
-        options={{
-          maintainAspectRatio: false,
-          scales: {
-            yAxes: [{
-              ticks: {
-                beginAtZero: true
-              }
-            }]
-          }
-        }}
-      />
-      {/*<XYPlot height={300} width={200} color={main.mainTeal}>
-        <VerticalBarSeries
-          // data={props.projects !== undefined ? props.projects : data}
-          data={props.props}
-          style={{ strokeWidth: 1 }}
-        />
-  </XYPlot>*/}
+    <CreateProjectsWrapper>
 
-    </div>
+
+    {
+      projectAnalytics
+      ?
+      <TotalOpenProjects>
+        <div>
+          Open Projects
+        </div>
+        {
+          sortedProjects
+          ?
+          sortedProjects[0]
+          :
+          null
+        }
+      </TotalOpenProjects>
+      :
+      <TotalOpenProjects>
+        Loading...
+      </TotalOpenProjects>
+    }
+      <BarWrapper>
+        <Bar
+          data={chartJS}
+          options={{
+            maintainAspectRatio: false,
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }}
+        />
+      </BarWrapper>
+    </CreateProjectsWrapper>
   )
 }
+
+
+
+
+const CreateProjectsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between
+  margin: 40px;
+
+`
+
+const TotalOpenProjects = styled.div`
+  width: 50%;
+  color: white;
+  font-size: 40px;
+  background-color: teal;
+  border-radius: 40px;
+`
+const BarWrapper = styled.div`
+  align-content: left;
+  width: 40%;
+  margin-left: 10px
+`
 
 const mapState = state => {
   return {
@@ -87,3 +122,4 @@ const mapDispatch = {}
 const UserCreatedProjectsContainer = connect(mapState, mapDispatch)(UserCreatedProjects)
 
 export default UserCreatedProjectsContainer
+

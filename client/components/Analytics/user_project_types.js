@@ -8,7 +8,7 @@ import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxi
 import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { Divider } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
-// import Chart from 'chart.js';
+import styled from 'styled-components'
 
 
 const data = [

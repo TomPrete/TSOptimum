@@ -99,7 +99,6 @@ router.get('/:projectId', (req, res, next) => {
   })
     .then(project => {
       project.dataValues.dueDate = convertDate(project.dataValues.dueDate);
-      console.log("DUE DATE: ", project.dataValues.dueDate)
       return res.json(project.dataValues)})
     .catch(next)
 })
