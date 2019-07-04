@@ -51,7 +51,7 @@ const UserCreatedProjects = ({projectAnalytics}) => {
       ?
       <TotalOpenProjects>
         <div>
-          Open Projects
+          In Process
         </div>
         {
           sortedProjects
@@ -97,7 +97,7 @@ const CreateProjectsWrapper = styled.div`
 `
 
 const TotalOpenProjects = styled.div`
-  width: 50%;
+  width: 20%;
   color: white;
   font-size: 40px;
   background-color: ${colors.mainTeal};

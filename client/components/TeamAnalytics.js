@@ -6,6 +6,7 @@ import main from './colors'
 import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
 import UserCreatedProjects from './Analytics/user_created_projects'
 import UserProjectTypesContainer from './Analytics/user_project_types';
+import styled from 'styled-components'
 
 
 class TeamAnalytics extends Component {
@@ -47,7 +48,7 @@ render() {
         <SideBar />
       </div>
       <div className="container-width">
-        <h1>Analytics</h1>
+        <Title>Analytics Dashboard</Title>
         <UserCreatedProjects projectAnalytics={this.props.projects[0]}/>
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
       </div>
@@ -56,6 +57,13 @@ render() {
   )
 }
 }
+
+const Title = styled.div`
+  text-align: left;
+  font-size: 36px;
+  margin: 30px;
+
+`
 
 const mapState = state => {
   return {
