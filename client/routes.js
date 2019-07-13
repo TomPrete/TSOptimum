@@ -50,6 +50,7 @@ class Routes extends Component {
             <Route exact path='/my-admin/users' component={AdminUsers} />
             <Route exact path='/my-admin/teams' component={AdminTeams} />
             <Route exact path='/my-admin/companies' component={AdminCompanies} />
+            <Route exact path='/companyies/home-page'  component={CompanyHomePage}/>
             </Switch>
             :
             null

@@ -7,6 +7,7 @@ import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxi
 import UserCreatedProjects from './Analytics/user_created_projects'
 import UserProjectTypesContainer from './Analytics/user_project_types';
 import styled from 'styled-components'
+import colors from './colors'
 
 
 class TeamAnalytics extends Component {
@@ -47,11 +48,11 @@ render() {
       <div className='sidebar-container'>
         <SideBar />
       </div>
-      <div className="container-width">
+      <DashBoardContainer className="container-width">
         <Title>Analytics Dashboard</Title>
         <UserCreatedProjects projectAnalytics={this.props.projects[0]}/>
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
-      </div>
+      </DashBoardContainer>
 
     </div>
   )
@@ -62,9 +63,15 @@ const Title = styled.div`
   text-align: left;
   font-size: 36px;
   margin: 30px;
-
 `
 
+const DashBoardContainer = styled.div`
+  background-color: ${colors.dashboardGray};
+  height: 100vh;
+  width: 100%;
+  margin: auto auto 10% auto;
+  overflow-y: auto;
+`
 const mapState = state => {
   return {
     user: state.user,
