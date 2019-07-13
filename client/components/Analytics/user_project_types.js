@@ -9,6 +9,8 @@ import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legen
 import { Divider } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components'
+import {project_type} from '../config'
+import {getProjectTypeLabel} from './helper_functions'
 
 
 const data = [
@@ -34,26 +36,23 @@ const data = [
 const UserProjectTypes = ({projectAnalytics}) => {
   let proj = projectAnalytics ? projectAnalytics.numOfProjects ? projectAnalytics.numOfProjects : null : null;
   console.log("projectAnalytics: ", projectAnalytics)
+  let projects = getProjectTypeLabel(project_type)
+  console.log("Projects: ", projects)
   const chartJS = {
-    labels: [
-      'Client Inquire',
-      'Client Issue',
-      'Exception Pricing',
-      'Implementation Request',
-      'Pricing Proforma',
-      'RFP',
-      'Refund Request'
-    ],
+    labels: projects,
     datasets: [
       {
         data: [
-          `${proj ? proj['Client Inquire'] : proj}`,
-          `${proj ? proj['Client Issue'] : proj}`,
-          `${proj ? proj['Exception Pricing'] : proj}`,
-          `${proj ? proj['Implementation Request'] : proj}`,
-          `${proj ? proj['Pricing Proforma'] : proj}`,
-          `${proj ? proj['RFP'] : proj}`,
-          `${proj ? proj['Refund Request'] : proj}`
+          `${proj ? proj[projects[0]] : proj}`,
+          `${proj ? proj[projects[1]] : proj}`,
+          `${proj ? proj[projects[2]] : proj}`,
+          `${proj ? proj[projects[3]] : proj}`,
+          `${proj ? proj[projects[4]] : proj}`,
+          `${proj ? proj[projects[5]] : proj}`,
+          `${proj ? proj[projects[6]] : proj}`,
+          `${proj ? proj[projects[7]] : proj}`,
+          `${proj ? proj[projects[8]] : proj}`,
+          `${proj ? proj[projects[9]] : proj}`
         ],
         label: 'Project Types',
         backgroundColor: 'lightblue',
@@ -80,7 +79,7 @@ const UserProjectTypes = ({projectAnalytics}) => {
     return <div>Loading...</div>
 }
   return (
-    <div>
+    <ProjectTypeContainer>
       <Bar
         data={chartJS}
         options={{
@@ -94,17 +93,14 @@ const UserProjectTypes = ({projectAnalytics}) => {
           }
         }}
       />
-      {/*<XYPlot height={300} width={200} color={colors.mainTeal}>
-        <VerticalBarSeries
-          // data={props.projects !== undefined ? props.projects : data}
-          data={props.props}
-          style={{ strokeWidth: 1 }}
-        />
-  </XYPlot>*/}
-
-    </div>
+    </ProjectTypeContainer>
   )
 }
+
+const ProjectTypeContainer = styled.div`
+  height: 40%;
+`
+
 
 const mapState = state => {
   return {
