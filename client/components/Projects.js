@@ -152,7 +152,7 @@ class Projects extends Component {
                         <Button type='button' key={project.projectId} value={project.projectId} onClick={() => this.props.submitCompletedProject(project.projectId)} variant='contained' className='complete-btn'>Complete</Button>
                         :
                         <div>
-                         <h2>COMPLETED</h2>
+                         <h2>DONE</h2>
                         </div>
                     }
                       {/*<Button className='edit-btn' onClick={() => this.showProjectModal(project.projectId)} >Edit</Button>*/}
