@@ -44,27 +44,25 @@ const UserCreatedProjects = ({projectAnalytics}) => {
   }
   return (
     <CreateProjectsWrapper>
-
-
     {
       projectAnalytics
       ?
-      <TotalOpenProjects>
-        <div>
-          In Process
-        </div>
+      <TotalOpenProjectsContainer>
+        <TotalProjectsTitle>
+          In Process Projects
+        </TotalProjectsTitle>
         {
           sortedProjects
-          ?
-          sortedProjects[0]
-          :
-          null
+          &&
+          <TotalProjects>
+            {sortedProjects[0]}
+          </TotalProjects>
         }
-      </TotalOpenProjects>
+      </TotalOpenProjectsContainer>
       :
-      <TotalOpenProjects>
+      <TotalOpenProjectsContainer>
         Loading...
-      </TotalOpenProjects>
+      </TotalOpenProjectsContainer>
     }
       <BarWrapper>
         <Bar
@@ -96,17 +94,24 @@ const CreateProjectsWrapper = styled.div`
 
 `
 
-const TotalOpenProjects = styled.div`
-  width: 20%;
+const TotalOpenProjectsContainer = styled.div`
+  width: 30%;
   color: white;
   font-size: 40px;
   background-color: ${colors.mainTeal};
-  border-radius: 40px;
+  border-radius: 10px;
 `
+
+const TotalProjectsTitle = styled.div`
+  font-size: 36px;
+`
+
+const TotalProjects = styled.div`
+  font-size: 60px;
+`
+
 const BarWrapper = styled.div`
-  align-content: left;
-  width: 40%;
-  margin-left: 10px
+  margin: 0 100px 0 0;
 `
 
 const mapState = state => {
