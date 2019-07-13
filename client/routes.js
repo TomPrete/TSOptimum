@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers, AdminTeams, AdminCompanies} from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers, AdminTeams, AdminCompanies, CompaniesHomePage} from './components'
 import store, { me, fetchAllCompanies, fetchAllUserProjects } from './store'
 
 
@@ -50,7 +50,7 @@ class Routes extends Component {
             <Route exact path='/my-admin/users' component={AdminUsers} />
             <Route exact path='/my-admin/teams' component={AdminTeams} />
             <Route exact path='/my-admin/companies' component={AdminCompanies} />
-            <Route exact path='/companyies/home-page'  component={CompanyHomePage}/>
+            <Route exact path='/companies/home-page'  component={CompaniesHomePage} />
             </Switch>
             :
             null

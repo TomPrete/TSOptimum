@@ -23,6 +23,7 @@ class SideBar extends Component {
       <div id="sidebar-container">
         <p className="sidebar-header">Analytics</p>
         <Link to={`/team-analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
+        <Link to={`/companies/home-page`}><div className="sidebar-links">Companies</div></Link>
         <p className="sidebar-header">Reports</p>
 
           <Link to={`/my-completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
@@ -31,6 +32,7 @@ class SideBar extends Component {
           <Link to={`/my-created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
 
           <Link to={`/my-board`}><div className="myboard-title">My Board</div></Link>
+
       </div>
     )
   }
