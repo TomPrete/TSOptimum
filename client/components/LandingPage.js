@@ -56,7 +56,7 @@ let LandingPage = () => {
 
       </div>
       <div className="footer">
-        THIS IS THE div
+
       </div>
     </div>
   )

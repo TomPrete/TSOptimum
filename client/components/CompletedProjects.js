@@ -77,7 +77,7 @@ class CompletedProjects extends Component {
         </div>
         <div className="container-width">
         <div>
-          <p>All Completed Projects</p>
+          <p>All Completed Tasks</p>
         </div>
         <div id='column-list'>
           <p className="column-titles">Company</p>

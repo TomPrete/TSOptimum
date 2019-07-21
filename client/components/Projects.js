@@ -23,7 +23,7 @@ class Projects extends Component {
       redirect: false,
       projectId: false,
       loading: true,
-      title: 'Projects',
+      title: 'Tasks',
       page: this.props.page
     }
     this.showProjectModal = this.showProjectModal.bind(this)
@@ -41,7 +41,7 @@ class Projects extends Component {
       const fetchAllCompletedUserProjects = await fetchCompletedUserProjects(this.props.user.id)
       store.dispatch(fetchAllCompletedUserProjects)
       this.setState({
-        title: "My Complete Projects",
+        title: "My Completed Tasks",
         page: 'completed'
       })
     } else if (window.location.pathname.includes('created')) {
@@ -49,14 +49,14 @@ class Projects extends Component {
       const getAllUserProjects = await fetchAllUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
       this.setState({
-        title: "All Projects",
+        title: "All Tasks",
         page: 'created'
       })
     } else {
       const getAllUserProjects = await fetchInProcessUserProjects(this.props.user.id)
       store.dispatch(getAllUserProjects)
       this.setState({
-        title: "My Open Projects",
+        title: "My Open Tasks",
         page: 'process'
       })
     }
@@ -162,7 +162,7 @@ class Projects extends Component {
                 )
               })
                 :
-                <span >You have no open projects!</span>
+                <span >You have no open tasks!</span>
             }
           </TableBody>
 
@@ -170,7 +170,7 @@ class Projects extends Component {
             this.state.projectId
               &&
               <div id='modal-component'>
-                <ProjectModal projectId={this.state.projectId} showProjectModal={this.showProjectModal} type="EDIT PROJECT"/>
+                <ProjectModal projectId={this.state.projectId} showProjectModal={this.showProjectModal} type="EDIT TASK"/>
               </div>
 
           }

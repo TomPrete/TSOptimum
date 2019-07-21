@@ -26,10 +26,10 @@ class SideBar extends Component {
         <Link to={`/companies/home-page`}><div className="sidebar-links">Companies</div></Link>
         <p className="sidebar-header">Reports</p>
 
-          <Link to={`/my-completed_projects`}><div className='sidebar-links'>Completed Projects</div></Link>
+          <Link to={`/my-completed-tasks`}><div className='sidebar-links'>Completed Tasks</div></Link>
 
 
-          <Link to={`/my-created_projects`}><div className='sidebar-links'>Created Projects</div></Link>
+          <Link to={`/my-created-tasks`}><div className='sidebar-links'>Created Tasks</div></Link>
 
           <Link to={`/my-board`}><div className="myboard-title">My Board</div></Link>
 

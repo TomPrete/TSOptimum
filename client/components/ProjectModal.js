@@ -190,11 +190,11 @@ class ProjectModal extends Component {
     let dueDate = e.target.due_date.value || this.props.project.dueDate;
     let followUpDate = e.target.follow_up_date.value || this.props.project.followUpDate;
     let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
-    if (this.props.type === "EDIT PROJECT") {
+    if (this.props.type === "EDIT TASK") {
       await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
       await store.dispatch(removeUserProject());
       await this.props.showProjectModal();
-    } else if (this.props.type === "CREATE NEW PROJECT") {
+    } else if (this.props.type === "CREATE NEW TASK") {
       await this.props.createNewProject(name, projectType,officer,analyst,status, dueDate, notes, this.props.user.id, this.props.user.teamId);
       await this.props.showProjectModal();
     }
@@ -228,7 +228,7 @@ class ProjectModal extends Component {
                   />
                 </div>
                 <div className='edit-select' >
-                  <p>Project Type: </p>
+                  <p>Task Type: </p>
                   <Select
                     name="projectType"
                     options={project_type}
@@ -241,7 +241,7 @@ class ProjectModal extends Component {
                   />
                 </div>
                 <div className='edit-select'>
-                  <p>Project Status: </p>
+                  <p>Task Status: </p>
                   <Select
                     name="projectStatus"
                     options={project_status}

@@ -4,7 +4,7 @@ import SideBar from './SideBar'
 import store, { fetchAllUserProjectsAnalytics } from '../store'
 import main from './colors'
 import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
-import UserCreatedProjects from './Analytics/user_created_projects'
+import StyledUserCreatedProjects from './Analytics/user_created_projects'
 import UserProjectTypesContainer from './Analytics/user_project_types';
 import styled from 'styled-components'
 import colors from './colors'
@@ -42,7 +42,7 @@ class TeamAnalytics extends Component {
 
 render() {
   // let numProjects = this.props.projects.length;
-
+  console.log("PROJECTS: ", this.props.projects)
   return (
     <div id="completed-projects-container">
       <div className='sidebar-container'>
@@ -50,7 +50,7 @@ render() {
       </div>
       <DashBoardContainer className="container-width">
         <Title>Analytics Dashboard</Title>
-        <UserCreatedProjects projectAnalytics={this.props.projects[0]}/>
+        <StyledUserCreatedProjects projectAnalytics={this.props.projects[0]}/>
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
       </DashBoardContainer>
 
