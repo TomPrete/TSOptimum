@@ -172,7 +172,7 @@ class UserBoard extends Component {
           {
             this.state.newProject === false ?
               <div className='new-project-button-container'>
-                <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showProjectModal} className='new-project-button'>Create Project</Button>
+                <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showProjectModal} className='new-project-button'>Create Task</Button>
               </div>
               :
               <div className='new-project-button-container'>
@@ -194,7 +194,7 @@ class UserBoard extends Component {
           this.state.newProject === true ?
 
             <div id='modal-component'>
-              <ProjectModal showProjectModal={this.showProjectModal} type="CREATE NEW PROJECT"/>
+              <ProjectModal showProjectModal={this.showProjectModal} type="CREATE NEW TASK"/>
             </div>
             :
             null

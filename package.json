@@ -36,7 +36,9 @@
     "express-session": "^1.16.1",
     "firebase": "^5.11.1",
     "history": "^4.9.0",
+    "moment": "^2.24.0",
     "morgan": "^1.9.1",
+    "mysql2": "^1.6.5",
     "node-modules": "^1.0.1",
     "nodemailer": "^4.7.0",
     "passport": "^0.3.2",
@@ -61,6 +63,7 @@
     "redux-thunk": "^2.3.0",
     "semantic-ui-react": "^0.87.3",
     "sequelize": "^4.44.0",
+    "sequelize-cli": "^5.5.0",
     "socket.io": "^2.2.0",
     "styled-components": "^4.2.0"
   },

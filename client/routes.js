@@ -41,9 +41,9 @@ class Routes extends Component {
             {/*<Route exact path='/my-board' component={UserBoard} />*/}
             <Route exact path='/my-projects' component={Projects} />
             <Route exact path='/my-profile' component={UserProfile} />
-            <Route exact path='/my-completed_projects' render={(props) => <UserBoard {...props} page='completed' />} />
+            <Route exact path='/my-completed-tasks' render={(props) => <UserBoard {...props} page='completed' />} />
             {/*<Route exact path='/my-created_projects' component={AllUserProjects} />*/}
-            <Route exact path='/my-created_projects' render={(props) => <UserBoard {...props} page='created' />} />
+            <Route exact path='/my-created-tasks' render={(props) => <UserBoard {...props} page='created' />} />
             {/*<Route exact path='/my-created_projects' component={UserBoard} />*/}
             <Route exact path='/team-analytics' component={TeamAnalytics} />
             <Route exact path='/my-admin' component={AdminHome} />

@@ -9,3 +9,13 @@ export const getProjectTypeLabel = (project_types) => {
   }
   return projects;
 }
+
+export const filterInProcessProjects = (projects) => {
+  let active = 0;
+  projects.map(project => {
+    if (projects.status = "In Process") {
+      active++
+    }
+  })
+  return active
+}

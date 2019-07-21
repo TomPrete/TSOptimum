@@ -125,9 +125,9 @@ export const fetchAllUserProjectsAnalytics = id =>
     axios.get(`/api/project/user_${id}`)
       .then(res => res.data)
       .then(projects => {
-        let sortedProjects = projectsStatus(projects)
+        let activeTasks = filterInProcessProjects(projects)
         let numOfProjects = projectTypes(projects)
-        return dispatch(getUserProjectAnalytics({sortedProjects, numOfProjects}))
+        return dispatch(getUserProjectAnalytics({projects, numOfProjects, activeTasks}))
       }
     )
   }
@@ -195,6 +195,18 @@ export const fetchAllUserProjectsAnalytics = id =>
       }
     }
     return numOfProjectTypes
+  }
+
+
+  const filterInProcessProjects = (projects) => {
+    let active = 0;
+    projects.map(project => {
+      console.log("project -> ", )
+      if (project.status === "In Process") {
+        active++
+      }
+    })
+    return active
   }
 
 

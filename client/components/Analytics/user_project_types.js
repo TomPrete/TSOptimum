@@ -35,9 +35,9 @@ const data = [
 
 const UserProjectTypes = ({projectAnalytics}) => {
   let proj = projectAnalytics ? projectAnalytics.numOfProjects ? projectAnalytics.numOfProjects : null : null;
-  console.log("projectAnalytics: ", projectAnalytics)
+  // console.log("projectAnalytics: ", projectAnalytics)
   let projects = getProjectTypeLabel(project_type)
-  console.log("Projects: ", projects)
+  // console.log("Projects: ", projects)
   const chartJS = {
     labels: projects,
     datasets: [
