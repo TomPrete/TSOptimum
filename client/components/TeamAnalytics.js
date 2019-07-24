@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import SideBar from './SideBar'
 import store, { fetchAllUserProjectsAnalytics } from '../store'
 import main from './colors'
-import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
-import StyledUserCreatedProjects from './Analytics/user_created_projects'
+import UserActiveProjects from './Analytics/user_active_projects';
+import UserCompletedTasks from './Analytics/user_completed_tasks';
 import UserProjectTypesContainer from './Analytics/user_project_types';
 import styled from 'styled-components'
 import colors from './colors'
@@ -42,7 +42,7 @@ class TeamAnalytics extends Component {
 
 render() {
   // let numProjects = this.props.projects.length;
-  console.log("PROJECTS: ", this.props.projects)
+  // console.log("PROJECTS: ", this.props.projects)
   return (
     <div id="completed-projects-container">
       <div className='sidebar-container'>
@@ -50,7 +50,11 @@ render() {
       </div>
       <DashBoardContainer className="container-width">
         <Title>Analytics Dashboard</Title>
-        <StyledUserCreatedProjects projectAnalytics={this.props.projects[0]}/>
+        <FirstRowContainer>
+          <UserActiveProjects projectAnalytics={this.props.projects[0]}/>
+          <UserCompletedTasks projectAnalytics={this.props.projects[0]}/>
+        </FirstRowContainer>
+
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
       </DashBoardContainer>
 
@@ -72,6 +76,12 @@ const DashBoardContainer = styled.div`
   margin: auto auto 10% auto;
   overflow-y: auto;
 `
+
+const FirstRowContainer = styled.div`
+  display: flex;
+  flex-direction: space-between
+`
+
 const mapState = state => {
   return {
     user: state.user,

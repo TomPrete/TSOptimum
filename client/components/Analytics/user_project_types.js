@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 // import SideBar from './SideBar'
 // import store, { fetchAllUserProjects } from '../store'
 import colors from '../colors'
-// import '../../node_modules/react-vis/dist/example.scss';
-import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis, VerticalRectSeries } from 'react-vis';
-import continuousColorLegend from 'react-vis/dist/legends/continuous-color-legend';
 import { Divider } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components'
