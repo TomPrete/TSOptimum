@@ -41,8 +41,11 @@ class TeamAnalytics extends Component {
 
 
 render() {
-  // let numProjects = this.props.projects.length;
-  // console.log("PROJECTS: ", this.props.projects)
+  if (!this.props.projects[0]) {
+    return <div>
+    ...loading
+    </div>
+  }
   return (
     <div id="completed-projects-container">
       <div className='sidebar-container'>
@@ -51,8 +54,14 @@ render() {
       <DashBoardContainer className="container-width">
         <Title>Analytics Dashboard</Title>
         <FirstRowContainer>
-          <UserActiveProjects projectAnalytics={this.props.projects[0]}/>
-          <UserCompletedTasks projectAnalytics={this.props.projects[0]}/>
+          <UserActiveProjects
+            projectAnalytics={this.props.projects[0]}
+          />
+          <UserCompletedTasks
+            // projects={this.props.projects[0].projects}
+            completeTasks={this.props.projects[0].completeTasks}
+            allProjects={this.props.projects[0].projects}
+          />
         </FirstRowContainer>
 
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
@@ -85,8 +94,8 @@ const FirstRowContainer = styled.div`
 const mapState = state => {
   return {
     user: state.user,
-    team: state.team,
-    companies: state.companies,
+    // team: state.team,
+    // companies: state.companies,
     projects: state.projects
   }
 }

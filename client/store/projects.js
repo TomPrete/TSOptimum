@@ -204,7 +204,7 @@ export const fetchAllProjectsAnalytics = (id, filter='all') =>
     let completedThisWeek = 0
     let thisWeek = moment().week()
     projects.map(project => {
-      if (project.status === "Complete" && moment(project.updatedAt).week() == thisWeek) {
+      if (project.status === "Complete" && moment(project.completedAt).week() == thisWeek) {
         completedThisWeek++
       }
     })

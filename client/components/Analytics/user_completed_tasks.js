@@ -15,7 +15,7 @@ class UserCompletedTasks extends Component {
     super(props);
     this.state = {
       filterLabel: "this Week",
-      // completedTasks: Number(5)
+      completedTasks: null
     }
     this.filterCompletedProjects = this.filterCompletedProjects.bind(this)
   }
@@ -25,32 +25,42 @@ class UserCompletedTasks extends Component {
   }
 
   componentDidMount() {
-    console.log("PROPS: ", this.props)
+    let completedTasks = this.props.completeTasks
     this.setState({
-      completedTasks: 0
+      completedTasks: completedTasks
     })
-    console.log("STATE: ", this.state)
   }
 
   componentWillReceiveProps(nextProps) {
-
+    this.setState({
+      completedTasks: nextProps.completeTasks
+    })
   }
 
   // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log("Current STATE: ", this.state.completedTasks)
+  //   console.log("NEXT STATE: ", nextState)
+  //   if (this.state.completedTasks != nextState.completedTasks) {
+  //     this.setState({
+  //       completedTasks: nextState.completedTasks
+  //     })
+  //     console.log("RETURNING TRUE")
+  //     return true
+  //   }
+  //   else return false
+  // }
+
+  // componentWillUpdate(nextProps, nextState) {
 
   // }
 
-  componentWillUpdate(nextProps, nextState) {
+  // componentDidUpdate(prevProps, prevState) {
+  //   console.log("COMPONENT DID UPDATES: ", prevState)
+  // }
 
-  }
+  // componentWillUnmount() {
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log("COMPONENT DID UPDATES: ", prevState)
-  }
-
-  componentWillUnmount() {
-
-  }
+  // }
 
 
   filterCompletedProjects(val, action, projects) {
@@ -59,12 +69,11 @@ class UserCompletedTasks extends Component {
       filter: action
     })
     let count = 0
-
     switch (val.value) {
       case 'this-week':
         let thisWeek = moment().week()
         projects.map(project => {
-          if (moment(project.updatedAt).week() == thisWeek) {
+          if (moment(project.completedAt).week() == thisWeek) {
             count++
           }
         })
@@ -72,7 +81,7 @@ class UserCompletedTasks extends Component {
       case 'last-week':
         let lastWeek = (moment().week() - 1)
         projects.map(project => {
-          if (moment(project.updatedAt).week() == lastWeek) {
+          if (moment(project.completedAt).week() == lastWeek) {
             count++
           }
         })
@@ -80,7 +89,7 @@ class UserCompletedTasks extends Component {
       case 'this-month':
         let currentMonth = moment().month()
         projects.map(project => {
-          if (moment(project.updatedAt).month() == currentMonth) {
+          if (moment(project.completedAt).month() == currentMonth) {
             count++
           }
         })
@@ -88,7 +97,7 @@ class UserCompletedTasks extends Component {
       case 'last-month':
         let lastMonth = (moment().month() - 1)
         projects.map(project => {
-          if (moment(project.updatedAt).month() == lastMonth) {
+          if (moment(project.completedAt).month() == lastMonth) {
             count++
           }
         })
@@ -96,7 +105,7 @@ class UserCompletedTasks extends Component {
       case 'this-quarter':
         let thisQuarter = (moment().quarter())
         projects.map(project => {
-          if (moment(project.updatedAt).quarter() == thisQuarter) {
+          if (moment(project.completedAt).quarter() == thisQuarter) {
             count++
           }
         })
@@ -115,8 +124,7 @@ class UserCompletedTasks extends Component {
 
 
   render() {
-    let completeTasks = this.props.projectAnalytics ? this.props.projectAnalytics.completeTasks ? this.props.projectAnalytics.completeTasks : null : null;
-    let projects = this.props.projectAnalytics ? this.props.projectAnalytics.projects ? this.props.projectAnalytics.projects : null : null;
+    let projects = this.props.allProjects
     let filter_period = [
       {
         label: 'this Week',
@@ -151,6 +159,15 @@ class UserCompletedTasks extends Component {
       return null
     }
 
+    // if (!this.props.completeTasks) {
+    //   return (
+    //     <div>
+    //     ...loading
+    //   </div>
+    //   )
+
+    // }
+
     return (
       <CreateProjectsWrapper>
         <CompleteTasksContainer>
@@ -171,7 +188,7 @@ class UserCompletedTasks extends Component {
             />
           </CompletedTasksText>
           {
-            this.props.projectAnalytics
+            this.props.allProjects
             &&
             <TotalProjects>
               {this.state.completedTasks}
