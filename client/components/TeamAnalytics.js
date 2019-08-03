@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SideBar from './SideBar'
-import store, { fetchAllUserProjectsAnalytics } from '../store'
+import store, { fetchAllProjectsAnalytics } from '../store'
 import main from './colors'
-import { XYPlot, VerticalBarSeries, VerticalGridLines, HorizontalGridLines, XAxis, YAxis } from 'react-vis';
-import StyledUserCreatedProjects from './Analytics/user_created_projects'
+import UserActiveProjects from './Analytics/user_active_projects';
+import UserCompletedTasks from './Analytics/user_completed_tasks';
 import UserProjectTypesContainer from './Analytics/user_project_types';
 import styled from 'styled-components'
 import colors from './colors'
@@ -20,7 +20,7 @@ class TeamAnalytics extends Component {
   }
   componentDidMount() {
     const userId = this.props.user.id;
-    store.dispatch(fetchAllUserProjectsAnalytics(userId));
+    store.dispatch(fetchAllProjectsAnalytics(userId));
   }
 
 //   projectTypes(projectsArr) {
@@ -41,8 +41,11 @@ class TeamAnalytics extends Component {
 
 
 render() {
-  // let numProjects = this.props.projects.length;
-  console.log("PROJECTS: ", this.props.projects)
+  if (!this.props.projects[0]) {
+    return <div>
+    ...loading
+    </div>
+  }
   return (
     <div id="completed-projects-container">
       <div className='sidebar-container'>
@@ -50,7 +53,17 @@ render() {
       </div>
       <DashBoardContainer className="container-width">
         <Title>Analytics Dashboard</Title>
-        <StyledUserCreatedProjects projectAnalytics={this.props.projects[0]}/>
+        <FirstRowContainer>
+          <UserActiveProjects
+            projectAnalytics={this.props.projects[0]}
+          />
+          <UserCompletedTasks
+            // projects={this.props.projects[0].projects}
+            completeTasks={this.props.projects[0].completeTasks}
+            allProjects={this.props.projects[0].projects}
+          />
+        </FirstRowContainer>
+
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
       </DashBoardContainer>
 
@@ -72,16 +85,22 @@ const DashBoardContainer = styled.div`
   margin: auto auto 10% auto;
   overflow-y: auto;
 `
+
+const FirstRowContainer = styled.div`
+  display: flex;
+  flex-direction: space-between
+`
+
 const mapState = state => {
   return {
     user: state.user,
-    team: state.team,
-    companies: state.companies,
+    // team: state.team,
+    // companies: state.companies,
     projects: state.projects
   }
 }
 
-const mapDispatch = { fetchAllUserProjectsAnalytics }
+const mapDispatch = { fetchAllProjectsAnalytics }
 
 const TeamAnalyticsContainer = connect(mapState, mapDispatch)(TeamAnalytics)
 

@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 // import Smiley from '../public/img/smiley.png'
 import store, { fetchUsers, fetchUserTeamMates, me, fetchAllCompanies, createNewProject, fetchUserProjects, fetchAllProjects } from '../store'
 import firebase from '../firebase'
-import Quill from 'quill'
 import TextField from '@material-ui/core/TextField';
 
 const taskType = [
