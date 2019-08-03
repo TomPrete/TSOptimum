@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import SideBar from './SideBar'
-import store, { fetchAllUserProjectsAnalytics } from '../store'
+import store, { fetchAllProjectsAnalytics } from '../store'
 import main from './colors'
 import UserActiveProjects from './Analytics/user_active_projects';
 import UserCompletedTasks from './Analytics/user_completed_tasks';
@@ -20,7 +20,7 @@ class TeamAnalytics extends Component {
   }
   componentDidMount() {
     const userId = this.props.user.id;
-    store.dispatch(fetchAllUserProjectsAnalytics(userId));
+    store.dispatch(fetchAllProjectsAnalytics(userId));
   }
 
 //   projectTypes(projectsArr) {
@@ -91,7 +91,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { fetchAllUserProjectsAnalytics }
+const mapDispatch = { fetchAllProjectsAnalytics }
 
 const TeamAnalyticsContainer = connect(mapState, mapDispatch)(TeamAnalytics)
 

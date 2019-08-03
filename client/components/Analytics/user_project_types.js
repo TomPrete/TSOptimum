@@ -6,35 +6,14 @@ import colors from '../colors'
 import { Divider } from 'semantic-ui-react';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components'
-import {project_type} from '../config'
-import {getProjectTypeLabel} from './helper_functions'
+import { project_type } from '../config'
+import { getProjectTypeLabel } from './helper_functions'
 
+import Chart from "react-apexcharts";
 
-const data = [
-  { x: 1, y: 1 },
-  { x: 2, y: 2 },
-  { x: 3, y: 3 }
-]
-// const data = {
-//   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//   datasets: [
-//     {
-//       label: 'My First dataset',
-// backgroundColor: 'rgba(255,99,132,0.2)',
-// borderColor: 'rgba(255,99,132,1)',
-// borderWidth: 1,
-// hoverBackgroundColor: 'rgba(255,99,132,0.4)',
-// hoverBorderColor: 'rgba(255,99,132,1)',
-//       data: [65, 59, 80, 81, 56, 55, 40]
-//     }
-//   ]
-// };
-
-const UserProjectTypes = ({projectAnalytics}) => {
+const UserProjectTypes = ({ projectAnalytics }) => {
   let proj = projectAnalytics ? projectAnalytics.numOfProjects ? projectAnalytics.numOfProjects : null : null;
-  // console.log("projectAnalytics: ", projectAnalytics)
   let projects = getProjectTypeLabel(project_type)
-  // console.log("Projects: ", projects)
   const chartJS = {
     labels: projects,
     datasets: [
@@ -72,12 +51,69 @@ const UserProjectTypes = ({projectAnalytics}) => {
     //   }
     // }
   }
-  if (!proj){
+
+  const apexChart = {
+    options: {
+      chart: {
+        id: "basic-bar",
+        dropShadow: {
+          enabled: true,
+          enabledOnSeries: undefined,
+          top: 0,
+          left: 0,
+          blur: 3,
+          color: '#000',
+          opacity: 0.35
+        },
+        animations: {
+          enabled: true,
+          easing: 'easeinout',
+          speed: 1000,
+          animateGradually: {
+            enabled: true,
+            delay: 200
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350
+          }
+        }
+      },
+      xaxis: {
+        categories: projects
+      },
+      fill: {
+        colors: [colors.mainTeal]
+      }
+    },
+    series: [
+      {
+        name: "series-1",
+        data: [
+          `${proj ? proj[projects[0]] : proj}`,
+          `${proj ? proj[projects[1]] : proj}`,
+          `${proj ? proj[projects[2]] : proj}`,
+          `${proj ? proj[projects[3]] : proj}`,
+          `${proj ? proj[projects[4]] : proj}`,
+          `${proj ? proj[projects[5]] : proj}`,
+          `${proj ? proj[projects[6]] : proj}`,
+          `${proj ? proj[projects[7]] : proj}`,
+          `${proj ? proj[projects[8]] : proj}`,
+          `${proj ? proj[projects[9]] : proj}`
+        ]
+      }
+    ],
+  };
+
+
+
+  if (!proj) {
     return <div>Loading...</div>
-}
+  }
+
   return (
     <ProjectTypeContainer>
-      <Bar
+      {/*<Bar
         data={chartJS}
         options={{
           maintainAspectRatio: false,
@@ -89,7 +125,16 @@ const UserProjectTypes = ({projectAnalytics}) => {
             }]
           }
         }}
+      />*/}
+      <Chart
+        options={apexChart.options}
+        series={apexChart.series}
+        animations={apexChart.animations}
+        type='bar'
+        width='100%'
+        height='500'
       />
+
     </ProjectTypeContainer>
   )
 }

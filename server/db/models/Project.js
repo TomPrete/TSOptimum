@@ -49,6 +49,10 @@ const Project = db.define('project', {
   dueDate: {
     type: Sequelize.DATEONLY
   },
+  completedAt: {
+    type: Sequelize.DATEONLY,
+    defaultValue: null
+  },
 
   // duration: {
   //   type: Sequelize.VIRTUAL,

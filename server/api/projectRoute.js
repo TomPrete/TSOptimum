@@ -2,10 +2,13 @@
 
 const router = require('express').Router()
 const { User, Company, Project } = require('../db/models')
+// const {tsa_project_types, projectTypes} = require('./config_helpers/config')
 module.exports = router
 
 let convertDate = (dateString) => {
+  console.log("DATE STRING: ", dateString)
   var p = dateString.split(/\D/g)
+  console.log("P---->: ", p)
   return [p[1],p[2],p[0] ].join("/")
   }
 
@@ -90,6 +93,26 @@ router.get('/user_:id', (req, res, next) => {
   // .catch(next)
 })
 
+router.get('/analytics/user_:id/:filter', (req, res, next) => {
+  let id = +req.params.id;
+  console.log("PARAMS: ", req.params)
+  Project.findAll({
+    where: {
+      userId: id
+    }
+  })
+    .then(projects => {
+      projects.sort((a, b) => {
+        a = new Date(a.dueDate)
+        b = new Date(b.dueDate)
+        return a < b ? -1 : a > b ? 1 : 0
+      })
+      res.json(projects)
+    })
+  // .catch(next)
+})
+
+
 router.get('/:projectId', (req, res, next) => {
   let id = +req.params.projectId;
   Project.findOne({
@@ -104,17 +127,28 @@ router.get('/:projectId', (req, res, next) => {
 })
 
 router.put('/:projectId', (req, res, next) => {
-  console.log("HERE: ", req.params.projectId)
-  return Project.update(req.body, {
-    where: {
-      projectId: req.params.projectId
-    }
-  })
-    .then(project => res.json(project.data))
-  // .then(([numRows, updatedRows]) => {
-  //   res.json(updatedRows[0]);
-  // })
-  // .catch(next);
+  let id = +req.params.projectId;
+  try {
+    Project.findOne({
+      where: {
+        projectId: id
+      }
+    }).then(project => {
+      if (req.body.status == 'In Process' && project.completedAt) {
+        req.body['completedAt'] = null;
+        project.update(
+          req.body
+        ).then(project => res.json(project.data))
+      }
+      else {
+        project.update(req.body)
+        .then(project => res.json(project.data))
+      }
+    })
+  }
+  catch (error) {
+    next(error)
+  }
 });
 
 // router.get('/:id/orders', async (req, res, next) => {

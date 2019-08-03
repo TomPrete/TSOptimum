@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import moment from 'moment';
 
 /***** ACTION TYPES*****/
 // const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
@@ -85,7 +86,8 @@ export const createNewProject = (name, projectType, officer, analyst, status, du
 
 export const submitCompletedProject = (projectId) => dispatch => {
   axios.put(`/api/project/${projectId}`, {
-    status: 'Complete'
+    status: 'Complete',
+    completedAt: Date.now()
   })
     .then(project => {
       dispatch(updateCompletedProject(project))
@@ -120,14 +122,15 @@ export const fetchAllUserProjects = id =>
     )
   }
 
-export const fetchAllUserProjectsAnalytics = id =>
+export const fetchAllProjectsAnalytics = (id, filter='all') =>
   dispatch => {
-    axios.get(`/api/project/user_${id}`)
+    axios.get(`/api/project/analytics/user_${id}/${filter}`)
       .then(res => res.data)
       .then(projects => {
-        let activeTasks = filterInProcessProjects(projects)
-        let numOfProjects = projectTypes(projects)
-        return dispatch(getUserProjectAnalytics({projects, numOfProjects, activeTasks}))
+        let activeTasks = filterInProcessProjects(projects);
+        let completeTasks = filterCompletedTasks(projects);
+        let numOfProjects = projectTypes(projects);
+        return dispatch(getUserProjectAnalytics({projects, numOfProjects, activeTasks, completeTasks}))
       }
     )
   }
@@ -197,18 +200,32 @@ export const fetchAllUserProjectsAnalytics = id =>
     return numOfProjectTypes
   }
 
+  const filterCompletedTasks = (projects) => {
+    let completedThisWeek = 0
+    let thisWeek = moment().week()
+    projects.map(project => {
+      if (project.status === "Complete" && moment(project.updatedAt).week() == thisWeek) {
+        completedThisWeek++
+      }
+    })
+    return completedThisWeek
+  }
 
   const filterInProcessProjects = (projects) => {
     let active = 0;
+    let completedThisWeek = 0
+    let thisWeek = moment().week()
     projects.map(project => {
       console.log("project -> ", )
       if (project.status === "In Process") {
         active++
       }
+      if (project.status === "Complete" && moment(project.updatedAt).week() == thisWeek) {
+        completedThisWeek++
+      }
     })
     return active
   }
-
 
   const project_type = [
     {

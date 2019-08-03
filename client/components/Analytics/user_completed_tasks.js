@@ -15,7 +15,7 @@ class UserCompletedTasks extends Component {
     super(props);
     this.state = {
       filterLabel: "this Week",
-      completedTasks: "?"
+      // completedTasks: Number(5)
     }
     this.filterCompletedProjects = this.filterCompletedProjects.bind(this)
   }
@@ -26,6 +26,10 @@ class UserCompletedTasks extends Component {
 
   componentDidMount() {
     console.log("PROPS: ", this.props)
+    this.setState({
+      completedTasks: 0
+    })
+    console.log("STATE: ", this.state)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -41,7 +45,7 @@ class UserCompletedTasks extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-
+    console.log("COMPONENT DID UPDATES: ", prevState)
   }
 
   componentWillUnmount() {
@@ -51,9 +55,11 @@ class UserCompletedTasks extends Component {
 
   filterCompletedProjects(val, action, projects) {
     this.setState({
-      filterLabel: val.label
+      filterLabel: val.label,
+      filter: action
     })
     let count = 0
+
     switch (val.value) {
       case 'this-week':
         let thisWeek = moment().week()
@@ -109,10 +115,8 @@ class UserCompletedTasks extends Component {
 
 
   render() {
-    let activeTasks = this.props.projectAnalytics ? this.props.projectAnalytics.activeTasks ? this.props.projectAnalytics.activeTasks : null : null;
+    let completeTasks = this.props.projectAnalytics ? this.props.projectAnalytics.completeTasks ? this.props.projectAnalytics.completeTasks : null : null;
     let projects = this.props.projectAnalytics ? this.props.projectAnalytics.projects ? this.props.projectAnalytics.projects : null : null;
-    let initialSelectedValue = 'this Week';
-
     let filter_period = [
       {
         label: 'this Week',
@@ -167,7 +171,7 @@ class UserCompletedTasks extends Component {
             />
           </CompletedTasksText>
           {
-            activeTasks
+            this.props.projectAnalytics
             &&
             <TotalProjects>
               {this.state.completedTasks}
@@ -216,7 +220,7 @@ const CompletedTasksText = styled.div`
 
 const mapState = state => {
   return {
-    projects: state.projects,
+    projects: state.projects.completeTasks,
   }
 }
 

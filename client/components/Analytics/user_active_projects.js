@@ -10,7 +10,7 @@ class UserActiveProjects extends Component {
   }
 
   render() {
-    let activeTasks = this.props.projectAnalytics ? this.props.projectAnalytics.activeTasks ? this.props.projectAnalytics.activeTasks : null : null;
+    let activeTasks = this.props.projectAnalytics ? this.props.projectAnalytics.activeTasks ? this.props.projectAnalytics.activeTasks : 0 : 0;
 
     return (
       <CreateProjectsWrapper>
