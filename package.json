@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An application to streamline projects/assignments for Treasury Sales Managers, Officers, and Analysts within Financial Institutions.",
   "engines": {
-    "node": "9.2.1"
+    "node": "12.13.0"
   },
   "main": "index.js",
   "scripts": {
