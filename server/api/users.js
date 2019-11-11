@@ -3,7 +3,6 @@ const { User } = require('../db/models')
 const nodemailer = require('nodemailer')
 const async = require('async')
 const crypto = require('crypto')
-// const async = require('async')
 
 module.exports = router
 
@@ -16,6 +15,7 @@ var transporter = nodemailer.createTransport({
   }
 });
 
+console.log(transporter)
 
 // router.get('/', (req, res, next) => {
 
@@ -107,6 +107,7 @@ router.put('/update-password/:id', async (req, res, next) => {
           user.update({
             password: req.body.newPassword
           })
+          console.log(transporter)
           transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.log(error);
