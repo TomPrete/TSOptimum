@@ -146,9 +146,9 @@ class UserCompletedTasks extends Component {
 
 
     const customStyles = {
-      control: (styles, state) => ({ ...styles, border: `${state.isFocused ? 'none' : 'none'}`, width: '250px' }),
+      control: (styles, state) => ({ ...styles, border: `${state.isFocused ? '0' : '0'}`, width: '250px', cursor: 'pointer', boxShadow: `${state.isFocused} ? 0 : 0`}),
       singleValue: (styles) => ({ ...styles, paddingBottom: '8px', color: `${colors.mainTeal}`}),
-      placeholder: (styles) => ({ ...styles, paddingBottom: '8px', color: `${colors.mainTeal}`})
+      placeholder: (styles) => ({ ...styles, paddingBottom: '8px', color: `${colors.mainTeal}`}),
     }
 
     const IndicatorSeparator = () => {

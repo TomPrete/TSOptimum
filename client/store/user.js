@@ -45,15 +45,18 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
   dispatch =>
     axios.post('/auth/signup', { firstName, lastName, email, title, password })
       .then(user => {
-        window.location.reload()
+        console.log('USER: ', user)
         return user.data
       })
-      .then(user => {
-        const action = getUser(user)
-        dispatch(getUser(action))
-        history.push(`/my-board`)
-      }, authError => { // rare example: a good use case for parallel (non-catch) error handler
-        dispatch(getUser({ error: authError }))
+      .then(res => {
+        dispatch(getUser(res.data))
+        if (res.data.teamId && res.data.id) {
+          dispatch(fetchUserTeamMates(res.data.teamId))
+          dispatch(fetchUserTeam(res.data.teamId))
+        }
+        if (res.data.isAdmin) {
+          dispatch(fetchAllUsers())
+        }
       })
       .catch(dispatchOrHistoryErr => console.error(dispatchOrHistoryErr))
 

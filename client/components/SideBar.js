@@ -25,12 +25,8 @@ class SideBar extends Component {
         <Link to={`/team-analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
         <Link to={`/companies/home-page`}><div className="sidebar-links">Companies</div></Link>
         <p className="sidebar-header">Reports</p>
-
           <Link to={`/my-completed-tasks`}><div className='sidebar-links'>Completed Tasks</div></Link>
-
-
           <Link to={`/my-created-tasks`}><div className='sidebar-links'>Created Tasks</div></Link>
-
           <Link to={`/my-board`}><div className="myboard-title">My Board</div></Link>
 
       </div>

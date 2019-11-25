@@ -15,7 +15,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-console.log(transporter)
 
 // router.get('/', (req, res, next) => {
 
@@ -107,7 +106,6 @@ router.put('/update-password/:id', async (req, res, next) => {
           user.update({
             password: req.body.newPassword
           })
-          console.log(transporter)
           transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.log(error);

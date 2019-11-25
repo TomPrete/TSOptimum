@@ -800,7 +800,8 @@ input:checked + .slider:before {
 }
 
 .column-titles {
-  font-weight: bold;
+  font-size: 18px;
+  /* font-weight: bold; */
   padding: 0 11px;
   list-style-type: none;
   text-align: center;
@@ -812,21 +813,24 @@ input:checked + .slider:before {
 }
 
 .column-notes {
-  width: 15.5%
+  width: 15.5%;
+  font-size: 18px;
 }
 
 
-.column-notes {
+/* .column-notes {
   padding: 0 7px;
   list-style-type: none;
   text-align: center;
-}
+
+} */
 
 .column-action {
   width: 17%;
   padding: 0 7px;
   list-style-type: none;
   text-align: center;
+  font-size: 18px;
 }
 
 #queue {
@@ -1343,6 +1347,7 @@ input:checked + .slider:before {
   font-size: 22px;
   width: 100%;
   text-align: center;
+  margin-bottom: 10px;
 }
 /* style={{ backgroundColor: 'rgb(0, 151, 131)' }} */
 

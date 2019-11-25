@@ -12,13 +12,13 @@ import { logout } from '../store'
  */
 const Main = (props) => {
   const { children, handleClick, isLoggedIn, user } = props
-  console.log("user: ", user)
-  console.log("logged: ", isLoggedIn)
+  // console.log("user: ", user)
+  // console.log("logged: ", isLoggedIn)
   // debugger
   return (
     <div>
       <nav className="flex main-header">
-        <a href='/home'>
+        <a href={isLoggedIn ? '/my-board' : '/home'}>
           <div className="flex logo-container" >
             <img src='/new_logo.png' id="logo" />
             <h1 id="logo-name">hone</h1>

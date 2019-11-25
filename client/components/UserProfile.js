@@ -3,6 +3,7 @@ import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import AddNewUserContainer from '.';
 import SideBar from './SideBar'
+import PersistantDrawer from './PersistantDrawer'
 import ChangePasswordModal from './ChangePasswordModal.js'
 import store, { updateUserThunk } from '../store'
 
@@ -73,7 +74,8 @@ class UserProfile extends Component {
     return (
       <div id='user-profile-container'>
         <div className='sidebar-container'>
-          <SideBar />
+          {/*<SideBar />*/}
+          <PersistantDrawer />
         </div>
         <div id='user-profile'>
           <h1>My Profile Settings</h1>
