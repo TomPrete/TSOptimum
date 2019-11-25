@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import styled from 'styled-components'
+
 import SideBar from './SideBar';
+import PersistantDrawer from './PersistantDrawer'
 import Projects from './Projects'
 import ProjectModal from './ProjectModal.js'
 import Button from '@material-ui/core/Button';
@@ -167,20 +170,20 @@ class UserBoard extends Component {
         <div className='sidebar-container'>
           <SideBar />
         </div>
+          {/*<PersistantDrawer />*/}
         <div id="new-project-container">
           {
             this.state.newProject === false ?
-              <div className='new-project-button-container'>
+              <NewProjectContainer>
                 <Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showProjectModal} className='new-project-button'>Create Task</Button>
-              </div>
+              </NewProjectContainer>
               :
-              <div className='new-project-button-container'>
+              <NewProjectContainer>
               <img src={"/img/smiley_2.png"} alt="Smiley face" className="smiley" height="50" width="50"  />
               {/*<Button color='primary' variant='contained' className='material-primary-button' style={{ backgroundColor: 'rgb(0, 151, 131)' }} onClick={this.showProjectModal} className='new-project-button'>Great!</Button>*/}
-              </div>
+              </NewProjectContainer>
           }
           <div className='show-project-form'>
-
           </div>
           <div>
             <hr />
@@ -206,7 +209,11 @@ class UserBoard extends Component {
   }
 }
 
-//<Link className='nav-links' to={`/user/${user.personId}/projects`}>Your Projects</Link>
+const NewProjectContainer = styled.div`
+  margin-right: 30px;
+  margin-top: 7px;
+  text-align: right
+`
 
 const mapState = state => {
   return {

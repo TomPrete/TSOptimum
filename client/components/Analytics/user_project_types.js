@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 // import SideBar from './SideBar'
 // import store, { fetchAllUserProjects } from '../store'
 import colors from '../colors'
-import { Divider } from 'semantic-ui-react';
-import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components'
 import { project_type } from '../config'
 import { getProjectTypeLabel } from './helper_functions'
@@ -88,7 +86,7 @@ const UserProjectTypes = ({ projectAnalytics }) => {
     },
     series: [
       {
-        name: "series-1",
+        name: "Projects",
         data: [
           `${proj ? proj[projects[0]] : proj}`,
           `${proj ? proj[projects[1]] : proj}`,

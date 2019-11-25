@@ -24,10 +24,10 @@ module.exports = app
  */
 if (process.env.NODE_ENV !== 'production') require('../secrets')
 
-// passport registration
+// passport
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+  db.models.user.findByPk(id)
     .then(user => done(null, user))
     .catch(done))
 
@@ -51,6 +51,7 @@ const createApp = () => {
   }))
   app.use(passport.initialize())
   app.use(passport.session())
+
 
   app.use(flash())
 

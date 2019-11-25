@@ -5,6 +5,7 @@ import store, { fetchAllProjectsAnalytics } from '../store'
 import main from './colors'
 import UserActiveProjects from './Analytics/user_active_projects';
 import UserCompletedTasks from './Analytics/user_completed_tasks';
+import CircularLoading from './Loading/CircularLoading'
 import UserProjectTypesContainer from './Analytics/user_project_types';
 import styled from 'styled-components'
 import colors from './colors'
@@ -42,9 +43,9 @@ class TeamAnalytics extends Component {
 
 render() {
   if (!this.props.projects[0]) {
-    return <div>
-    ...loading
-    </div>
+    return (
+      <CircularLoading />
+      )
   }
   return (
     <div id="completed-projects-container">
@@ -63,10 +64,8 @@ render() {
             allProjects={this.props.projects[0].projects}
           />
         </FirstRowContainer>
-
         <UserProjectTypesContainer projectAnalytics={this.props.projects[0]} />
       </DashBoardContainer>
-
     </div>
   )
 }

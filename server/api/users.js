@@ -3,7 +3,6 @@ const { User } = require('../db/models')
 const nodemailer = require('nodemailer')
 const async = require('async')
 const crypto = require('crypto')
-// const async = require('async')
 
 module.exports = router
 
