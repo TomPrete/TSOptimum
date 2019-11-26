@@ -15,7 +15,7 @@ let convertDate = (dateString) => {
 
 
 router.post('/', (req, res, next) => {
-  console.log("HERE: ", req.body.dueDate)
+  console.log("HERE: ", req.body)
   return Project.create(req.body)
     .then(project => res.json(project))
     .catch(next);

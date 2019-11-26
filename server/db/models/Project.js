@@ -12,7 +12,6 @@ const Project = db.define('project', {
       max: 999999
     }
   },
-
   name: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -20,7 +19,6 @@ const Project = db.define('project', {
       notEmpty: true
     }
   },
-
   projectType: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -102,6 +100,7 @@ Project.hook('beforeValidate',(project) => {
     project.projectId;
   }
   else {
+    console.log("PROJECT: ", project)
     project.projectId = Math.floor(100000 + Math.random() * 900000);
   }
   if (project.status === null) {

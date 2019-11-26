@@ -35,8 +35,12 @@ Team.hasMany(User)
 // Project.belongsTo(User, {foreignKey: 'fk_personId', targetKey: 'personId'})
 Project.belongsTo(User)
 Project.belongsTo(Team)
-// Project.belongsToMany(User, {through: 'projects_users'})
+
+Project.belongsToMany(User, {through: 'projects_users'})
 User.belongsToMany(Project, {through: 'projects_users'})
+
+Company.belongsToMany(User, {through: 'Portfolio'})
+User.belongsToMany(Company, {through: 'Portfolio'})
 
 Project.belongsToMany(Company, {through: 'company_projects'})
 

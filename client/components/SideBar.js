@@ -23,7 +23,8 @@ class SideBar extends Component {
       <div id="sidebar-container">
         <p className="sidebar-header">Analytics</p>
         <Link to={`/team-analytics`}><div className='sidebar-links'>Team Analytics</div></Link>
-        <Link to={`/companies/home-page`}><div className="sidebar-links">Companies</div></Link>
+        {/*<Link to={`/companies/home-page`}><div className="sidebar-links">Companies</div></Link>*/}
+        <Link to={`/my-portfolio`}><div className="sidebar-links">My Portfolio</div></Link>
         <p className="sidebar-header">Reports</p>
           <Link to={`/my-completed-tasks`}><div className='sidebar-links'>Completed Tasks</div></Link>
           <Link to={`/my-created-tasks`}><div className='sidebar-links'>Created Tasks</div></Link>

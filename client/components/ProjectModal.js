@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
+import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
+import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import {project_type, project_status} from './config.js'
 
-
-// import { Calendar } from 'react-calendar'
-import styled from 'styled-components'
 
 // <select onChange={this.inputProjectType} className="edit-select-type" >
 

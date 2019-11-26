@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { User } = require('../db/models')
+const { User, Team } = require('../db/models')
 const nodemailer = require('nodemailer')
 const async = require('async')
 const crypto = require('crypto')
@@ -28,8 +28,34 @@ var transporter = nodemailer.createTransport({
 //     .catch(next)
 // })
 
+router.get('/', (req, res, next) => {
+  console.log(req.user)
+  try {
+    if (req.user) {
+      User.findAll({
+        attributes:['id', 'firstName', 'lastName', 'title', 'email', 'personId', 'teamId', 'isAdmin', 'resetPassword', 'userStatus'],
+        where: {userStatus: 'Inactive'}
+      })
+      .then(users => {
+        res.json(users)
+      })
+    }
+
+  }
+  catch(error) {
+    next(error)
+  }
+})
+
 router.get('/all', (req, res, next) => {
-  User.findAll({where: {userStatus: 'Active'}})
+  User.findAll(
+    {
+      where: {
+        userStatus: 'Active'
+      }
+    }, {
+      include: [Team]
+    })
     .then(users => {
       let userData = [];
       users.filter(user => {
