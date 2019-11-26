@@ -7,6 +7,7 @@ import { DefaultButton } from '../'
 import Button from '@material-ui/core/Button';
 
 import SideBar from '../SideBar'
+import store, { fetchUserPortfolio, addToUserPortfolio } from '../../store'
 
 class MyPortfolio extends Component {
   constructor(props) {
@@ -29,15 +30,15 @@ class MyPortfolio extends Component {
   };
 
   handlePortfolioChange = (option) => {
-    this.setState(state => {
-      return {
+    this.setState({
         multiValue: option
-      };
-    });
+      });
   }
 
+
+
   onSubmit = (values) => {
-    console.log(values)
+    store.dispatch(addToUserPortfolio(values, this.props.user))
   }
 
   render() {
@@ -46,20 +47,20 @@ class MyPortfolio extends Component {
         <div className='sidebar-container'>
           <SideBar />
         </div>
-        <form>
           <CompanySearch>
-            <p>Search Companies</p>
-            <AsyncSelect
-              name="companyName"
-              loadOptions={this.loadOptions}
-              isMulti
-              placeholder='Search Companies...'
-              cacheOptions
-              onChange={this.handlePortfolioChange}
-            />
-            <DefaultButton label='Add to Portfolio' disabled={!this.state.multiValue.length} onSubmit={() => this.onSubmit(this.state.multiValue)} data={this.state.multiValue} />
+          <form>
+          <p>Search Companies</p>
+          <AsyncSelect
+            name="companyName"
+            loadOptions={this.loadOptions}
+            isMulti
+            placeholder='Search Companies...'
+            cacheOptions
+            onChange={this.handlePortfolioChange}
+          />
+          <DefaultButton label='Add to Portfolio' disabled={!this.state.multiValue.length} onSubmit={() => this.onSubmit(this.state.multiValue)} data={this.state.multiValue} />
+          </form>
           </CompanySearch>
-        </form>
       </PortfolioContainer>
     );
   };
@@ -89,10 +90,8 @@ const mapState = state => {
   }
 }
 
-// MyPortfolio.propTypes = {
+const mapDispatch = { fetchUserPortfolio, addToUserPortfolio}
 
-// };
-
-const MyPortfolioContainter = connect(mapState, null)(MyPortfolio)
+const MyPortfolioContainter = connect(mapState, mapDispatch)(MyPortfolio)
 
 export default MyPortfolioContainter;
