@@ -8,7 +8,7 @@ module.exports = router
 
 
 
-router.post('/add', async (req, res, next) => {
+router.post('/add', (req, res, next) => {
   let user = req.body.user;
   try {
     if(user.personId) {
@@ -30,6 +30,30 @@ router.post('/add', async (req, res, next) => {
         }).then(data => {
           return res.json(portfolio)
         })
+      })
+    }
+  }
+  catch(error) {
+    next(error)
+  }
+})
+
+router.post('/:id', async (req, res, next) => {
+  let user = req.body.user
+  let id = +req.params.id
+  try {
+    if(user.id === id) {
+      let foundUser = await User.findOne({
+        where: {id: id}
+      })
+      let portfolio = []
+      foundUser.getCompanies().then(associatedCompany => {
+        associatedCompany.forEach(val => {
+          let {id, name, companyId} = val.dataValues
+          portfolio.push({id,name,companyId})
+        })
+      }).then(data => {
+        return res.json(portfolio)
       })
     }
   }

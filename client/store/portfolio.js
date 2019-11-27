@@ -26,12 +26,11 @@ const addToPortfolio = portfolio => (
 )
 
 /*****THUNK CREATORS*****/
-export const fetchUserPortfolio = (userId) =>
+export const fetchUserPortfolio = (userId, user) =>
   dispatch => {
-    axios.get(`api/portfolio/${userId}`)
+    axios.post(`api/portfolio/${userId}`, {user})
       .then(res => res.data)
       .then(portfolio => {
-        console.log("PORTFOLIO: ", portfolio)
         dispatch(getUserPortfolio(portfolio))
       })
       .catch(err => console.error(err));
@@ -43,7 +42,6 @@ export const addToUserPortfolio = (companies, user) =>
     axios.post(`api/portfolio/add`, {companies, user})
       .then(res => res.data)
       .then(data => {
-        console.log("PORTFOLIO: ", data)
         dispatch(addToPortfolio(data))
       })
       .catch(err => console.error(err));
