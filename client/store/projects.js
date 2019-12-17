@@ -71,7 +71,7 @@ const getUserProjectAnalytics = (user_project_analytics) => {
 /*****THUNK CREATORS*****/
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId, teamId) =>
+export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) =>
   dispatch => {
     axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId, teamId })
       .then(res => res.data)
@@ -100,10 +100,8 @@ export const fetchInProcessUserProjects = id =>
   dispatch => {
     axios.get(`/api/project/in-process/${id}`)
       .then(res => res.data)
-      .then(projects => {
-        console.log("fetchInProcessUserProjects: ", projects)
-        return dispatch(getInProcessUserProjects(projects))
-      })
+      .then(projects =>
+        dispatch(getInProcessUserProjects(projects)))
       .catch(error => console.log(error))
   }
 
@@ -111,24 +109,20 @@ export const fetchCompletedUserProjects = id =>
   dispatch => {
     axios.get(`/api/project/complete/${id}`)
       .then(res => res.data)
-      .then(projects => {
-        console.log("fetchCompletedUserProjects: ", projects)
-        return dispatch(getCompletedUserProjects(projects))
-      })
+      .then(projects =>
+        dispatch(getCompletedUserProjects(projects)))
   }
 
 export const fetchAllUserProjects = id =>
   dispatch => {
     axios.get(`/api/project/user_${id}`)
       .then(res => res.data)
-      .then(projects => {
-        console.log("fetchAllUserProjects:", projects)
-        return dispatch(getAllUserProjects(projects))
-      }
-      )
+      .then(projects =>
+      dispatch(getAllUserProjects(projects))
+    )
   }
 
-export const fetchAllProjectsAnalytics = (id, filter = 'all') =>
+export const fetchAllProjectsAnalytics = (id, filter='all') =>
   dispatch => {
     axios.get(`/api/project/analytics/user_${id}/${filter}`)
       .then(res => res.data)
@@ -136,142 +130,142 @@ export const fetchAllProjectsAnalytics = (id, filter = 'all') =>
         let activeTasks = filterInProcessProjects(projects);
         let completeTasks = filterCompletedTasks(projects);
         let numOfProjects = projectTypes(projects);
-        return dispatch(getUserProjectAnalytics({ projects, numOfProjects, activeTasks, completeTasks }))
+        return dispatch(getUserProjectAnalytics({projects, numOfProjects, activeTasks, completeTasks}))
       }
-      )
+    )
   }
 
-export const fetchAllProjects = () =>
-  dispatch => {
-    axios.get(`/api/project/all`)
-      .then(res => res.data)
-      .then(projects =>
-        dispatch(getAllProjects(projects)))
-      .catch(error => console.log(error))
-  }
+  export const fetchAllProjects = () =>
+    dispatch => {
+      axios.get(`/api/project/all`)
+        .then(res => res.data)
+        .then(projects =>
+          dispatch(getAllProjects(projects)))
+        .catch(error => console.log(error))
+    }
 
-/***** REDUCER *****/
-export default function (state = defaultUser, action) {
-  switch (action.type) {
-    // case GET_ALL_COMPANIES:
-    //   return action.companies
-    case GET_IN_PROCESS_USER_PROJECTS:
-      return action.inProcessProjects
-    case GET_COMPLETED_USER_PROJECTS:
-      return action.projects
-    case GET_ALL_USER_PROJECTS:
-      return action.projects
-    case GET_ALL_PROJECTS:
-      return action.projects
-    case CREATE_PROJECT:
-      return [...state, action.project]
-    case COMPLETED_PROJECT:
-      return [...state];
-    // case UPDATE_PROJECT:
-    case GET_USER_PROJECT_ANALYTICS:
-      return [action.user_project_analytics]
-    default:
-      return state
-  }
-}
-
-
-
-// HELPER FUNCTIONS
-
-
-const projectsStatus = (projectsArr) => {
-  let inProcess = 0;
-  let complete = 0;
-  for (let i = 0; i < projectsArr.length; i++) {
-    if (projectsArr[i].status === "Complete") {
-      complete += 1;
-    } else if (projectsArr[i].status === "In Process") {
-      inProcess += 1;
+  /***** REDUCER *****/
+  export default function (state = defaultUser, action) {
+    switch (action.type) {
+      // case GET_ALL_COMPANIES:
+      //   return action.companies
+      case GET_IN_PROCESS_USER_PROJECTS:
+        return action.inProcessProjects
+      case GET_COMPLETED_USER_PROJECTS:
+        return action.projects
+      case GET_ALL_USER_PROJECTS:
+        return action.projects
+      case GET_ALL_PROJECTS:
+        return action.projects
+      case CREATE_PROJECT:
+        return [...state, action.project]
+      case COMPLETED_PROJECT:
+        return [...state];
+      // case UPDATE_PROJECT:
+      case GET_USER_PROJECT_ANALYTICS:
+        return [action.user_project_analytics]
+      default:
+        return state
     }
   }
-  return [inProcess, complete]
-}
 
-const projectTypes = (projectsArr) => {
-  let numOfProjectTypes = {};
-  for (let i = 0; i < projectsArr.length; i++) {
-    let val = projectsArr[i].projectType;
-    if (numOfProjectTypes[val]) {
-      numOfProjectTypes[val] += 1;
-    } else {
-      numOfProjectTypes[val] = 1;
+
+
+  // HELPER FUNCTIONS
+
+
+  const projectsStatus = (projectsArr) => {
+    let inProcess = 0;
+    let complete = 0;
+    for (let i = 0; i < projectsArr.length; i++) {
+      if (projectsArr[i].status === "Complete") {
+        complete += 1;
+      } else if (projectsArr[i].status === "In Process") {
+        inProcess += 1;
+      }
     }
+    return [inProcess,complete]
   }
-  return numOfProjectTypes
-}
 
-const filterCompletedTasks = (projects) => {
-  let completedThisWeek = 0
-  let thisWeek = moment().week()
-  projects.map(project => {
-    if (project.status === "Complete" && moment(project.completedAt).week() == thisWeek) {
-      completedThisWeek++
+  const projectTypes = (projectsArr) => {
+    let numOfProjectTypes = {};
+    for (let i=0; i < projectsArr.length; i++) {
+      let val = projectsArr[i].projectType;
+      if (numOfProjectTypes[val]) {
+        numOfProjectTypes[val] += 1;
+      } else {
+        numOfProjectTypes[val] = 1;
+      }
     }
-  })
-  return completedThisWeek
-}
-
-const filterInProcessProjects = (projects) => {
-  let active = 0;
-  let completedThisWeek = 0
-  let thisWeek = moment().week()
-  projects.map(project => {
-    console.log("project -> ")
-    if (project.status === "In Process") {
-      active++
-    }
-    if (project.status === "Complete" && moment(project.updatedAt).week() == thisWeek) {
-      completedThisWeek++
-    }
-  })
-  return active
-}
-
-const project_type = [
-  {
-    label: 'Client Call',
-    value: 'Client Call'
-  },
-  {
-    label: 'Client Inquire',
-    value: 'Client Inquire'
-  },
-  {
-    label: 'Client Issue',
-    value: 'Client Issue'
-  },
-  {
-    label: 'Exception Pricing',
-    value: 'Exception Pricing'
-  },
-  {
-    label: 'Implementation Request',
-    value: 'Implementation Request'
-  },
-  {
-    label: 'Pricing Proforma',
-    value: 'Pricing Proforma'
-  },
-  {
-    label: 'Refund Request',
-    value: 'Refund Request'
-  },
-  {
-    label: 'RFP',
-    value: 'RFP'
-  },
-  {
-    label: 'TMR',
-    value: 'TMR'
-  },
-  {
-    label: 'Special Project',
-    value: 'Special Project'
+    return numOfProjectTypes
   }
-]
+
+  const filterCompletedTasks = (projects) => {
+    let completedThisWeek = 0
+    let thisWeek = moment().week()
+    projects.map(project => {
+      if (project.status === "Complete" && moment(project.completedAt).week() == thisWeek) {
+        completedThisWeek++
+      }
+    })
+    return completedThisWeek
+  }
+
+  const filterInProcessProjects = (projects) => {
+    let active = 0;
+    let completedThisWeek = 0
+    let thisWeek = moment().week()
+    projects.map(project => {
+      console.log("project -> ", )
+      if (project.status === "In Process") {
+        active++
+      }
+      if (project.status === "Complete" && moment(project.updatedAt).week() == thisWeek) {
+        completedThisWeek++
+      }
+    })
+    return active
+  }
+
+  const project_type = [
+    {
+      label: 'Client Call',
+      value: 'Client Call'
+    },
+    {
+      label: 'Client Inquire',
+      value: 'Client Inquire'
+    },
+    {
+      label: 'Client Issue',
+      value: 'Client Issue'
+    },
+    {
+      label: 'Exception Pricing',
+      value: 'Exception Pricing'
+    },
+    {
+      label: 'Implementation Request',
+      value: 'Implementation Request'
+    },
+    {
+      label: 'Pricing Proforma',
+      value: 'Pricing Proforma'
+    },
+    {
+      label: 'Refund Request',
+      value: 'Refund Request'
+    },
+    {
+      label: 'RFP',
+      value: 'RFP'
+    },
+    {
+      label: 'TMR',
+      value: 'TMR'
+    },
+    {
+      label: 'Special Project',
+      value: 'Special Project'
+    }
+  ]

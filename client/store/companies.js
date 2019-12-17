@@ -4,13 +4,11 @@ import history from '../history'
 /***** ACTION TYPES*****/
 const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 
-
 /***** INITIAL STATE*****/
 const defaultState = {}
 
 /***** ACTION CREATORS*****/
 const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
-
 
 /*****THUNK CREATORS*****/
 

@@ -16,12 +16,13 @@ router.post('/', (req, res, next) => {
     .catch(next);
 });
 
-  //GET company by company ID
-  router.get('/:companyId', (req, res, next) => {
-		Company.findOne({where: {companyId: req.params.companyId}})
-		.then(company => res.json(company))
-		.catch(next);
-  });
+//GET company by company ID
+router.get('/:companyId', (req, res, next) => {
+  console.log("REQ: ", +req.params.companyId)
+  Company.findOne({attributes: ['id', 'name', 'companyId'], where: {companyId: req.params.companyId}})
+  .then(company => res.json(company))
+  .catch(next);
+});
 
   //GET all companies
 	router.get('/', (req, res, next) => {

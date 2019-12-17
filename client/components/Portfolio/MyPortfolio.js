@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import styled from 'styled-components'
 import AsyncSelect from 'react-select/lib/Async';
+import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 import EditIcon from '@material-ui/icons/Edit';
 import Table from '@material-ui/core/Table';
@@ -15,18 +16,19 @@ import Paper from '@material-ui/core/Paper';
 import { DefaultButton } from '../'
 import SideBar from '../SideBar'
 import store, { fetchUserPortfolio, addToUserPortfolio } from '../../store'
+// import { linkToCompany } from './helperFunctions'
+
 
 class MyPortfolio extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      multiValue: []
+      company: null
     }
   }
 
   componentDidMount() {
     let id = this.props.user.id
-    console.log(this.props.user)
     store.dispatch(fetchUserPortfolio(id, this.props.user))
   }
 
@@ -44,17 +46,16 @@ class MyPortfolio extends Component {
 
   handlePortfolioChange = (option) => {
     this.setState({
-      multiValue: option
+      company: option.value
     });
   }
 
   onSubmit = (values) => {
     store.dispatch(addToUserPortfolio(values, this.props.user))
-    window.location.reload(true)
+    // window.location.reload(true)
   }
 
   render() {
-    console.log("PORT: ", this.props.portfolio)
     return (
       <MainContainer>
         <div className='sidebar-container'>
@@ -67,33 +68,36 @@ class MyPortfolio extends Component {
               <AsyncSelect
                 name="companyName"
                 loadOptions={this.loadOptions}
-                isMulti
+                // isMulti
                 placeholder='Search Companies...'
                 cacheOptions
                 onChange={this.handlePortfolioChange}
               />
-              <DefaultButton label='Add to Portfolio' disabled={!this.state.multiValue.length} onSubmit={() => this.onSubmit(this.state.multiValue)} data={this.state.multiValue} />
+              <DefaultButton label='Add to Portfolio' disabled={!this.state.company} onSubmit={() => this.onSubmit(this.state.company)} data={this.state.company} />
             </form>
           </CompanySearch>
           <Paper>
             <Table aria-label='simple table'>
-              <TableRow>
-                <TableCell className="column-titles">ID</TableCell>
-                <TableCell className="column-titles">Name</TableCell>
-              </TableRow>
+              <TableHead>
+                <TableRow>
+                  <TableCell className="column-titles">ID</TableCell>
+                  <TableCell className="column-titles">Name</TableCell>
+                </TableRow>
+              </TableHead>
               <TableBody>
-
                 {
                   this.props.portfolio.length
-                  &&
+                  ?
                   this.props.portfolio.map(elem => {
                     return (
-                      <TableRow key={elem.id}>
+                      <TableRow key={elem.id} id='company-row' onClick={() => location.href = `${window.location.origin}/company/${elem.companyId}`}>
                         <TableCell>{elem.companyId}</TableCell>
                         <TableCell>{elem.name}</TableCell>
                       </TableRow>
                     )
                   })
+                  :
+                  null
                 }
               </TableBody>
             </Table>
@@ -107,6 +111,7 @@ class MyPortfolio extends Component {
 const MainContainer = styled.div`
   display: flex;
   text-align: center;
+  max-height: 100%
 `
 
 const CompanySearch = styled.div`
@@ -118,11 +123,13 @@ const CompanySearch = styled.div`
 `
 
 const PortfolioContainer = styled.span`
-  width: 100%
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   margin: 3px;
-  padding: 10px
+  padding: 10px;
+
 `
 
 const mapState = state => {

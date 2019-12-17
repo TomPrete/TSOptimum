@@ -13,22 +13,11 @@ router.post('/add', (req, res, next) => {
   try {
     if(user.personId) {
       User.findOne({where:{personId:user.personId}}).then(user => {
-        let companies = req.body.companies;
-        companies.forEach(elem => {
-          return Company.findOne({where:{name: elem.value}})
-          .then(company => {
-            company.addUser(user)
-            return company.dataValues
-          })
-        })
-        let portfolio = []
-        user.getCompanies().then(associatedCompany => {
-          associatedCompany.forEach(val => {
-            let {id, name, companyId} = val.dataValues
-            portfolio.push({id,name,companyId})
-          })
-        }).then(data => {
-          return res.json(portfolio)
+        let company = req.body.company;
+        Company.findOne({where:{name: company}})
+        .then(company => {
+          company.addUser(user)
+          return res.json({msg: 'success', 'data': company.dataValues})
         })
       })
     }
@@ -48,7 +37,10 @@ router.post('/:id', async (req, res, next) => {
       })
       let portfolio = []
       foundUser.getCompanies().then(associatedCompany => {
+        let count = 0;
         associatedCompany.forEach(val => {
+          count++
+          // console.log("COUNT: ", count)
           let {id, name, companyId} = val.dataValues
           portfolio.push({id,name,companyId})
         })
@@ -56,6 +48,17 @@ router.post('/:id', async (req, res, next) => {
         return res.json(portfolio)
       })
     }
+  }
+  catch(error) {
+    next(error)
+  }
+})
+
+router.delete('/remove/:id', (req, res, next) => {
+  try {
+    console.log("REQ: ", req)
+    return res.json({'data': 'HELLO!'})
+
   }
   catch(error) {
     next(error)

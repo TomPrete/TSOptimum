@@ -73,18 +73,12 @@ class Projects extends Component {
   componentWillReceiveProps(nextProps) {
     console.log(typeof nextProps.projects)
     const userProjects = nextProps.projects
-    if (typeof userProjects === 'object') {
+    if (userProjects.length >= 0) {
       this.setState({
         projects: userProjects
       })
     }
   }
-
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   console.log("nextProps: ", nextProps)
-
-  //   return true
-  // }
 
   showProjectModal(project) {
     if (!this.state.projectId) {
@@ -96,7 +90,6 @@ class Projects extends Component {
         projectId: null
       })
     }
-    console.log("STATE: ", this.state)
   }
 
   clickOutside(e) {
@@ -127,15 +120,17 @@ class Projects extends Component {
         </ProjectsTitle>
         <Paper>
           <Table aria-label='simple table'>
-            <TableRow>
-              <TableCell className="column-titles">Company</TableCell>
-              <TableCell className="column-titles">Type</TableCell>
-              <TableCell className="column-titles">TSO</TableCell>
-              <TableCell className="column-titles">Status</TableCell>
-              <TableCell className="column-titles">Due Date</TableCell>
-              <TableCell className="column-notes">Notes</TableCell>
-              <TableCell className="column-action">Action</TableCell>
-            </TableRow>
+          <TableHead>
+              <TableRow>
+                <TableCell className="column-titles">Company</TableCell>
+                <TableCell className="column-titles">Type</TableCell>
+                <TableCell className="column-titles">TSO</TableCell>
+                <TableCell className="column-titles">Status</TableCell>
+                <TableCell className="column-titles">Due Date</TableCell>
+                <TableCell className="column-notes">Notes</TableCell>
+                <TableCell className="column-action">Action</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {
                 this.state.projects.length > 0 ? this.state.projects.map(project => {
@@ -148,7 +143,6 @@ class Projects extends Component {
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.officer}</TableCell>
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.status}</TableCell>
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.dueDate}</TableCell>
-                      {/*<textarea className="user-notes" placeholder={project.notes} onClick={() => this.showProjectModal(project.projectId)} readOnly />*/}
                       <TableCell className="user-notes" onClick={() => this.showProjectModal(project.projectId)} >{project.notes.length < 75 ? project.notes : project.notes.substring(0, 75) + ' ...'}</TableCell>
 
                       {/*</div>*/}
@@ -169,7 +163,11 @@ class Projects extends Component {
                   )
                 })
                   :
-                  <span >You have no open tasks!</span>
+                  <TableRow>
+                    <TableCell>
+                      You have no open tasks!
+                    </TableCell>
+                  </TableRow>
               }
               </TableBody>
           </Table>
