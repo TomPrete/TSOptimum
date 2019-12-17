@@ -58,64 +58,59 @@ import store, { fetchCompany, removeFromPortfolio } from '../../store'
 
 // Functional Component
 const CompanyProfile = (props) => {
-
-  // const [showDelete, setShowDelete] = useState(false)
   const [companyId, setCompanyId] = useState(null)
-
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(() => {
     const pathName = location.pathname
     const compId = pathName.substr(pathName.length - 8)
     setCompanyId(compId)
     store.dispatch(fetchCompany(compId))
-    // console.log(this.props)
   }, [])
 
-  const removeCompany = () => {
-    // console.log("Show Delete: ", showDelete)
-    // if(showDelete === true) {
-    //   setShowDelete(false)
-    // } else {
-    //   setShowDelete(true)
-    // }
-    console.log(props)
-    store.dispatch(removeFromPortfolio(companyId, props.user.id))
+  const showRemoveCompanyModal = () => {
+    if (showDelete === true) {
+      setShowDelete(false)
+    } else {
+      setShowDelete(true)
+    }
   }
 
+  return (
+    <MainContainer>
+      <div className='sidebar-container'>
+        <SideBar />
+      </div>
+      {
+        props.company
+        &&
+        <span>
+          <div>
+            {props.company.companyId}
+          </div>
+          <div>
+            {props.company.name}
+          </div>
+          <Link to={'/my-portfolio'}>Back</Link>
+          <Button onClick={showRemoveCompanyModal}>Remove From Portfolio</Button>
+        </span>
+      }
 
-    return (
-      <MainContainer>
-        <div className='sidebar-container'>
-          <SideBar />
-        </div>
-          {
-            props.company
-            &&
-            <span>
-              <div>
-                {props.company.companyId}
-              </div>
-              <div>
-                {props.company.name}
-              </div>
-              <Link to={'/my-portfolio'}>Back</Link>
-              <Button onClick={removeCompany}>Remove From Portfolio</Button>
-            </span>
-          }
-          {
-            // showDelete
-            // &&
-            // <DefaultModal
-            //   open={showDelete}
-            //   handleClose={showModal}
-            //   removeFromPortfolio={removeFromPortfolio}
+      <DefaultModal
+        open={showDelete}
 
-            // />
-          }
+        data={props.company.id}
+        userId={props.user.id}
+        header="ALERT"
+        message={`Are you sure you want to remove ${props.company.name} from your portfolio?`}
+        handleClose={showRemoveCompanyModal}
+        handleClick={removeFromPortfolio}
 
-      </MainContainer>
-    );
-  }
+      />
+
+    </MainContainer>
+  );
+}
 
 const MainContainer = styled.div`
   display: flex;

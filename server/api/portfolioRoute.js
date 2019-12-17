@@ -6,7 +6,18 @@ const { User, Company } = require('../db/models')
 
 module.exports = router
 
-
+router.delete('/remove/:companyId', async (req, res, next) => {
+  console.log("HERE")
+  try {
+    let user = await User.findOne({where: {id: req.user.dataValues.id}})
+    let company = await Company.findOne({where: {id: +req.params.companyId}})
+    await user.removeCompany(company)
+    return res.json({'msg': 'success', 'data': 'Deleted'})
+  }
+  catch(error) {
+    next(error)
+  }
+})
 
 router.post('/add', (req, res, next) => {
   let user = req.body.user;
@@ -54,13 +65,4 @@ router.post('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/remove/:id', (req, res, next) => {
-  try {
-    console.log("REQ: ", req)
-    return res.json({'data': 'HELLO!'})
 
-  }
-  catch(error) {
-    next(error)
-  }
-})

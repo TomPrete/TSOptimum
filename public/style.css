@@ -849,7 +849,7 @@ input:checked + .slider:before {
   overflow-y: auto;
 }
 
-#queue-list:hover, #company-row:hover {
+#queue-list:hover, .company-row:hover {
   background-color: rgba(1, 110, 96, 0.05);
   transition: 0.1s ease-in-out;
   box-shadow: inset 0px 0px 10px rgb(1, 110, 96);

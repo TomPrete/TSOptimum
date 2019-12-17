@@ -32,16 +32,16 @@ router.get('/:companyId', (req, res, next) => {
 	});
 
   //DELETE a company
-  router.delete('/:companyId', (req, res, next) => {
+  // router.delete('/:companyId', (req, res, next) => {
 
-    return Company.destroy({
-      where: {
-        companyId: req.params.companyId
-      }
-    })
-    .then(affectedRows => res.status(200).json(affectedRows))
-    .catch(next);
-  });
+  //   return Company.destroy({
+  //     where: {
+  //       companyId: req.params.companyId
+  //     }
+  //   })
+  //   .then(affectedRows => res.status(200).json(affectedRows))
+  //   .catch(next);
+  // });
 
   //UPDATE a company
   router.put('/', (req,res,next) => {

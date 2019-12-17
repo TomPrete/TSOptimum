@@ -29,7 +29,7 @@ const addToPortfolio = portfolio => (
 /*****THUNK CREATORS*****/
 export const fetchUserPortfolio = (userId, user) =>
   dispatch => {
-    axios.post(`api/portfolio/${userId}`, {user})
+    axios.post(`api/portfolio/${userId}`, { user })
       .then(res => res.data)
       .then(portfolio => {
         dispatch(getUserPortfolio(portfolio))
@@ -39,24 +39,30 @@ export const fetchUserPortfolio = (userId, user) =>
 
 export const addToUserPortfolio = (company, user) =>
   dispatch => {
-    axios.post(`api/portfolio/add`, {company, user})
+    axios.post(`api/portfolio/add`, { company, user })
       .then(res =>
         res.data)
       .then(data => {
-        let {id, companyId, name } = data.data
-        dispatch(addToPortfolio({id, companyId, name}))
+        let { id, companyId, name } = data.data
+        dispatch(addToPortfolio({ id, companyId, name }))
       })
       .catch(err => console.error(err));
   }
 
-export const removeFromPortfolio = (companyId, userId) => {
-  // console.log(companyId)
-  // console.log(userId)
-      axios.delete(`api/portfolio/remove/${companyId}`, {userId})
-        .then(res => {
-          console.log("DATA: ", res)
-        })
-    }
+export const removeFromPortfolio = (id, userId) =>
+  dispatch => {
+    axios.delete(`api/portfolio/remove/${id}`,{
+        userId: userId,
+        id: id
+      })
+      .then(res => {
+        if (res.data.msg === 'success') {
+          return history.push('/my-portfolio')
+        } else {
+          return {res}
+        }
+      })
+  }
 
 /***** REDUCER *****/
 export default function (state = defaultPortfolio, action) {
@@ -64,6 +70,15 @@ export default function (state = defaultPortfolio, action) {
     case GET_USER_PORTFOLIO:
       return action.portfolio;
     case ADD_TO_PORTFOLIO:
+      let company = action.portfolio;
+      let portfolioLength = 0;
+      while (portfolioLength < state.length) {
+        if (state[portfolioLength].id !== company.id) {
+          portfolioLength++
+        } else {
+          return state
+        }
+      }
       return [...state, action.portfolio];
     default:
       return state

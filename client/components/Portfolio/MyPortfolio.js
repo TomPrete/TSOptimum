@@ -90,7 +90,7 @@ class MyPortfolio extends Component {
                   ?
                   this.props.portfolio.map(elem => {
                     return (
-                      <TableRow key={elem.id} id='company-row' onClick={() => location.href = `${window.location.origin}/company/${elem.companyId}`}>
+                      <TableRow key={elem.id} className='company-row' onClick={() => this.props.history.push(`/${elem.companyId}`)}>
                         <TableCell>{elem.companyId}</TableCell>
                         <TableCell>{elem.name}</TableCell>
                       </TableRow>

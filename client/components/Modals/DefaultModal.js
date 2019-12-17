@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 
 
 const DefaultModal = (props) => {
-  console.log("PROPS: ", props)
+  const { data, userId, message, header, handleClose, handleClick } = props
   return (
     <div>
       <Modal
@@ -16,9 +16,18 @@ const DefaultModal = (props) => {
         onClose={props.showModal}
       >
         <div className='delete-modal'>
-          Default Modal
-          <Button onClick={props.removeFromPortfolio()}>Yes</Button>
-          <Button onClick={props.showModal}>No</Button>
+          <div >
+            <div className='alert-message'>
+              {header}
+            </div>
+            <div className="delete-user-message">
+              {message}
+            </div>
+          </div>
+          <div className='delete-user-buttons'>
+            <Button color='secondary' className='delete-button' onClick={handleClick(data, userId)}>YES</Button>
+            <Button color='primary' className='primary-button' onClick={handleClose}>NO</Button>
+          </div>
         </div>
       </Modal>
     </div>
