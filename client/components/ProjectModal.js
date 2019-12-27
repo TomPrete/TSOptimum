@@ -216,6 +216,7 @@ class ProjectModal extends Component {
                 <div className='edit-select'>
                   <p>Company Name:</p>
                   <AsyncSelect
+                    id='company-select'
                     name="companyName"
                     loadOptions={this.loadOptions}
                     className="edit-select-company"
@@ -228,6 +229,7 @@ class ProjectModal extends Component {
                 <div className='edit-select' >
                   <p>Task Type: </p>
                   <Select
+                    id='task-select'
                     name="projectType"
                     options={project_type}
                     className="edit-select-type"
@@ -329,12 +331,6 @@ class ProjectModal extends Component {
     )
   }
 }
-
-// const StyledProjectModal = styled(ProjectModal)`
-//   .project-label {
-//     color: green
-//   }
-// `
 
 const mapState = state => {
   return {

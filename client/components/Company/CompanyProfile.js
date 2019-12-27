@@ -6,9 +6,10 @@ import styled from 'styled-components'
 import Modal from '@material-ui/core/Modal'
 import Button from '@material-ui/core/Button';
 
+import { DefaultButton } from '../'
 import SideBar from '../SideBar'
 import DefaultModal from '../Modals/DefaultModal'
-import store, { fetchCompany, removeFromPortfolio } from '../../store'
+import store, { fetchCompany, removeFromPortfolio, fetchUserPortfolio, addToUserPortfolio } from '../../store'
 
 // Class Component
 // class CompanyProfile extends Component {
@@ -64,8 +65,10 @@ const CompanyProfile = (props) => {
   useEffect(() => {
     const pathName = location.pathname
     const compId = pathName.substr(pathName.length - 8)
+    const userId = props.user.id
     setCompanyId(compId)
     store.dispatch(fetchCompany(compId))
+    store.dispatch(fetchUserPortfolio(userId, props.user))
   }, [])
 
   const showRemoveCompanyModal = () => {
@@ -74,6 +77,29 @@ const CompanyProfile = (props) => {
     } else {
       setShowDelete(true)
     }
+  }
+
+  const onButtonSubmit = (company) => {
+    store.dispatch(addToUserPortfolio(company, props.user))
+  }
+
+  const companyInPortfolio = () => {
+    let counter = 0;
+    return props.portfolio.map((company, index) => {
+      if (company.companyId === +companyId) {
+        return <Button key={index} onClick={showRemoveCompanyModal}>Remove From Portfolio</Button>
+      }
+      counter++
+      if (counter === props.portfolio.length) {
+        return  <DefaultButton
+                  key={index}
+                  onSubmit={() => onButtonSubmit(props.company.name)}
+                  label='Add to Portfolio'
+                  data={props.company}
+                  disabled={false}
+                />
+      }
+    })
   }
 
   return (
@@ -92,22 +118,20 @@ const CompanyProfile = (props) => {
             {props.company.name}
           </div>
           <Link to={'/my-portfolio'}>Back</Link>
-          <Button onClick={showRemoveCompanyModal}>Remove From Portfolio</Button>
+          {
+            companyInPortfolio()
+          }
         </span>
       }
-
       <DefaultModal
         open={showDelete}
-
         data={props.company.id}
         userId={props.user.id}
         header="ALERT"
         message={`Are you sure you want to remove ${props.company.name} from your portfolio?`}
         handleClose={showRemoveCompanyModal}
         handleClick={removeFromPortfolio}
-
       />
-
     </MainContainer>
   );
 }
@@ -125,11 +149,12 @@ const mapState = state => {
   return {
     user: state.user,
     companies: state.companies,
-    company: state.company
+    company: state.company,
+    portfolio: state.portfolio
   }
 }
 
-const mapDispatch = { fetchCompany, removeFromPortfolio }
+const mapDispatch = { fetchCompany, removeFromPortfolio, fetchUserPortfolio, addToUserPortfolio }
 
 const CompanyProfileContainter = connect(mapState, mapDispatch)(CompanyProfile)
 

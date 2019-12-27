@@ -34,8 +34,6 @@ export const fetchAllTeams = () =>
           return 1
         return 0;
       });
-
-
       for (let i = 0; i < sortedTeams.length; i++) {
         let option = {}
         option.label = capitalizeFirstLetter(sortedTeams[i].name)

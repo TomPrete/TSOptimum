@@ -49,6 +49,7 @@ export const addNewUser = (firstName, lastName, email, title, password) =>
         return user.data
       })
       .then(res => {
+        console.log("RESPONSE: ", res)
         dispatch(getUser(res.data))
         if (res.data.teamId && res.data.id) {
           dispatch(fetchUserTeamMates(res.data.teamId))

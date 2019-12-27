@@ -89,7 +89,6 @@ class AdminUsers extends Component {
     }
   }
 
-
   clickOutside(e) {
     const modal = document.getElementById('modal-component')
     if (e.target === modal) {
@@ -99,7 +98,6 @@ class AdminUsers extends Component {
       })
     }
   }
-
 
   render() {
     const { onSelectAllClick, order, orderBy, numSelected, rowCount } = this.props;
@@ -152,73 +150,16 @@ class AdminUsers extends Component {
                         <div>
                           <EditIcon key='edit' onClick={() => this.showUserModal(user)} className="edit-icon"></EditIcon>
                         </div>
-
                       </Table.Cell>
-
-
-
                     </Table.Row>
                   )
                 })
                 :
                 null
             }
-
-
           </Table.Body>
           </Table>
-          {/*<Paper className="user-table">
-          <Table className="user-table">
-            <TableHead>
-              <TableRow>
-                <TableCell id="row">ID</TableCell>
-                <TableCell id="row">Person ID</TableCell>
-                <TableCell id="row">Name</TableCell>
-                <TableCell id="row">Title</TableCell>
-                <TableCell id="row">Email</TableCell>
-                <TableCell id="row">Team ID</TableCell>
-                <TableCell id="row">Role</TableCell>
-                <TableCell id="row">Reset Password</TableCell>
-                <TableCell id="row">Edit</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody >
-              {
-                users.length > 0
-                  ?
-                  users.map(user => {
-                    return (
-
-                      <TableRow key={user.personId} className="row-user">
-                        <TableCell className="MuiTableCell-root-35">{user.id}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.personId}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.name}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.title}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.email}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.teamId ? user.teamId : "Not Assigned"}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.isAdmin ? "Admin" : "User"}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">{user.resetPassword ? "Yes" : "No"}</TableCell>
-                        <TableCell className="MuiTableCell-root-35">
-                          <div>
-                            <EditIcon key='edit' onClick={() => this.showUserModal(user)} className="edit-icon"></EditIcon>
-                          </div>
-
-                        </TableCell>
-
-
-
-                      </TableRow>
-                    )
-                  })
-                  :
-                  null
-              }
-            </TableBody>
-          </Table>
-            </Paper>*/}
         </div>
-
-
         {
           this.state.user
             ?
@@ -237,7 +178,6 @@ class AdminUsers extends Component {
             :
             null
         }
-
       </div>
     )
   }

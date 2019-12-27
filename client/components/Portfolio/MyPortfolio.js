@@ -13,7 +13,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
-import { DefaultButton } from '../'
+import DefaultButton from '../Buttons/DefaultButton'
 import SideBar from '../SideBar'
 import store, { fetchUserPortfolio, addToUserPortfolio } from '../../store'
 // import { linkToCompany } from './helperFunctions'
@@ -50,12 +50,18 @@ class MyPortfolio extends Component {
     });
   }
 
-  onSubmit = (values) => {
-    store.dispatch(addToUserPortfolio(values, this.props.user))
-    // window.location.reload(true)
+  onFormSubmit = (company) => {
+    store.dispatch(addToUserPortfolio(company, this.props.user))
   }
 
+  onEnterSubmit = (evt) => {
+    evt.preventDefault()
+    store.dispatch(addToUserPortfolio(this.state.company, this.props.user))
+  }
+
+
   render() {
+    console.log("STATE: ", this.state.company)
     return (
       <MainContainer>
         <div className='sidebar-container'>
@@ -63,17 +69,16 @@ class MyPortfolio extends Component {
         </div>
         <PortfolioContainer>
           <CompanySearch>
-            <form>
+            <form onSubmit={this.onEnterSubmit}>
               <p>Search Companies</p>
               <AsyncSelect
                 name="companyName"
                 loadOptions={this.loadOptions}
-                // isMulti
                 placeholder='Search Companies...'
                 cacheOptions
                 onChange={this.handlePortfolioChange}
               />
-              <DefaultButton label='Add to Portfolio' disabled={!this.state.company} onSubmit={() => this.onSubmit(this.state.company)} data={this.state.company} />
+              <DefaultButton label='Add to Portfolio' disabled={!this.state.company} onSubmit={() => this.onFormSubmit(this.state.company)} data={this.state.company} />
             </form>
           </CompanySearch>
           <Paper>

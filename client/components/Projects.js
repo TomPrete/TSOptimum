@@ -71,7 +71,6 @@ class Projects extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(typeof nextProps.projects)
     const userProjects = nextProps.projects
     if (userProjects.length >= 0) {
       this.setState({
@@ -135,7 +134,7 @@ class Projects extends Component {
               {
                 this.state.projects.length > 0 ? this.state.projects.map(project => {
                   return (
-                    <TableRow key={project.projectId} id='queue-list'>
+                    <TableRow key={project.projectId} className='queue-list'>
                       {/*<div id="queue">*/}
                       {/*<div id="queue-list" >*/}
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.name}</TableCell>
