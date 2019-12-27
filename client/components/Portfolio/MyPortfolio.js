@@ -12,6 +12,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Snackbar from '@material-ui/core/Snackbar';
+import Slide from '@material-ui/core/Slide';
 
 import DefaultButton from '../Buttons/DefaultButton'
 import SideBar from '../SideBar'
@@ -23,7 +25,8 @@ class MyPortfolio extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      company: null
+      company: null,
+      snackBar: false
     }
   }
 
@@ -52,21 +55,42 @@ class MyPortfolio extends Component {
 
   onFormSubmit = (company) => {
     store.dispatch(addToUserPortfolio(company, this.props.user))
+    this.setState({
+      snackBar: true
+    })
   }
 
   onEnterSubmit = (evt) => {
     evt.preventDefault()
     store.dispatch(addToUserPortfolio(this.state.company, this.props.user))
+    this.setState({
+      snackBar: true
+    })
   }
 
+  handleSnackBarClose = () => {
+    this.setState({ snackBar: false });
+  };
 
   render() {
-    console.log("STATE: ", this.state.company)
     return (
       <MainContainer>
         <div className='sidebar-container'>
           <SideBar />
         </div>
+        {
+          this.state.snackBar &&
+          <Snackbar
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            // key={`${vertical},${horizontal}`}
+            open={this.state.snackBar}
+            onClose={this.handleSnackBarClose}
+            ContentProps={{
+              'aria-describedby': 'message-id',
+            }}
+            message={<span id="message-id">{`${this.state.company } successfully added to Your Portfolio!`}</span>}
+          />
+        }
         <PortfolioContainer>
           <CompanySearch>
             <form onSubmit={this.onEnterSubmit}>
