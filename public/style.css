@@ -2,7 +2,7 @@ body {
   font-family: 'Quicksand', sans-serif;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 nav {
@@ -694,7 +694,7 @@ input:checked + .slider:before {
 /*****SIDEBAR*****/
 .sidebar-container {
   width: 20%;
-  height: 100vh;
+  min-height: 100vh;
   background-color: rgb(2, 65, 56);
   text-align: center;
 }
@@ -845,7 +845,11 @@ input:checked + .slider:before {
 
 } */
 
-#queue-list:hover {
+#scroll-container{
+  overflow-y: auto;
+}
+
+.queue-list:hover, .company-row:hover {
   background-color: rgba(1, 110, 96, 0.05);
   transition: 0.1s ease-in-out;
   box-shadow: inset 0px 0px 10px rgb(1, 110, 96);

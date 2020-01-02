@@ -74,8 +74,8 @@ class UserProfile extends Component {
     return (
       <div id='user-profile-container'>
         <div className='sidebar-container'>
-          {/*<SideBar />*/}
-          <PersistantDrawer />
+          <SideBar />
+          {/*<PersistantDrawer />*/}
         </div>
         <div id='user-profile'>
           <h1>My Profile Settings</h1>

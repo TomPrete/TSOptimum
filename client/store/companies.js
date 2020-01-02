@@ -4,13 +4,11 @@ import history from '../history'
 /***** ACTION TYPES*****/
 const GET_ALL_COMPANIES = 'GET_ALL_COMPANIES'
 
-
 /***** INITIAL STATE*****/
-const defaultUser = {}
+const defaultState = {}
 
 /***** ACTION CREATORS*****/
 const getAllCompanies = companies => ({ type: GET_ALL_COMPANIES, companies })
-
 
 /*****THUNK CREATORS*****/
 
@@ -39,7 +37,7 @@ export const fetchAllCompanies = () =>
   }
 
 /***** REDUCER *****/
-export default function (state = defaultUser, action) {
+export default function (state = defaultState, action) {
   switch (action.type) {
     case GET_ALL_COMPANIES:
       return action.companies

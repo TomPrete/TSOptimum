@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Route, Switch, Router, Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import history from './history'
-import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers, AdminTeams, AdminCompanies, CompaniesHomePage} from './components'
+import { Main, Login, SignUp, UserBoard, UserProfile, LandingPage, Projects, CompletedProjects, AllUserProjects, TeamAnalytics, ForgotPassword, PasswordReset, AdminHome, AdminUsers, AdminTeams, AdminCompanies, CompaniesHomePage, MyPortfolio, CompanyProfile} from './components'
 import store, { me, fetchAllCompanies, fetchAllUserProjects } from './store'
 
 
@@ -35,25 +35,25 @@ class Routes extends Component {
           </Switch>
           {
             isLoggedIn
-            ?
+            &&
             <Switch>
-            <Route exact path='/my-board' render={(props) => <UserBoard {...props} page='process' /> } />
-            {/*<Route exact path='/my-board' component={UserBoard} />*/}
-            <Route exact path='/my-projects' component={Projects} />
-            <Route exact path='/my-profile' component={UserProfile} />
-            <Route exact path='/my-completed-tasks' render={(props) => <UserBoard {...props} page='completed' />} />
-            {/*<Route exact path='/my-created_projects' component={AllUserProjects} />*/}
-            <Route exact path='/my-created-tasks' render={(props) => <UserBoard {...props} page='created' />} />
-            {/*<Route exact path='/my-created_projects' component={UserBoard} />*/}
-            <Route exact path='/team-analytics' component={TeamAnalytics} />
-            <Route exact path='/my-admin' component={AdminHome} />
-            <Route exact path='/my-admin/users' component={AdminUsers} />
-            <Route exact path='/my-admin/teams' component={AdminTeams} />
-            <Route exact path='/my-admin/companies' component={AdminCompanies} />
-            <Route exact path='/companies/home-page'  component={CompaniesHomePage} />
+              <Route exact path='/my-board' render={(props) => <UserBoard {...props} page='process' /> } />
+              {/*<Route exact path='/my-board' component={UserBoard} />*/}
+              <Route exact path='/my-projects' component={Projects} />
+              <Route exact path='/my-profile' component={UserProfile} />
+              <Route exact path='/my-completed-tasks' render={(props) => <UserBoard {...props} page='completed' />} />
+              {/*<Route exact path='/my-created_projects' component={AllUserProjects} />*/}
+              <Route exact path='/my-created-tasks' render={(props) => <UserBoard {...props} page='created' />} />
+              {/*<Route exact path='/my-created_projects' component={UserBoard} />*/}
+              <Route exact path='/team-analytics' component={TeamAnalytics} />
+              <Route exact path='/my-admin' component={AdminHome} />
+              <Route exact path='/my-admin/users' component={AdminUsers} />
+              <Route exact path='/my-admin/teams' component={AdminTeams} />
+              <Route exact path='/my-admin/companies' component={AdminCompanies} />
+              <Route exact path='/companies/home-page'  component={CompaniesHomePage} />
+              <Route exact path='/my-portfolio'  component={MyPortfolio} />
+              <Route exact path='/:id'  component={CompanyProfile} />
             </Switch>
-            :
-            null
           }
         </Main>
       </Router>

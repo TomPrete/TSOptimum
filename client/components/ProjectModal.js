@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import AsyncSelect from 'react-select/lib/Async';
 import Select from 'react-select';
+import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 
+import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import {project_type, project_status} from './config.js'
 
-
-// import { Calendar } from 'react-calendar'
-import styled from 'styled-components'
 
 // <select onChange={this.inputProjectType} className="edit-select-type" >
 
@@ -218,6 +216,7 @@ class ProjectModal extends Component {
                 <div className='edit-select'>
                   <p>Company Name:</p>
                   <AsyncSelect
+                    id='company-select'
                     name="companyName"
                     loadOptions={this.loadOptions}
                     className="edit-select-company"
@@ -230,6 +229,7 @@ class ProjectModal extends Component {
                 <div className='edit-select' >
                   <p>Task Type: </p>
                   <Select
+                    id='task-select'
                     name="projectType"
                     options={project_type}
                     className="edit-select-type"
@@ -331,12 +331,6 @@ class ProjectModal extends Component {
     )
   }
 }
-
-// const StyledProjectModal = styled(ProjectModal)`
-//   .project-label {
-//     color: green
-//   }
-// `
 
 const mapState = state => {
   return {
