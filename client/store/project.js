@@ -42,9 +42,9 @@ const removeProject = () => (
 /*****THUNK CREATORS*****/
 
 
-export const editUserProject = (projectId, name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) => dispatch => {
-  axios.put(`/api/project/${projectId}`, {
-    name, projectType, officer, analyst, status, dueDate, notes, userId, teamId
+export const editUserProject = (projectData, userId,teamId) => dispatch => {
+  axios.put(`/api/project/${projectData.projectId}`, {
+    ...projectData, userId, teamId
   })
     .then(project => dispatch(editProject(project)))
     .then(project => window.location.reload())

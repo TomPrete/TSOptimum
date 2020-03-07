@@ -71,9 +71,9 @@ const getUserProjectAnalytics = (user_project_analytics) => {
 /*****THUNK CREATORS*****/
 
 
-export const createNewProject = (name, projectType, officer, analyst, status, dueDate, notes, userId,teamId) =>
+export const createNewProject = (projectData, userId,teamId) =>
   dispatch => {
-    axios.post(`/api/project`, { name, projectType, officer, analyst, status, dueDate, notes, userId, teamId })
+    axios.post(`/api/project`, { ...projectData, userId, teamId })
       .then(res => res.data)
       .then(project => {
         dispatch(createProject(project));

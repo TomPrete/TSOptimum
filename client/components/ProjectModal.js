@@ -7,6 +7,7 @@ import styled from 'styled-components'
 import TextField from '@material-ui/core/TextField';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
+import moment from 'moment'
 
 import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
 import {project_type, project_status} from './config.js'
@@ -179,21 +180,23 @@ class ProjectModal extends Component {
 
   async handleProjectSubmit(e) {
     e.preventDefault()
-    let projectId = this.props.project.projectId;
-    let name = !e.target.companyName.value ? this.props.project.name : e.target.companyName.value;
-    let projectType = e.target.projectType.value || this.props.project.projectType;
-    let officer = e.target.officer.value || this.props.project.officer;
-    let analyst = e.target.analyst.value || this.props.project.analyst;
-    let status = e.target.projectStatus.value || this.props.project.status;
-    let dueDate = e.target.due_date.value || this.props.project.dueDate;
-    let followUpDate = e.target.follow_up_date.value || this.props.project.followUpDate;
-    let notes = !this.state.notes ? this.props.project.notes : this.state.notes;
+    let projectData = {
+      projectId: this.props.project.projectId,
+      name: !e.target.companyName.value ? this.props.project.name : e.target.companyName.value,
+      projectType: e.target.projectType.value || this.props.project.projectType,
+      officer: e.target.officer.value || this.props.project.officer,
+      analyst: e.target.analyst.value || this.props.project.analyst,
+      status: e.target.projectStatus.value || this.props.project.status,
+      dueDate: e.target.due_date.value || this.props.project.dueDate,
+      followUpDate: e.target.follow_up_date.value || this.props.project.followUpDate,
+      notes: !this.state.notes ? this.props.project.notes : this.state.notes,
+    }
     if (this.props.type === "EDIT TASK") {
-      await this.props.editUserProject(projectId, name, projectType, officer, analyst, status, dueDate, notes, this.props.user.id, this.props.user.teamId)
+      await this.props.editUserProject({...projectData}, this.props.user.id, this.props.user.teamId)
       await store.dispatch(removeUserProject());
       await this.props.showProjectModal();
     } else if (this.props.type === "CREATE NEW TASK") {
-      await this.props.createNewProject(name, projectType,officer,analyst,status, dueDate, notes, this.props.user.id, this.props.user.teamId);
+      await this.props.createNewProject({...projectData}, this.props.user.id, this.props.user.teamId);
       await this.props.showProjectModal();
     }
     else alert("ERROR! Try again.")
@@ -202,7 +205,7 @@ class ProjectModal extends Component {
   render() {
     let officers = this.getTreasuryOfficers(this.props.teamMates)
     let analysts = this.getTreasuryAnalysts(this.props.teamMates)
-
+    console.log(this.props.project.dueDate)
     return (
       <div id="projects-modal-container">
         <Header >
@@ -279,18 +282,14 @@ class ProjectModal extends Component {
                 </div>
                 <div className='edit-select'>
                   <p>Due Date:</p>
-                  <TextField
-                    name="due_date"
-                    id="date"
-                    label="Due Date:"
-                    type="date"
-                    // defaultValue={this.props.project.dueDate}
-                    placeholder={this.props.project ? this.props.project.dueDate : null}
-                    className="edit-select-date"
-                  // InputLabelProps={{
-                  //   shrink: true,
-                  // }}
-                  />
+                    <TextField
+                      name="due_date"
+                      id="date"
+                      label="Due Date:"
+                      type="date"
+                      defaultValue={this.props.project ? this.props.project.dueDate : this.getCurrentDate()}
+                      className="edit-select-date"
+                      />
 
                 </div>
                 <div className='edit-select'>

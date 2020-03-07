@@ -5,12 +5,12 @@ const { User, Company, Project } = require('../db/models')
 // const {tsa_project_types, projectTypes} = require('./config_helpers/config')
 module.exports = router
 
-let convertDate = (dateString) => {
-  console.log("DATE STRING: ", dateString)
-  var p = dateString.split(/\D/g)
-  console.log("P---->: ", p)
-  return [p[1],p[2],p[0] ].join("/")
-  }
+// let convertDate = (dateString) => {
+//   console.log("DATE STRING: ", dateString)
+//   var p = dateString.split(/\D/g)
+//   console.log("P---->: ", p)
+//   return [p[1],p[2],p[0] ].join("-")
+//   }
 
 
 
@@ -64,7 +64,7 @@ router.get('/complete/:id', (req, res, next) => {
     }
   })
     .then(projects => {
-      console.log("completed")
+      console.log(projects)
       projects.sort((a, b) => {
         a = new Date(a.updatedAt)
         b = new Date(b.updatedAt)
@@ -121,7 +121,8 @@ router.get('/:projectId', (req, res, next) => {
     }
   })
     .then(project => {
-      project.dataValues.dueDate = convertDate(project.dataValues.dueDate);
+      // project.dataValues.dueDate = convertDate(project.dataValues.dueDate);
+      console.log(project.dataValues.dueDate)
       return res.json(project.dataValues)})
     .catch(next)
 })

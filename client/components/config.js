@@ -5,7 +5,7 @@ export const project_status = [
   },
   {
     label: 'Completed',
-    value: 'Completed'
+    value: 'Complete'
   }
 ]
 

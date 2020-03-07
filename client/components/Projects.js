@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import store, { submitCompletedProject, removeUserProject, fetchInProcessUserProjects, fetchCompletedUserProjects, fetchAllUserProjects } from '../store'
 import styled from 'styled-components'
+import moment from 'moment'
 
 import CircularLoading from './Loading/CircularLoading';
 import ProjectModal from './ProjectModal.js'
@@ -141,7 +142,7 @@ class Projects extends Component {
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.projectType}</TableCell>
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.officer}</TableCell>
                       <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.status}</TableCell>
-                      <TableCell onClick={() => this.showProjectModal(project.projectId)}>{project.dueDate}</TableCell>
+                      <TableCell onClick={() => this.showProjectModal(project.projectId)}>{moment(project.dueDate).format('ddd, MMM Do')}</TableCell>
                       <TableCell className="user-notes" onClick={() => this.showProjectModal(project.projectId)} >{project.notes.length < 75 ? project.notes : project.notes.substring(0, 75) + ' ...'}</TableCell>
 
                       {/*</div>*/}
