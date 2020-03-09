@@ -20,26 +20,36 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) 
 
   useEffect(() => {
       const pathReference = storage.ref().child('images')
-      console.log(pathReference)
       pathReference.child(`${personId}`).getDownloadURL().then(url => {
         setImage(url)
       }).catch(err => {
         console.log(err.code)
       })
-
   }, [imageUpdated])
 
   const onChangeFile = evt => {
-    console.log(evt.target.files[0])
     let fileObj = evt.target.files[0]; //File object
     uploadAvatar(fileObj)
-    let fileName = evt.target.files[0].name;
+  }
+
+  const deleteImage = () => {
+    const storageRef = storage.ref();
+    const childRef = storageRef.child('images')
+    const profileImage = childRef.child(`${personId}`)
+    profileImage.delete().then(() => {
+      setImage(null)
+      setImageUpdated(false)
+    })
   }
 
   return (
     <div>
-      <p>Profile Image here</p>
+    {
+      image ?
+      <button onClick={deleteImage}>Remove Image</button>
+      :
       <input type="file" id="img" name="img" accept="image/*" onChange={onChangeFile}/>
+    }
       {
         image && <img height='200px' width='auto' src={image} alt='avatar' />
       }
