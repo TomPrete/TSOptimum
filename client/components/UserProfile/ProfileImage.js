@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Avatar from '@material-ui/core/Avatar';
 import firebase from '../../firebase'
 
 const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) => {
@@ -51,7 +52,7 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) 
       <input type="file" id="img" name="img" accept="image/*" onChange={onChangeFile}/>
     }
       {
-        image && <img height='200px' width='auto' src={image} alt='avatar' />
+        image && <Avatar style={{height: '150px', width:'150px'}} alt="Profile Picture" src={image} />
       }
     </div>
   );
