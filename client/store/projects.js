@@ -227,7 +227,7 @@ export const fetchAllProjectsAnalytics = (id, filter='all') =>
     return active
   }
 
-  const project_type = [
+  const projectType = [
     {
       label: 'Client Call',
       value: 'Client Call'

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import moment from 'moment'
 
 import store, { submitCompletedProject, getUserProject, editUserProject, removeUserProject, createNewProject } from '../store'
-import {project_type, project_status} from './config.js'
+import {projectType, projectStatus} from './config.js'
 
 
 // <select onChange={this.inputProjectType} className="edit-select-type" >
@@ -234,7 +234,7 @@ class ProjectModal extends Component {
                   <Select
                     id='task-select'
                     name="projectType"
-                    options={project_type}
+                    options={projectType}
                     className="edit-select-type"
                     placeholder={this.props.project.projectType}
                     closeMenuOnSelect={true}
@@ -247,7 +247,7 @@ class ProjectModal extends Component {
                   <p>Task Status: </p>
                   <Select
                     name="projectStatus"
-                    options={project_status}
+                    options={projectStatus}
                     className="edit-select-status"
                     placeholder={this.props.project.status}
                     closeMenuOnSelect={true}

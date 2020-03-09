@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import SideBar from './SideBar'
 import store, { fetchAllProjectsAnalytics } from '../store'
 import main from './colors'
-import UserActiveProjects from './Analytics/user_active_projects';
-import UserCompletedTasks from './Analytics/user_completed_tasks';
+import UserActiveProjects from './Analytics/UserActiveProjects';
+import UserCompletedTasks from './Analytics/UserCompletedTasks';
 import CircularLoading from './Loading/CircularLoading'
-import UserProjectTypesContainer from './Analytics/user_project_types';
+import UserProjectTypesContainer from './Analytics/UserProjectTypes';
 import styled from 'styled-components'
 import colors from './colors'
 

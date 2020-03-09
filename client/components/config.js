@@ -1,4 +1,4 @@
-export const project_status = [
+export const projectStatus = [
   {
     label: 'In Process',
     value: 'In Process'
@@ -9,7 +9,7 @@ export const project_status = [
   }
 ]
 
-export const project_type = [
+export const projectType = [
   {
     label: 'Client Call',
     value: 'Client Call'
@@ -53,6 +53,6 @@ export const project_type = [
 ]
 
 export default {
-  project_type,
-  project_status
+  projectType,
+  projectStatus
 }
