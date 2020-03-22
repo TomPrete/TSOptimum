@@ -760,13 +760,12 @@ input:checked + .slider:before {
 
 #user-profile-container {
   display: flex;
-  text-align: center;
 }
 
-#user-profile {
+/* #user-profile {
   text-align: left;
   width: 100%
-}
+} */
 
 /*****COMPLETED PROJECTS*****/
 

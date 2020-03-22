@@ -1,10 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import firebase from '../../firebase'
+import styled from 'styled-components'
+import colors from '../colors'
+import images from '../imgSrc/images'
+import moment from 'moment'
+import Button from '@material-ui/core/Button';
 
-const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) => {
-  const [image, setImage ] = useState(null)
-  const [imageUpdated, setImageUpdated ] = useState(false)
+const avatarStyle = {
+  marginTop: '30px',
+  height: '150px',
+  width: '150px',
+  display: 'inline-block'
+}
+
+const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, team }) => {
+  const [image, setImage] = useState(null)
+  const [imageUpdated, setImageUpdated] = useState(false)
   let storage = firebase.storage()
 
   const uploadAvatar = (file) => {
@@ -15,17 +27,19 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) 
     profileImage.put(file).then(snapshot => {
       setImageUpdated(true)
     })
-    // const uploadTask = profileImage.put(file)
-    // return uploadTask
   }
 
   useEffect(() => {
-      const pathReference = storage.ref().child('images')
-      pathReference.child(`${personId}`).getDownloadURL().then(url => {
+    const pathReference = storage.ref().child('images')
+    pathReference.child(`${personId}`).getDownloadURL().then(url => {
+      if (url) {
         setImage(url)
-      }).catch(err => {
-        console.log(err.code)
-      })
+      } else {
+        setImage(randomImage())
+      }
+    }).catch(err => {
+      console.log(err.code)
+    })
   }, [imageUpdated])
 
   const onChangeFile = evt => {
@@ -43,19 +57,69 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin }) 
     })
   }
 
+  const randomImage = () => {
+    let num = Math.floor(Math.random() * images['puppies'].length)
+    return images['puppies'][num]
+  }
+
   return (
-    <div>
-    {
-      image ?
-      <button onClick={deleteImage}>Remove Image</button>
-      :
-      <input type="file" id="img" name="img" accept="image/*" onChange={onChangeFile}/>
-    }
+    <ProfileImageContainer>
+      <AvatarWrapper>
+        {
+          image
+            ?
+            <Avatar style={avatarStyle} alt="Profile Picture" src={image} />
+            :
+            <Avatar style={avatarStyle} alt="Profile Picture" src={randomImage()} />
+        }
+      </AvatarWrapper>
+      <h1>{firstName} {lastName}</h1>
+      <div>{title}</div>
+      <div>{team}</div>
+      <div>{moment().format("ddd, MMM Do YYYY, h:mm a")}</div>
       {
-        image && <Avatar style={{height: '150px', width:'150px'}} alt="Profile Picture" src={image} />
+        image
+          ?
+          <ButtonWrapper>
+            <Button onClick={deleteImage}>Remove Picture</Button>
+          </ButtonWrapper>
+          :
+          <ButtonWrapper>
+            <input
+              type="file"
+              id="image-upload"
+              name="img"
+              accept="image/*"
+              style={{ display: 'none' }}
+              onChange={onChangeFile}
+            />
+            <label htmlFor='image-upload'>
+              <Button color="primary" component="span" >Remove Picture</Button>
+            </label>
+          </ButtonWrapper>
       }
-    </div>
+    </ProfileImageContainer>
   );
 };
+
+const ProfileImageContainer = styled.div`
+  width: 33%;
+  height: 50%;
+  min-height: 50%
+  margin: 40px;
+  color: black;
+  padding: 15px 0;
+  background-color: ${colors.white};
+  border-radius: 5px;
+  box-shadow: 3px 5px 8px ${colors.blackShadow};
+  text-align: center
+`
+const AvatarWrapper = styled.div`
+  text-align: center
+`
+
+const ButtonWrapper = styled.div`
+  margin: 20%;
+`
 
 export default ProfileImage;

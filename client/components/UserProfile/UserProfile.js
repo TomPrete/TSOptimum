@@ -8,6 +8,8 @@ import ChangePasswordModal from '../Modals/ChangePasswordModal.js'
 import store, { updateUserThunk } from '../../store'
 import ProfileImage from './ProfileImage';
 import UserProfileInfo from './UserProfileInfo';
+import styled from 'styled-components'
+import colors from '../colors'
 
 
 class UserProfile extends Component {
@@ -72,26 +74,29 @@ class UserProfile extends Component {
   }
 
   render() {
-    const { firstName, lastName, email, title, personId, isAdmin } = this.props.user
+    console.log(this.props)
+    // const { firstName, lastName, email, title, personId, isAdmin } = this.props.user
     return (
       <div id='user-profile-container'>
         <div className='sidebar-container'>
           <SideBar />
           {/*<PersistantDrawer />*/}
         </div>
-        <div id='user-profile'>
-          <h1>My Profile Settings</h1>
-          <ProfileImage {...this.props.user}/>
+        <UserInfoContainer>
+          <ProfileImage {...this.props.user} team={this.props.team}/>
           <UserProfileInfo {...this.props.user} />
-        </div>
+        </UserInfoContainer>
       </div>
     )
   }
-
-
-
-
 }
+
+const UserInfoContainer = styled.div`
+  display: flex;
+  justify-content: row;
+  width: 100%
+
+`
 
 const mapState = state => {
   return {
