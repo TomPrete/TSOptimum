@@ -9,6 +9,17 @@ export const projectStatus = [
   }
 ]
 
+export const titleTypes = [
+  {
+    label: 'Treasury Solutions Officer',
+    value: 'Treasury Solutions Officer'
+  },
+  {
+    label: 'Treasury Solutions Analyst',
+    value: 'Treasury Solutions Analyst'
+  }
+]
+
 export const projectType = [
   {
     label: 'Client Call',
@@ -54,5 +65,6 @@ export const projectType = [
 
 export default {
   projectType,
-  projectStatus
+  projectStatus,
+  titleTypes
 }

@@ -767,6 +767,18 @@ input:checked + .slider:before {
   width: 100%
 } */
 
+#profile-avatar {
+  margin-top: 30px;
+  height: 150px;
+  width: 150px;
+  display: inline-block;
+}
+
+.user-profile-names {
+  margin-top: 20px;
+  width: 45%;
+}
+
 /*****COMPLETED PROJECTS*****/
 
 #completed-projects-container {

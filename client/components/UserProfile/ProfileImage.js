@@ -7,12 +7,12 @@ import images from '../imgSrc/images'
 import moment from 'moment'
 import Button from '@material-ui/core/Button';
 
-const avatarStyle = {
-  marginTop: '30px',
-  height: '150px',
-  width: '150px',
-  display: 'inline-block'
-}
+// const avatarStyle = {
+//   marginTop: '30px',
+//   height: '150px',
+//   width: '150px',
+//   display: 'inline-block'
+// }
 
 const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, team }) => {
   const [image, setImage] = useState(null)
@@ -68,9 +68,9 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, te
         {
           image
             ?
-            <Avatar style={avatarStyle} alt="Profile Picture" src={image} />
+            <Avatar id='profile-avatar' alt="Profile Picture" src={image} />
             :
-            <Avatar style={avatarStyle} alt="Profile Picture" src={randomImage()} />
+            <Avatar id='profile-avatar' alt="Profile Picture" src={randomImage()} />
         }
       </AvatarWrapper>
       <h1>{firstName} {lastName}</h1>
@@ -104,9 +104,9 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, te
 
 const ProfileImageContainer = styled.div`
   width: 33%;
-  height: 400px;
-  min-height: 50%
-  margin: 40px;
+  height: 450px;
+  min-height: 50%;
+  margin-right: 40px;
   color: black;
   padding: 15px 0;
   background-color: ${colors.white};

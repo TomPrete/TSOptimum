@@ -71,7 +71,7 @@ router.get('/all', (req, res, next) => {
 
 router.put('/update/:id', async (req, res, next) => {
   try {
-    let user = await User.find({
+    let user = await User.findOne({
       where: {
         id: +req.params.id
       }

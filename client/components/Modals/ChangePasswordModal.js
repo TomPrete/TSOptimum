@@ -56,7 +56,7 @@ class ChangePasswordModal extends Component {
       <div id="projects-modal-container">
         <div className='project-modal-header'>
           <label className='project-label'>Change Your Password</label>
-          <span className='closeBtn' onClick={() => this.props.showChangePasswordModal()}>&times;</span>
+          <span className='closeBtn' onClick={() => this.props.showPasswordModal()}>&times;</span>
         </div>
 
         <div className='edit-project-form'>

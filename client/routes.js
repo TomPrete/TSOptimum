@@ -19,6 +19,7 @@ class Routes extends Component {
 
 
   render() {
+    const { isLoggedIn, user } = this.props
     return (
       <Router history={history}>
         <Main>

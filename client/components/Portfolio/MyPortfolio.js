@@ -82,7 +82,6 @@ class MyPortfolio extends Component {
           this.state.snackBar &&
           <Snackbar
             anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-            // key={`${vertical},${horizontal}`}
             open={this.state.snackBar}
             onClose={this.handleSnackBarClose}
             ContentProps={{

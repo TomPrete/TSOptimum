@@ -3,19 +3,15 @@ import { Router, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import AddNewUserContainer from '.';
 import SideBar from '../SideBar'
-import PersistantDrawer from '../PersistantDrawer'
+// import PersistantDrawer from '../PersistantDrawer'
 import ChangePasswordModal from '../Modals/ChangePasswordModal.js'
-import store, { updateUserThunk } from '../../store'
 import ProfileImage from './ProfileImage';
 import UserProfileInfo from './UserProfileInfo';
 import styled from 'styled-components'
-import colors from '../colors'
 
 
 class UserProfile extends Component {
-
   constructor(props) {
-
     super(props);
     this.state = {
       editProfile: false,
@@ -23,7 +19,6 @@ class UserProfile extends Component {
     }
     // this.filterTeamMates = this.filterTeamMates.bind(this)
     this.updateProfile = this.updateProfile.bind(this)
-    this.submitUpdatedProfile = this.submitUpdatedProfile.bind(this)
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this)
 
   }
@@ -50,7 +45,6 @@ class UserProfile extends Component {
     }
   }
 
-
   showChangePasswordModal(user) {
     if (!this.state.userId) {
       this.setState({
@@ -63,19 +57,7 @@ class UserProfile extends Component {
     }
   }
 
-  async submitUpdatedProfile(e) {
-    e.preventDefault()
-    let firstName = e.target.firstName.value || this.props.user.firstName
-    let lastName = e.target.lastName.value || this.props.user.lastName
-    let email = (e.target.email.value.length > 0 && e.target.email.value.includes("@")) ? e.target.email.value : this.props.user.email
-    let id = this.props.user.id
-    this.props.updateUserThunk(id, firstName, lastName, email)
-    window.location.reload()
-  }
-
   render() {
-    console.log(this.props)
-    // const { firstName, lastName, email, title, personId, isAdmin } = this.props.user
     return (
       <div id='user-profile-container'>
         <div className='sidebar-container'>
@@ -94,7 +76,8 @@ class UserProfile extends Component {
 const UserInfoContainer = styled.div`
   display: flex;
   justify-content: row;
-  width: 100%
+  width: 100%;
+  margin: 40px;
 
 `
 
@@ -106,8 +89,6 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = { updateUserThunk }
-
-const UserProfileContainter = connect(mapState, mapDispatch)(UserProfile)
+const UserProfileContainter = connect(mapState, null)(UserProfile)
 
 export default UserProfileContainter
