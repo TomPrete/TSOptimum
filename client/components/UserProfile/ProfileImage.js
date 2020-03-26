@@ -94,7 +94,7 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, te
               onChange={onChangeFile}
             />
             <label htmlFor='image-upload'>
-              <Button color="primary" component="span" >Remove Picture</Button>
+              <Button color="primary" component="span" >Upload Picture</Button>
             </label>
           </ButtonWrapper>
       }
@@ -104,7 +104,7 @@ const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, te
 
 const ProfileImageContainer = styled.div`
   width: 33%;
-  height: 50%;
+  height: 400px;
   min-height: 50%
   margin: 40px;
   color: black;
@@ -119,7 +119,7 @@ const AvatarWrapper = styled.div`
 `
 
 const ButtonWrapper = styled.div`
-  margin: 20%;
+  margin: 10px;
 `
 
 export default ProfileImage;
