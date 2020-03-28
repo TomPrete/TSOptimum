@@ -128,7 +128,10 @@ const UserProfileInfo = ({ firstName, lastName, email, title, personId, isAdmin,
       {
         showModal
         &&
-        <ChangePasswordModal showPasswordModal={showPasswordModal} />
+        <ChangePasswordModal
+          showPasswordModal={showPasswordModal}
+          showModal={showModal}
+          />
       }
     </UserProfileInfoContainer>
   );

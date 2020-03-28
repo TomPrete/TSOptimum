@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import store, {updateUserPasswordThunk} from '../../store'
-
-
+import styled from 'styled-components'
+import colors from '../colors';
+import Modal from '@material-ui/core/Modal';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { updateUserPasswordThunk } from '../../store'
 
 
 class ChangePasswordModal extends Component {
@@ -10,87 +13,113 @@ class ChangePasswordModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      oldPassword: '',
       newPassword: '',
-      confirmNewPassword: ''
+      confirmNewPassword: '',
+      passwordError: false
     }
-
-    this.inputNewPassword = this.inputNewPassword.bind(this)
-    this.inputConfirmNewPassword = this.inputConfirmNewPassword.bind(this)
-    this.inputOldPassword = this.inputOldPassword.bind(this)
-    this.onSubmitChangePassword = this.onSubmitChangePassword.bind(this)
   }
 
-  inputOldPassword(e) {
-    this.setState({
-      oldPassword: e.target.value
-    })
-  }
-
-  inputNewPassword(e) {
-    this.setState({
-      newPassword: e.target.value
-    })
-  }
-
-  inputConfirmNewPassword(e) {
-    this.setState({
-      confirmNewPassword: e.target.value
-    })
-  }
-
-  onSubmitChangePassword(e) {
-    e.preventDefault()
-    let oldPassword = this.state.oldPassword
-    let newPassword = this.state.newPassword
-    let confirmNewPassword = this.state.confirmNewPassword
+  onSubmitChangePassword = (evt) => {
+    evt.preventDefault()
+    let oldPassword = evt.target.oldPassword.value;
+    let newPassword = evt.target.newPassword.value;
+    let newPasswordAgain = evt.target.newPasswordAgain.value
+    if (newPassword !== newPasswordAgain) {
+      this.setState({
+        passwordError: true
+      })
+      return console.error("Passwords must match")
+    }
     let email = this.props.user.email
     let id = this.props.user.id
+    console.log(evt.target.oldPassword.value)
     this.props.updateUserPasswordThunk(id, email, oldPassword, newPassword)
     window.location.reload()
   }
 
-
   render() {
     return (
-      <div id="projects-modal-container">
-        <div className='project-modal-header'>
-          <label className='project-label'>Change Your Password</label>
-          <span className='closeBtn' onClick={() => this.props.showPasswordModal()}>&times;</span>
-        </div>
-
-        <div className='edit-project-form'>
-          <div id="edit-form-container">
-            <form onSubmit={this.onSubmitChangePassword}  id="edit-project-form">
-              <div>
-              <p>Current Password</p>
-              <input name="old_password" onChange={this.inputOldPassword} type="password" className="edit-select-company" required />
-              </div>
-              <div>
-              <p>New Password</p>
-              <input name="new_password" onChange={this.inputNewPassword} type="password" className="edit-select-company" required />
-              </div>
-              <div>
-              <p>Confirm New Password</p>
-              <input name="verify_new_password" onChange={this.inputConfirmNewPassword} type="password" className="edit-select-company" required />
-              {
-                this.state.confirmNewPassword.length > 1 && this.state.newPassword !== this.state.confirmNewPassword
-                ?
-                <p>Passwords must match</p>
-                :
-                null
-              }
-              </div>
-            </form>
-            <div className="edit-div-submit">
-              <button className="edit-project-submit" form="edit-project-form" type='submit' disabled={this.state.newPassword !== this.state.confirmNewPassword}>Update Password</button>
-            </div>
-          </div>
-        </div>
+      <div>
+        <Modal
+          id='default-modal'
+          open={this.props.showModal}
+          onClose={this.props.showPasswordModal}
+        >
+          <ModalContentContainer >
+            <ModalHeader>
+              Change Password
+            </ModalHeader>
+            <FormContainer>
+              <form onSubmit={this.onSubmitChangePassword}>
+                <label>Old Password</label>
+                <TextField
+                  required
+                  style={{ margin: '10px 10px 10px 0', width: '93%' }}
+                  label='Old Password'
+                  variant='outlined'
+                  type='password'
+                  name='oldPassword'
+                  fullWidth
+                />
+                <label>New Password</label>
+                <TextField
+                  required
+                  style={{ margin: '10px 10px 10px 0', width: '93%' }}
+                  label='New Password'
+                  variant='outlined'
+                  type='password'
+                  name='newPassword'
+                  fullWidth
+                />
+                <label>{`New Password (again)`}</label>
+                <TextField
+                  error={this.state.passwordError}
+                  required
+                  style={{ margin: '10px 10px 10px 0', width: '93%' }}
+                  label='New Password (again)'
+                  variant='outlined'
+                  type='password'
+                  name='newPasswordAgain'
+                  helperText={this.state.passwordError && "Passwords must match"}
+                  fullWidth
+                />
+                <Button
+                  style={colors.buttonStyles}
+                  variant="contained"
+                  color="primary"
+                  size='large'
+                  type='submit'
+                >Save</Button>
+              </form>
+            </FormContainer>
+          </ModalContentContainer>
+        </Modal>
       </div>
     )
   }
 }
+
+const ModalContentContainer = styled.div`
+  position: absolute;
+  top: 10%;
+  left: 40%;
+  width: 500px;
+  background-color: white;
+  outline: none;
+  box-shadow: 0 3px 10px #16161d
+`
+
+const ModalHeader = styled.div`
+  text-align: center
+  background-color: rgb(0, 151, 131);
+  padding: 20px;
+  font-size: 24px;
+  color: white
+`
+
+const FormContainer = styled.div`
+  padding: 10px 0 20px 10px;
+`
 
 const mapState = state => {
   return {
@@ -101,7 +130,7 @@ const mapState = state => {
   }
 }
 
-const mapDispatch = {updateUserPasswordThunk}
+const mapDispatch = { updateUserPasswordThunk }
 
 const ChangePasswordModalContainer = connect(mapState, mapDispatch)(ChangePasswordModal)
 

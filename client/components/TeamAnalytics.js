@@ -79,7 +79,7 @@ const Title = styled.div`
 
 const DashBoardContainer = styled.div`
   background-color: ${colors.dashboardGray};
-  height: 100vh;
+
   width: 100%;
   margin: auto auto 10% auto;
   overflow-y: auto;
