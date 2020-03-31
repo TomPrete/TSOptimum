@@ -123,7 +123,7 @@ const UserProfileInfo = ({ firstName, lastName, email, title, personId, isAdmin,
       </UserInforForm>
       <ButtonContainer>
         <Button form='user-profile-form' disabled={lName || fName || newEmail ? false : true} style={buttonStyles} size='large' variant="contained" color="primary" type='submit' >Submit</Button>
-        <Button size='small' color="primary" onClick={showPasswordModal} >Change Password</Button>
+        <Button style={{marginLeft: '10px'}} size='small' color="primary" onClick={showPasswordModal} >Change Password</Button>
       </ButtonContainer>
       {
         showModal

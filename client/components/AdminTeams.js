@@ -21,7 +21,6 @@ const AdminTeams = (props) => {
       <p>
         HERE ARE YOUR TEAMS
         </p>
-
     </div>
   )
 }

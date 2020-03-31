@@ -15,7 +15,6 @@ var transporter = nodemailer.createTransport({
   }
 });
 
-
 // router.get('/', (req, res, next) => {
 
 //   User.findAll({
@@ -40,7 +39,6 @@ router.get('/', (req, res, next) => {
         res.json(users)
       })
     }
-
   }
   catch(error) {
     next(error)
@@ -63,9 +61,7 @@ router.get('/all', (req, res, next) => {
         return userData.push({ id, name, firstName, lastName, title, email, personId, teamId, isAdmin, resetPassword })
       })
       res.json(userData)
-    }
-
-    )
+    })
     .catch(next);
 });
 
@@ -109,7 +105,6 @@ router.put('/admin/users/update/:id', async (req, res, next) => {
   }
 })
 
-
 router.put('/update-password/:id', async (req, res, next) => {
   try {
     await User.findOne({ where: { id: +req.params.id } })
@@ -149,7 +144,6 @@ router.put('/update-password/:id', async (req, res, next) => {
   }
 })
 
-
 router.post('/forgot-password', async (req, res, next) => {
   try {
     User.findOne({
@@ -184,7 +178,6 @@ router.post('/forgot-password', async (req, res, next) => {
           transporter.sendMail(mailOptions, function (error, info) {
             if (error) {
               console.log(error);
-
             } else {
               console.log('Message sent: ' + info.response);
             }
@@ -192,7 +185,6 @@ router.post('/forgot-password', async (req, res, next) => {
         }
       })
   }
-
   catch (error) {
     next(error)
   }
@@ -234,7 +226,6 @@ router.post('/reset-password/:token', async (req, res, next) => {
               console.log('Message sent: ' + info.response);
             }
           });
-
         }
         else {
           console.log('Message: Your Token has expired.')
@@ -242,7 +233,6 @@ router.post('/reset-password/:token', async (req, res, next) => {
           // console.log('--------token date:', user.dataValues.resetPasswordExpires.getTime())
           // console.log("----------date now:", Date.now())
         }
-
       })
   }
   catch (error) {
@@ -318,6 +308,4 @@ router.put('/admin/delete-user/:id', async (req, res, next) => {
   catch (error) {
     next(error)
   }
-
-
 })

@@ -7,13 +7,6 @@ import images from '../imgSrc/images'
 import moment from 'moment'
 import Button from '@material-ui/core/Button';
 
-// const avatarStyle = {
-//   marginTop: '30px',
-//   height: '150px',
-//   width: '150px',
-//   display: 'inline-block'
-// }
-
 const ProfileImage = ({ firstName, lastName, email, title, personId, isAdmin, team }) => {
   const [image, setImage] = useState(null)
   const [imageUpdated, setImageUpdated] = useState(false)

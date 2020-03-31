@@ -32,7 +32,6 @@ class ChangePasswordModal extends Component {
     }
     let email = this.props.user.email
     let id = this.props.user.id
-    console.log(evt.target.oldPassword.value)
     this.props.updateUserPasswordThunk(id, email, oldPassword, newPassword)
     window.location.reload()
   }

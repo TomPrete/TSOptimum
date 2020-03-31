@@ -13,7 +13,6 @@ import teams from './teams'
 import portfolio from './portfolio'
 import company from './company'
 
-
 const reducer = combineReducers({user, users, teamMates, team, companies, projects, project, team, portfolio, company, teams})
 
 const middleware = composeWithDevTools(applyMiddleware(
