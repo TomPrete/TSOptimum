@@ -178,6 +178,7 @@ class ProjectModal extends Component {
   handleDueDateChange = (evt) => this.setState({ departure: evt.target.value });
 
 
+
   async handleProjectSubmit(e) {
     e.preventDefault()
     let projectData = {
@@ -205,7 +206,12 @@ class ProjectModal extends Component {
   render() {
     let officers = this.getTreasuryOfficers(this.props.teamMates)
     let analysts = this.getTreasuryAnalysts(this.props.teamMates)
-    console.log(this.props.project.dueDate)
+
+    const buttonStyles = {
+      backgroundColor: 'rgb(0, 151, 131)',
+      width: '30%'
+    }
+
     return (
       <div id="projects-modal-container">
         <Header >
@@ -322,7 +328,17 @@ class ProjectModal extends Component {
               </SelectBody>
             </form>
             <div className="edit-div-submit">
-              <Button color='primary' variant='contained' className="edit-project-submit" form="edit-project-form" type="submit" disabled={false} >Save and Close</Button>
+              <Button
+                color='primary'
+                size='large'
+                variant='contained'
+                className="edit-project-submit" form="edit-project-form"
+                type="submit"
+                disabled={false}
+                style={buttonStyles}
+                >
+                Save and Close
+                </Button>
             </div>
           </div>
         </div>
